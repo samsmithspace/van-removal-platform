@@ -39,7 +39,7 @@ const QuoteSummary = ({ moveType, details, date, time,start,dest }) => {
 
     return (
         <section className="quote-summary">
-            <h3>Summary</h3>
+            <h1>Summary</h1>
             <div className="quote-details-container">
                 <div className="quote-details">
                     <div>

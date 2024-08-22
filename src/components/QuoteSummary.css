@@ -11,7 +11,17 @@
     color: #ff8c00;
     margin-bottom: 15px;
 }
-
+.quote-summary h1 {
+    color: #fa7731; /* Change this to your desired color */
+    font-family: 'Josefin Sans', sans-serif; /* Apply the Google Font */
+    font-size: 2rem; /* Adjust the font size */
+    font-weight: 600; /* Adjust the font weight */
+    margin-bottom: 7px; /* Add some space below the h2 */
+    text-transform: uppercase; /* Optional: Transform text to uppercase */
+    letter-spacing: 1px; /* Optional: Add some spacing between letters */
+    text-align: center;
+    margin-top: 7px;
+}
 .quote-details-container {
     background-color: rgba(128, 128, 128, 0.5); /* Transparent gray background */
     padding: 20px;
