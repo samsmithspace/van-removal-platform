@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { GoogleMap, LoadScript, Autocomplete, Marker } from '@react-google-maps/api';
+import { GoogleMap, LoadScript, Autocomplete } from '@react-google-maps/api';
 import './GoogleMapComponent.css';
 
 const mapContainerStyle = {
@@ -9,9 +9,11 @@ const mapContainerStyle = {
 };
 
 const defaultCenter = {
-    lat: 55.953251, // Default center (New York City)
+    lat: 55.953251, // Default center
     lng: -3.188267
 };
+
+const mapId = '18b403a38f0b2a2'; // Replace this with your actual Map ID
 
 const GoogleMapComponent = ({ onPlaceSelected }) => {
     const [autocomplete, setAutocomplete] = useState(null);
@@ -40,11 +42,11 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
     };
 
     return (
-
-
-
-        <LoadScript googleMapsApiKey="AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ" libraries={['places']}>
-
+        <LoadScript
+            googleMapsApiKey="AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ"
+            libraries={['places', 'marker']} // Include the 'marker' library
+            version="beta" // Use the beta version
+        >
             <Autocomplete
                 onLoad={onLoad}
                 onPlaceChanged={onPlaceChanged}
@@ -74,20 +76,27 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                         mapContainerStyle={{ height: "100%", width: "100%" }}
                         center={center}
                         zoom={17}
+                        options={{ mapId }} // Pass the Map ID here
+                        onLoad={(map) => {
+                            if (markerPosition) {
+                                const { AdvancedMarkerElement } = window.google.maps.marker || {};
+
+                                if (AdvancedMarkerElement) {
+                                    new AdvancedMarkerElement({
+                                        map,
+                                        position: markerPosition
+                                    });
+                                } else {
+                                    console.warn("AdvancedMarkerElement is not available. Ensure you have the correct API version and libraries.");
+                                }
+                            }
+                        }}
                     >
-                        {markerPosition && (
-                            <Marker position={markerPosition} />
-                        )}
                     </GoogleMap>
-
-
-
                 </div>
             )}
         </LoadScript>
     );
 };
-
-
 
 export default GoogleMapComponent;

@@ -1,14 +1,21 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import './HeroSection.css'; // Ensure this file contains relevant styles
-import LocationSelection from './LocationSelection';
+
+import {useNavigate} from "react-router-dom";
 
 const HeroSection = () => {
-    const [isVisible, setIsVisible] = useState(false);
+    //const [isVisible, setIsVisible] = useState(false);
 
-    const handleButtonClick = () => {
-        setIsVisible(true);
+
+    const navigate = useNavigate();
+    const handleStartLocationSelection = () => {
+        navigate('/location');
     };
-
+    const handleButtonClick = () => {
+        //setIsVisible(true);
+        handleStartLocationSelection();
+    };
+    /*
     useEffect(() => {
         if (isVisible) {
             const section = document.getElementById('location-selection-section');
@@ -17,7 +24,7 @@ const HeroSection = () => {
             }
         }
     }, [isVisible]); // This effect runs when `isVisible` changes
-
+    */
     return (
         <div>
             <div className="hero-section d-flex align-items-center justify-content-center text-center">
@@ -31,11 +38,7 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            {isVisible && (
-                <div id="location-selection-section" className="location-selection-section visible">
-                    <LocationSelection />
-                </div>
-            )}
+
         </div>
     );
 };

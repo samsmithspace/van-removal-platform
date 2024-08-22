@@ -5,7 +5,9 @@ import Testimonials from '../components/Testimonials';
 import Footer from '../components/Footer';
 import '../components/QuotePage.css';
 
+
 const HomePage = () => {
+
     return (
         <div>
             <HeroSection />

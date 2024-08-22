@@ -6,7 +6,7 @@ const LocationSummary = ({ startLocation, destinationLocation }) => {
     const navigate = useNavigate();
 
     const handleEditLocation = (locationType) => {
-        navigate('/', { state: { editLocation: locationType } });
+        navigate('/location', { state: { editLocation: locationType } });
     };
 
     return (
