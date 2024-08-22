@@ -26,8 +26,13 @@ const SpecialItems = ({ onSpecialItemsChange }) => {
 
     const removeSpecialItem = (index) => {
         const updatedItems = specialItems.filter((_, i) => i !== index);
-        setSpecialItems(updatedItems);
-        onSpecialItemsChange(updatedItems);
+        if (updatedItems.length === 0) {
+            setSpecialItems([{ type: '', description: '' }]);
+            onSpecialItemsChange([{ type: '', description: '' }]);
+        } else {
+            setSpecialItems(updatedItems);
+            onSpecialItemsChange(updatedItems);
+        }
     };
 
     return (
@@ -51,14 +56,18 @@ const SpecialItems = ({ onSpecialItemsChange }) => {
                         value={item.description}
                         onChange={(e) => handleItemDescriptionChange(index, e)}
                     />
-                    {specialItems.length > 1 && (
-                        <button type="button" onClick={() => removeSpecialItem(index)}>
+                    {(specialItems.length > 1 || item.description.trim() !== '') && (
+                        <button
+                            type="button"
+                            className="remove-button"
+                            onClick={() => removeSpecialItem(index)}
+                        >
                             Remove
                         </button>
                     )}
                 </div>
             ))}
-            <button type="button" onClick={addSpecialItem}>
+            <button type="button" className="add-button" onClick={addSpecialItem}>
                 Add Another Special Item
             </button>
         </div>

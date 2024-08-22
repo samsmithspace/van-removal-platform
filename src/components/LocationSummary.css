@@ -26,3 +26,12 @@
 .distance {
     margin-top: 20px;
 }
+.editable-location {
+    cursor: pointer;
+    color: #007bff;
+    text-decoration: underline;
+}
+
+.editable-location:hover {
+    color: #0056b3;
+}

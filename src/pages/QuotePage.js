@@ -12,7 +12,7 @@ const QuotePage = ({ onConfirm, onBack }) => {
     const [confirmDetail, setConfirmDetail] = useState(false);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-
+    const [displaysummary,setdisplaysummary]=useState(false);
     const handleMoveTypeChange = (selectedMoveType) => {
         setMoveType(selectedMoveType);
     };
@@ -27,6 +27,7 @@ const QuotePage = ({ onConfirm, onBack }) => {
 
     const handleTimeChange = (time) => {
         setTime(time);
+        setdisplaysummary(true);
     };
 
     const confirmDetailHandler = () => {
@@ -55,12 +56,17 @@ const QuotePage = ({ onConfirm, onBack }) => {
                     onTimeChange={handleTimeChange}
                     confirmDetail={confirmDetailHandler}
                 />
-                <QuoteSummary
-                    moveType={moveType}
-                    details={moveDetails}
-                    date={date}
-                    time={time}
-                />
+                {displaysummary&&(
+                    <QuoteSummary
+                        moveType={moveType}
+                        details={moveDetails}
+                        date={date}
+                        time={time}
+                        start={startLocation}
+                        dest={destinationLocation}
+                    />
+                )}
+
             </div>
 
             {confirmDetail && (

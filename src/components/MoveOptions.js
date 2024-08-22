@@ -4,13 +4,14 @@ import SpecialItems from './SpecialItems';
 import DateTimePicker from './DateTimePicker';
 
 const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeChange }) => {
-    const [moveType, setMoveType] = useState(''); // State to store the selected move type
+    const [moveType, setMoveType] = useState('');
     const [boxDetails, setBoxDetails] = useState([
         { boxSize: 'small', numberOfBoxes: 0 },
         { boxSize: 'medium', numberOfBoxes: 0 },
         { boxSize: 'large (or heavier than 20 kg)', numberOfBoxes: 0 },
     ]);
     const [liftAvailable, setLiftAvailable] = useState(false);
+    const [numberOfStairs, setNumberOfStairs] = useState(0);
     const [specialItems, setSpecialItems] = useState([]);
 
     const handleDateTimeChange = (date, time) => {
@@ -29,18 +30,25 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         const newBoxDetails = [...boxDetails];
         newBoxDetails[index][name] = parseInt(value, 10);
         setBoxDetails(newBoxDetails);
-        onDetailsChange({ boxDetails: newBoxDetails, liftAvailable, specialItems });
+        onDetailsChange({ boxDetails: newBoxDetails, liftAvailable, numberOfStairs, specialItems });
     };
 
     const handleLiftAvailabilityChange = (e) => {
         const isLiftAvailable = e.target.checked;
         setLiftAvailable(isLiftAvailable);
-        onDetailsChange({ boxDetails, liftAvailable: isLiftAvailable, specialItems });
+        setNumberOfStairs(0); // Reset stairs if lift becomes available
+        onDetailsChange({ boxDetails, liftAvailable: isLiftAvailable, numberOfStairs, specialItems });
+    };
+
+    const handleNumberOfStairsChange = (e) => {
+        const stairs = parseInt(e.target.value, 10);
+        setNumberOfStairs(stairs);
+        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs: stairs, specialItems });
     };
 
     const handleSpecialItemsChange = (items) => {
         setSpecialItems(items);
-        onDetailsChange({ boxDetails, liftAvailable, specialItems: items });
+        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs, specialItems: items });
     };
 
     return (
@@ -51,12 +59,12 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                 <option value="student">Student Move</option>
                 <option value="house">House Move</option>
             </select>
+            <p></p>
 
             {moveType === 'student' && (
                 <div className="student-options">
                     {boxDetails.map((boxDetail, index) => (
                         <div key={index} className="box-detail">
-                            <p></p>
                             <label>
                                 {boxDetail.boxSize.charAt(0).toUpperCase() + boxDetail.boxSize.slice(1)}:
                                 <input
@@ -78,6 +86,21 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             onChange={handleLiftAvailabilityChange}
                         />
                     </label>
+
+                    {!liftAvailable && (
+                        <div className="stairs-input">
+                            <label>
+                                Number of Stairs:
+                                <input
+                                    type="number"
+                                    name="numberOfStairs"
+                                    value={numberOfStairs}
+                                    onChange={handleNumberOfStairsChange}
+                                    min="0"
+                                />
+                            </label>
+                        </div>
+                    )}
 
                     <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
                     <DateTimePicker onDateTimeChange={handleDateTimeChange} />
