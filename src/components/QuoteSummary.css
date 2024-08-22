@@ -1,0 +1,32 @@
+.quote-summary {
+    background-color: #f1f1f1;
+    padding: 20px;
+    border-radius: 5px;
+    text-align: center;
+    margin-top: 20px;
+}
+
+.quote-summary h3 {
+    font-size: 1.5rem;
+    color: #ff8c00;
+    margin-bottom: 15px;
+}
+
+.quote-details-container {
+    background-color: rgba(128, 128, 128, 0.5); /* Transparent gray background */
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+}
+
+.quote-details h4 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.quote-details p {
+    font-size: 1rem;
+    color: #666;
+    margin-bottom: 8px;
+}

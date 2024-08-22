@@ -1,0 +1,28 @@
+.location-summary {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.location {
+    width: 45%;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.location h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #20262c;
+}
+
+.location p {
+    background-color: #282c34;
+    color: #f8f9fa;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+.distance {
+    margin-top: 20px;
+}

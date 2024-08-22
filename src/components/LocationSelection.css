@@ -1,0 +1,19 @@
+/* General styles for both sections */
+.start-location-section, .destination-location-section {
+    padding: 100px 50px 50px; /* Adjusted padding shorthand: top 100px, sides 50px, bottom 50px */
+    height: 100vh; /* Full viewport height */
+    text-align: center; /* Center align text */
+    background-color: #282c34; /* Background color */
+    box-sizing: border-box; /* Ensure padding is included in the height and width calculations */
+}
+
+/* Ensure the h2 color is applied correctly within both sections */
+.start-location-section h2, .destination-location-section h2 {
+    color: #f8f9fa; /* White color for h2 */
+    margin-bottom: 20px; /* Add some space below the heading */
+}
+
+/* Optionally add scroll behavior to the entire page */
+html {
+    scroll-behavior: smooth; /* Enable smooth scrolling */
+}

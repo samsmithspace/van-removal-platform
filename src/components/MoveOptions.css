@@ -1,0 +1,39 @@
+.move-options {
+    margin-top: 20px;
+    margin-right: 20px;
+    margin-left: 20px;
+}
+
+.move-options h3 {
+    font-size: 1.5rem;
+    color: #ff8c00;
+    margin-bottom: 10px;
+}
+
+.move-options select,
+.move-options input {
+    display: block;
+    width: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+.student-options h4 {
+    font-size: 1.2rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.student-options label {
+    display: block;
+    font-size: 1.3rem;
+    margin-bottom: 15px;
+}
+
+.student-options input[type="checkbox"] {
+    width: auto;
+    margin-left: 10px;
+}

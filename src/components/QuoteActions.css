@@ -1,0 +1,32 @@
+.quote-actions {
+    display: flex;
+    justify-content: space-between;
+}
+
+.btn-confirm, .btn-back {
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.btn-confirm {
+    background-color: #28a745;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-confirm:hover {
+    background-color: #218838;
+}
+
+.btn-back {
+    background-color: #dc3545;
+    color: white;
+    transition: background-color 0.3s ease;
+}
+
+.btn-back:hover {
+    background-color: #c82333;
+}

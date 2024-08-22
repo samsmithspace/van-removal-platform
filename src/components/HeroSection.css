@@ -1,0 +1,100 @@
+.hero-section {
+    position: relative;
+    height: 100vh;
+    background-image: url('../assets/images/herovan.jpeg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.hero-content {
+    position: absolute;
+    top: 30%; /* Adjusts vertical position (30% from the top) */
+    left: 50%; /* Centers horizontally */
+    transform: translate(-50%, -30%); /* Corrects positioning to truly center the content */
+    text-align: center;
+    z-index: 2;
+}
+
+.hero-section::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.05); /* Dark overlay */
+    z-index: 1;
+}
+
+.hero-content h1 {
+    font-family: 'Josefin Sans', sans-serif; /* Apply the Google Font */
+    font-size: 2.5rem; /* Adjust the size */
+    font-weight: 600; /* Bold the text */
+    text-transform: uppercase; /* Uppercase letters for a bold statement */
+    letter-spacing: 2px; /* Add some spacing between letters */
+    color: #fa7731; /* White color for the text */
+    text-shadow: 2px 2px 20px rgba(252, 247, 247, 0.75); /* Add a text shadow for depth */
+    margin-bottom: 20px; /* Add some margin below the h1 */
+}
+
+.hero-content p {
+    font-family: 'Josefin Sans', sans-serif; /* Apply the same font for consistency */
+    font-size: 1.5rem; /* Adjust the paragraph text size */
+    color: #f8f9fa; /* Slightly off-white for contrast */
+    margin-bottom: 30px; /* Space below the paragraph */
+}
+/* HeroSection.css */
+
+.hero-content .btn-custom {
+    background-color: #ff8c00; /* Custom background color */
+    color: #ffffff; /* Custom text color */
+    border: none; /* Remove the border */
+    padding: 10px 20px; /* Adjust padding */
+    font-size: 1.2rem; /* Adjust font size */
+    font-weight: 600; /* Make the text bold */
+    text-transform: uppercase; /* Uppercase text */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
+
+
+.hero-content .btn-custom:focus {
+    outline: none; /* Remove default outline on focus */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on focus */
+}
+
+
+.form-group {
+    width: 95%; /* Increase width to occupy more horizontal space */
+    max-width: 1200px; /* Optionally limit the maximum width */
+    margin: 0 auto;
+    text-align: center;
+}
+.form-control-lg {
+    font-size: 1.8rem;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+label {
+    font-size: 1.5rem; /* Increase label size */
+    margin-bottom: 20px; /* Add space below the label */
+}
+
+.hero-content .btn-custom:hover {
+    background-color: #e67300;
+    transform: scale(1.05);
+}
+
+@media (max-width: 768px) {
+    .form-group {
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .form-control-lg {
+        font-size: 1.5rem; /* Slightly reduce font size on small screens */
+    }
+
+
+}

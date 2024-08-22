@@ -1,0 +1,27 @@
+/* QuotePage.css */
+
+.quote-header h2 {
+    color: #fa7731; /* Change this to your desired color */
+    font-family: 'Josefin Sans', sans-serif; /* Apply the Google Font */
+    font-size: 2rem; /* Adjust the font size */
+    font-weight: 600; /* Adjust the font weight */
+    margin-bottom: 20px; /* Add some space below the h2 */
+    text-transform: uppercase; /* Optional: Transform text to uppercase */
+    letter-spacing: 1px; /* Optional: Add some spacing between letters */
+    text-align: center;
+    margin-top: 20px;
+
+}
+
+h1 {
+    color: #fa7731; /* Change this to your desired color */
+    font-family: 'Josefin Sans', sans-serif; /* Apply the Google Font */
+    font-size: 2rem; /* Adjust the font size */
+    font-weight: 600; /* Adjust the font weight */
+    margin-bottom: 20px; /* Add some space below the h2 */
+    text-transform: uppercase; /* Optional: Transform text to uppercase */
+    letter-spacing: 1px; /* Optional: Add some spacing between letters */
+    text-align: center;
+    margin-top: 20px;
+
+}

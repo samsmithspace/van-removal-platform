@@ -1,0 +1,93 @@
+import React, { useState } from 'react';
+import { GoogleMap, LoadScript, Autocomplete, Marker } from '@react-google-maps/api';
+import './GoogleMapComponent.css';
+
+const mapContainerStyle = {
+    height: "300px", // Height of the map
+    width: "80%",    // Width of the map
+    margin: "0 auto" // Center the map horizontally
+};
+
+const defaultCenter = {
+    lat: 55.953251, // Default center (New York City)
+    lng: -3.188267
+};
+
+const GoogleMapComponent = ({ onPlaceSelected }) => {
+    const [autocomplete, setAutocomplete] = useState(null);
+    const [center, setCenter] = useState(defaultCenter); // State to manage the map's center
+    const [isMapVisible, setIsMapVisible] = useState(false); // Track map visibility
+    const [markerPosition, setMarkerPosition] = useState(null); // State to manage the marker position
+
+    const onLoad = (autocompleteInstance) => {
+        setAutocomplete(autocompleteInstance);
+    };
+
+    const onPlaceChanged = () => {
+        if (autocomplete !== null) {
+            const place = autocomplete.getPlace();
+            const location = {
+                lat: place.geometry.location.lat(),
+                lng: place.geometry.location.lng()
+            };
+            setCenter(location); // Update the map center
+            setMarkerPosition(location); // Set the marker position
+            setIsMapVisible(true);
+            onPlaceSelected(place);
+        } else {
+            console.log('Autocomplete is not loaded yet!');
+        }
+    };
+
+    return (
+
+
+
+        <LoadScript googleMapsApiKey="AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ" libraries={['places']}>
+
+            <Autocomplete
+                onLoad={onLoad}
+                onPlaceChanged={onPlaceChanged}
+            >
+                <input
+                    type="text"
+                    placeholder="Enter Start Location"
+                    style={{
+                        boxSizing: `border-box`,
+                        border: `1px solid transparent`,
+                        width: `80%`, // Ensure the input takes full width of its container
+                        height: `50px`, // Maintain the increased height of the input field
+                        padding: `0 15px`,
+                        borderRadius: `8px`,
+                        boxShadow: `0 2px 6px rgba(0, 0, 0, 0.3)`,
+                        fontSize: `18px`,
+                        outline: `none`,
+                        textOverflow: `ellipses`,
+                        marginBottom: `10px`
+                    }}
+                />
+            </Autocomplete>
+            <p></p>
+            {isMapVisible && ( // Conditionally render the map based on selection
+                <div style={mapContainerStyle}>
+                    <GoogleMap
+                        mapContainerStyle={{ height: "100%", width: "100%" }}
+                        center={center}
+                        zoom={17}
+                    >
+                        {markerPosition && (
+                            <Marker position={markerPosition} />
+                        )}
+                    </GoogleMap>
+
+
+
+                </div>
+            )}
+        </LoadScript>
+    );
+};
+
+
+
+export default GoogleMapComponent;

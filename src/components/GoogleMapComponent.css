@@ -1,0 +1,19 @@
+.btn-custom:hover {
+    background-color: #e67300;
+    transform: scale(1.05);
+}
+.btn-custom:focus {
+    outline: none; /* Remove default outline on focus */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on focus */
+}
+.btn-custom {
+    background-color: #ff8c00; /* Custom background color */
+    color: #ffffff; /* Custom text color */
+    border: none; /* Remove the border */
+    padding: 10px 20px; /* Adjust padding */
+    font-size: 1.2rem; /* Adjust font size */
+    font-weight: 600; /* Make the text bold */
+    text-transform: uppercase; /* Uppercase text */
+    border-radius: 5px; /* Rounded corners */
+    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+}
