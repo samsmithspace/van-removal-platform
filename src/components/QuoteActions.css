@@ -1,32 +1,47 @@
 .quote-actions {
-    display: flex;
-    justify-content: space-between;
+    background-color: #f8f9fa;
+    padding: 20px;
+    border-top: 1px solid #e7e7e7;
+    text-align: center;
+    margin-top: 20px;
 }
 
-.btn-confirm, .btn-back {
-    padding: 10px 20px;
+.form-group {
+    margin-bottom: 15px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
     font-size: 1rem;
+    color: #333;
+    margin-bottom: 5px;
+}
+.quote-actions h3 {
+    font-size: 1rem; /* Adjust this value to make it smaller */
+    margin-top: 10px; /* Optional: adjust margin to space it appropriately */
+    color: #555; /* Optional: change the text color if needed */
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
     border: none;
-    border-radius: 5px;
+    border-radius: 4px;
     cursor: pointer;
+    font-size: 1rem;
+    margin-top: 15px;
 }
 
-.btn-confirm {
-    background-color: #28a745;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.btn-confirm:hover {
-    background-color: #218838;
-}
-
-.btn-back {
-    background-color: #dc3545;
-    color: white;
-    transition: background-color 0.3s ease;
-}
-
-.btn-back:hover {
-    background-color: #c82333;
+.submit-button:hover {
+    background-color: #0056b3;
 }

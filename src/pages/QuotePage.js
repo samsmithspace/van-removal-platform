@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import LocationSummary from '../components/LocationSummary';
 import QuoteSummary from '../components/QuoteSummary';
@@ -12,7 +12,10 @@ const QuotePage = ({ onConfirm, onBack }) => {
     const [confirmDetail, setConfirmDetail] = useState(false);
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
-    const [displaysummary,setdisplaysummary]=useState(false);
+    const [displaySummary, setDisplaySummary] = useState(false);
+
+    const quoteActionsRef = useRef(null); // Create a ref for the QuoteActions component
+
     const handleMoveTypeChange = (selectedMoveType) => {
         setMoveType(selectedMoveType);
     };
@@ -27,15 +30,26 @@ const QuotePage = ({ onConfirm, onBack }) => {
 
     const handleTimeChange = (time) => {
         setTime(time);
-        setdisplaysummary(true);
+        setDisplaySummary(true);
     };
 
     const confirmDetailHandler = () => {
         setConfirmDetail(true);
     };
 
+    useEffect(() => {
+        if (confirmDetail && quoteActionsRef.current) {
+            quoteActionsRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    }, [confirmDetail]); // Effect will run when confirmDetail changes
+
     const location = useLocation();
     const { startLocation, destinationLocation } = location.state || {};
+
+    const handleFormSubmit = (formData) => {
+        console.log('Form Submitted:', formData);
+        // You can now send the formData to your backend or process it as needed
+    };
 
     return (
         <div className="quote-page">
@@ -54,9 +68,8 @@ const QuotePage = ({ onConfirm, onBack }) => {
                     onDetailsChange={handleDetailsChange}
                     onDateChange={handleDateChange}
                     onTimeChange={handleTimeChange}
-                    confirmDetail={confirmDetailHandler}
                 />
-                {displaysummary&&(
+                {displaySummary && (
                     <QuoteSummary
                         moveType={moveType}
                         details={moveDetails}
@@ -64,16 +77,15 @@ const QuotePage = ({ onConfirm, onBack }) => {
                         time={time}
                         start={startLocation}
                         dest={destinationLocation}
+                        confirmDetail={confirmDetailHandler}
                     />
                 )}
-
             </div>
 
             {confirmDetail && (
-                <QuoteActions
-                    onConfirm={onConfirm}
-                    onBack={onBack}
-                />
+                <div ref={quoteActionsRef}>
+                    <QuoteActions onSubmit={handleFormSubmit} />
+                </div>
             )}
         </div>
     );

@@ -36,10 +36,11 @@
 }
 
 .quote-details div:last-child {
-    margin-bottom: 60px; /* Add space between date/time section and the button */
+ padding-bottom: 10px;
 }
 
 .confirm-button-container {
+
     position: absolute;
     bottom: 20px;
     left: 50%;
@@ -47,7 +48,9 @@
 }
 
 .confirm-button {
-    padding: 10px 35px;
+
+    width: 150px;
+    height: 40px;
     background-color: #fa7731;
     color: white;
     border: none;
@@ -58,4 +61,37 @@
 
 .confirm-button:hover {
     background-color: #bf3e03;
+}
+
+/* QuoteSummary.css */
+
+.quote-details-container {
+    padding: 20px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    margin-top: 20px;
+}
+
+.pricetag {
+    padding-top: 10px;
+    border: 1px solid #28a745; /* Green border */
+    border-radius: 8px; /* Rounded corners */
+    background-color: #e6ffed; /* Light green background */
+    text-align: center;
+    font-size: 1.2rem; /* Larger text for emphasis */
+    color: #155724; /* Darker green text color */
+    font-weight: bold; /* Bold text */
+}
+
+.confirm-button-container {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center; /* Center the confirm button */
+}
+
+
+
+.confirm-button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
 }

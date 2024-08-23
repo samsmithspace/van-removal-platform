@@ -1,11 +1,12 @@
-import React, {useState} from 'react';
+import React, { useState, useEffect } from 'react';
 import './QuoteSummary.css';
 import { Loader } from '@googlemaps/js-api-loader';
-const QuoteSummary = ({ moveType, details, date, time,start,dest }) => {
 
+const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail }) => {
     const [distance, setDistance] = useState(null);
-
-    //const handleCalculateDistance = () => {
+    const [hideConfirmButton, setHideConfirmButton] = useState(false);
+    const [price,setprice]=useState('');
+    useEffect(() => {
         if (start && dest) {
             const loader = new Loader({
                 apiKey: 'AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ', // Replace with your actual Google Maps API key
@@ -35,7 +36,46 @@ const QuoteSummary = ({ moveType, details, date, time,start,dest }) => {
                 console.error('Google Maps API load error:', error);
             });
         }
-   // };
+    }, [start, dest]);
+
+    const confirm = async () => {
+        // Call the confirmDetail function
+        confirmDetail();
+
+        // Send the data to the backend
+        const bookingData = {
+            startLocation: start,
+            destinationLocation: dest,
+            moveType,
+            details,
+            date,
+            time,
+            distance
+        };
+
+        try {
+            const response = await fetch('http://localhost:5000/api/bookings', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(bookingData)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Booking saved:', data);
+                setprice(data.booking.price);
+            } else {
+                console.error('Error saving booking:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error sending data to backend:', error);
+        }
+
+        // Hide the confirm button
+        setHideConfirmButton(true);
+    };
 
     return (
         <section className="quote-summary">
@@ -43,12 +83,8 @@ const QuoteSummary = ({ moveType, details, date, time,start,dest }) => {
             <div className="quote-details-container">
                 <div className="quote-details">
                     <div>
-                    <p>
-                        From {start}
-                    </p>
-                    <p>
-                        To {dest}
-                    </p>
+                        <p>From: {start}</p>
+                        <p>To: {dest}</p>
                     </div>
                     <h4>Distance: {distance}</h4>
                     <p>Move Type: {moveType === 'student' ? 'Student Move' : 'House Move'}</p>
@@ -77,22 +113,26 @@ const QuoteSummary = ({ moveType, details, date, time,start,dest }) => {
                             ))}
                         </div>
                     )}
-
                     <div>
                         <h4>Moving Date & Time:</h4>
                         <p>Date: {date}</p>
                         <p>Time: {time}</p>
                     </div>
-
                 </div>
-                <div className="confirm-button-container">
-                    <button className="confirm-button">Confirm</button>
-                </div>
-
+                {!hideConfirmButton && (
+                    <div className="confirm-button-container">
+                        <button className="confirm-button" onClick={confirm}>
+                            Confirm
+                        </button>
+                    </div>
+                )}
+                {hideConfirmButton && (
+                    <div className="pricetag">
+                        <p>Your estimated price: {price} £</p>
+                    </div>
+                )}
             </div>
-
         </section>
-
     );
 };
 
