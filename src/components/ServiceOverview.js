@@ -3,7 +3,7 @@ import React from 'react';
 const services = [
     { icon: 'path/to/icon1.svg', title: 'Moving', description: 'Reliable moving services' },
     { icon: 'path/to/icon2.svg', title: 'Packing', description: 'Professional packing solutions' },
-    { icon: 'path/to/icon3.svg', title: 'Storage', description: 'Secure storage facilities' },
+
 ];
 
 const ServiceOverview = () => {
