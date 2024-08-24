@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './QuoteSummary.css';
 import { Loader } from '@googlemaps/js-api-loader';
 
-const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail }) => {
+const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail,bookid }) => {
     const [distance, setDistance] = useState(null);
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
     const [price,setprice]=useState('');
@@ -66,6 +66,7 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                 const data = await response.json();
                 console.log('Booking saved:', data);
                 setprice(data.booking.price);
+                bookid(data.booking._id);
             } else {
                 console.error('Error saving booking:', response.statusText);
             }

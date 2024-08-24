@@ -14,12 +14,16 @@ const QuotePage = ({ onConfirm, onBack }) => {
     const [time, setTime] = useState('');
     const [displaySummary, setDisplaySummary] = useState(false);
 
+    const [bookingid,setbookingid]=useState('');
+
     const quoteActionsRef = useRef(null); // Create a ref for the QuoteActions component
 
     const handleMoveTypeChange = (selectedMoveType) => {
         setMoveType(selectedMoveType);
     };
-
+    const handelbookingid = (bookingid)=>{
+        setbookingid(bookingid)
+    }
     const handleDetailsChange = (details) => {
         setMoveDetails(details);
     };
@@ -51,6 +55,7 @@ const QuotePage = ({ onConfirm, onBack }) => {
         // You can now send the formData to your backend or process it as needed
     };
 
+
     return (
         <div className="quote-page">
             <header className="quote-header">
@@ -78,13 +83,14 @@ const QuotePage = ({ onConfirm, onBack }) => {
                         start={startLocation}
                         dest={destinationLocation}
                         confirmDetail={confirmDetailHandler}
+                        bookid={handelbookingid}
                     />
                 )}
             </div>
 
             {confirmDetail && (
                 <div ref={quoteActionsRef}>
-                    <QuoteActions onSubmit={handleFormSubmit} />
+                    <QuoteActions bookingId={bookingid} onSubmit={handleFormSubmit} />
                 </div>
             )}
         </div>

@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
 import './QuoteActions.css';
+import { useNavigate } from 'react-router-dom';
 
-const QuoteActions = ({ onSubmit }) => {
+const QuoteActions = ({ bookingId, onSubmit }) => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: ''
     });
+
+    const navigate = useNavigate(); // Initialize useNavigate hook
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -16,10 +19,30 @@ const QuoteActions = ({ onSubmit }) => {
         });
     };
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        // You can pass the formData to the parent component or handle it here
-        onSubmit(formData);
+
+        try {
+            const response = await fetch(`http://localhost:5000/api/bookings/${bookingId}/contact`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log('Contact information added:', data);
+
+                onSubmit(formData);
+                navigate('/booking-result', { state: { bookingDetails: data.booking } }); // Navigate to booking result page
+            } else {
+                console.error('Error updating booking:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error sending contact information to backend:', error);
+        }
     };
 
     return (

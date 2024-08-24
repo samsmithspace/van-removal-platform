@@ -4,6 +4,8 @@ import HomePage from './pages/HomePage';
 import QuotePage from './pages/QuotePage';
 import BookingPage from './pages/BookingPage';
 import LocationSelection from './pages/LocationSelection';
+import BookingResult from './pages/BookingResult'; // Import the new BookingResult component
+
 function App() {
   return (
       <Router>
@@ -12,6 +14,7 @@ function App() {
             <Route path="/location" element={<LocationSelection />} />
           <Route path="/quote" element={<QuotePage />} />
           <Route path="/booking" element={<BookingPage />} />
+            <Route path="/booking-result" element={<BookingResult />} /> {/* Add the new route */}
         </Routes>
       </Router>
   );
