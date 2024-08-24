@@ -1,7 +1,7 @@
 // BookingResult.js
 import React from 'react';
 
-const BookingResult = ({ }) => {
+const BookingResult = () => {
     return (
         <div className="booking-result">
             <h1>Booking Confirmed!</h1>

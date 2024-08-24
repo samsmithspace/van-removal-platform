@@ -54,7 +54,7 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
         };
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings`, {
+            const response = await fetch(`https://van-backend-2niq.onrender.com/api/bookings`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
