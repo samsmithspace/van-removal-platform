@@ -36,6 +36,7 @@ const QuoteActions = ({ bookingId, onSubmit }) => {
                 console.log('Contact information added:', data);
 
                 onSubmit(formData);
+
                 navigate('/booking-result', { state: { bookingDetails: data.booking } }); // Navigate to booking result page
             } else {
                 console.error('Error updating booking:', response.statusText);

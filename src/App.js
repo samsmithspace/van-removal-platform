@@ -7,17 +7,17 @@ import LocationSelection from './pages/LocationSelection';
 import BookingResult from './pages/BookingResult'; // Import the new BookingResult component
 
 function App() {
-  return (
-      <Router>
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-            <Route path="/location" element={<LocationSelection />} />
-          <Route path="/quote" element={<QuotePage />} />
-          <Route path="/booking" element={<BookingPage />} />
-            <Route path="/booking-result" element={<BookingResult />} /> {/* Add the new route */}
-        </Routes>
-      </Router>
-  );
+    return (
+        <Router>
+            <Routes>
+                <Route path="/" element={<HomePage />} />
+                <Route path="/location" element={<LocationSelection />} />
+                <Route path="/quote" element={<QuotePage />} />
+                <Route path="/booking" element={<BookingPage />} />
+                <Route path="/booking-result" element={<BookingResult />} /> {/* BookingResult remains here */}
+            </Routes>
+        </Router>
+    );
 }
 
 export default App;

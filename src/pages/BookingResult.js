@@ -1,12 +1,21 @@
-// BookingResult.js
 import React from 'react';
+import { useLocation } from 'react-router-dom';
+import PaymentForm from '../components/PaymentForm'; // Create a new PaymentForm component
+import '../components/BookingResult.css';
+// Initialize Stripe outside of your component to avoid re-creating it on every render
 
-const BookingResult = ({ }) => {
+
+const BookingResult = () => {
+    const location = useLocation();
+    const bookingDetails = location.state?.bookingDetails;
+    if (!bookingDetails) {
+        return <div>Loading booking details...</div>; // Or handle the error appropriately
+    }
     return (
-        <div className="booking-result">
-            <h1>Booking Confirmed!</h1>
-            <p>Thank you for your booking, .</p>
-            <p>Your booking details have been confirmed. We will contact you shortly at  or  if we need further information.</p>
+        <div>
+            <p> </p>
+            <PaymentForm bookingDetails={bookingDetails} />
+            <p> </p>
         </div>
     );
 };

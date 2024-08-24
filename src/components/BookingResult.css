@@ -1,0 +1,39 @@
+/* General Container Styling */
+.booking-result {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 10px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Header Styling */
+.booking-result h1 {
+    font-size: 2rem;
+    color: #333333;
+    margin-bottom: 0px;
+    text-align: center;
+}
+
+.booking-result p {
+    font-size: 1.1rem;
+    color: #666666;
+    margin-bottom: 15px;
+    line-height: 1.6;
+}
+
+/* Payment Section Styling */
+.booking-result h2 {
+    font-size: 1.5rem;
+    color: #333333;
+    margin-bottom: 15px;
+    text-align: center;
+}
+
+/* For loading message or error state */
+.booking-result div {
+    font-size: 1.1rem;
+    color: #ff0000; /* Red color for errors */
+    text-align: center;
+}
