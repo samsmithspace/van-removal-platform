@@ -1,19 +1,83 @@
-/* General styles for both sections */
-.start-location-section, .destination-location-section {
-    padding: 100px 50px 50px; /* Adjusted padding shorthand: top 100px, sides 50px, bottom 50px */
-    height: 100vh; /* Full viewport height */
-    text-align: center; /* Center align text */
-    background-color: #282c34; /* Background color */
-    box-sizing: border-box; /* Ensure padding is included in the height and width calculations */
+/* LocationSelection.css */
+
+/* General styling for the main container */
+.location_selection {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 auto;
+    gap: 15px; /* Space between elements */
+    overflow-y: auto; /* Adds scroll if content exceeds max-height */
+    padding: 0; /* Removed padding to eliminate extra space */
+    background-color: #FFFFFF;
 }
 
-/* Ensure the h2 color is applied correctly within both sections */
-.start-location-section h2, .destination-location-section h2 {
-    color: #f8f9fa; /* White color for h2 */
-    margin-bottom: 20px; /* Add some space below the heading */
+/* Styling for the section headers */
+.location_selection h2 {
+    font-size: 1.5rem;
+    text-align: left;
+    color: #333; /* Improved color contrast */
+    margin: 20px;
+    padding-bottom: 8px; /* Optional: adds a little space below the header */
+    padding: 10px;
 }
 
-/* Optionally add scroll behavior to the entire page */
-html {
-    scroll-behavior: smooth; /* Enable smooth scrolling */
+/* Combined styling for the start and destination location sections */
+.start-location-section,
+.destination-location-section {
+    display: flex; /* Use flexbox for alignment */
+    flex-direction: column; /* Stack content vertically */
+    align-items: center; /* Center content */
+    width: 100%;
+    margin-bottom: 10px; /* Unified margin for both sections */
+    padding: 0; /* Removed padding to minimize space usage */
+
+    background-color: #ffffff;
+    min-height: 50px; /* Sets a minimum height for the sections */
+    max-height: 400px; /* Sets a maximum height for the sections */
+    overflow-y: hidden; /* Hide overflow for smooth animation */
+    justify-content: flex-start; /* Align content to the top */
+    transition: transform 0.3s ease-out, max-height 0.3s ease-out; /* Smooth transition */
+    transform: translateY(0); /* Ensure no initial offset */
+    opacity: 1; /* Ensure fully visible by default */
+}
+
+/* Slide-up effect for the destination section */
+.slide-up {
+    transform: translateY(0px); /* Slide up into place */
+    max-height: 400px; /* Maintain max height */
+    opacity: 1; /* Ensure visible */
+}
+
+/* Hide the destination section initially */
+.destination-location-section:not(.slide-up) {
+    transform: translateY(50px); /* Start with an offset when hidden */
+    opacity: 0; /* Start hidden */
+    max-height: 0; /* Collapse the height when hidden */
+    transition: transform 0.3s ease-out, max-height 0.3s ease-out, opacity 0.3s ease-out; /* Smooth transition */
+}
+
+/* Styling for the confirm button */
+.btn-custom {
+    padding: 8px 16px; /* Reduced padding for a more compact button */
+    font-size: 1rem;
+    color: #fff;
+    background-color: #e67300;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px; /* Added margin to separate button from content above */
+}
+
+/* Button hover effect */
+.btn-custom:hover {
+    background-color: #ca5b00;
+}
+
+/* Ensure no extra space inside divs */
+.location_selection div {
+    text-align: center;
+    padding: 0; /* Removed padding */
+    margin: 0; /* Removed margin */
 }
