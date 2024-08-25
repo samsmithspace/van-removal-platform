@@ -1,0 +1,67 @@
+/* Footer.css */
+
+/* Base styles for the footer */
+.footer {
+    background-color: #282c34; /* Dark background color */
+    color: #ffffff; /* White text color */
+    padding: 10px 0; /* Padding for the footer */
+    text-align: center; /* Center-align text */
+    font-family: 'Arial', sans-serif; /* Font for the footer text */
+    width: 100%; /* Full width to cover the bottom */
+    margin-top: auto; /* Push the footer to the bottom if there's not enough content */
+}
+
+/* Styles for the content inside the footer */
+.footer-content {
+    max-width: 1200px; /* Limit the max width */
+    margin: 0 auto; /* Center the content horizontally */
+    display: flex; /* Use flexbox to align items */
+    justify-content: space-between; /* Space between text and icons */
+    align-items: center; /* Center align vertically */
+    padding: 0 20px; /* Add horizontal padding */
+}
+
+/* Footer text styling */
+.footer-content p {
+    margin: 0; /* Remove margin for the paragraph */
+    font-size: 0.9rem; /* Slightly smaller font size */
+}
+
+/* Styles for social media icons */
+.social-icons {
+    display: flex; /* Use flexbox to align icons horizontally */
+    gap: 8px; /* Reduce space between icons */
+}
+
+/* Individual social media icon styles */
+.social-icons img {
+    width: 20px; /* Set a smaller width for icons */
+    height: 20px; /* Set a smaller height for icons */
+    cursor: pointer; /* Show pointer cursor on hover */
+    transition: transform 0.3s ease; /* Smooth hover effect */
+}
+
+/* Hover effect for social media icons */
+.social-icons img:hover {
+    transform: scale(1.1); /* Scale up icons slightly on hover */
+}
+
+/* Responsive styling for small screens */
+@media (max-width: 768px) {
+    .footer-content {
+        flex-direction: column; /* Stack items vertically on small screens */
+        text-align: center; /* Center-align text */
+        padding: 10px 0; /* Adjust padding for smaller screens */
+    }
+
+    .social-icons {
+        margin-top: 10px; /* Add space above icons on small screens */
+
+    }
+
+    .social-icons img {
+        width: 18px; /* Smaller icon size for small screens */
+        height: 18px;
+        margin-left: 20px;
+    }
+}
