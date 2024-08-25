@@ -60,7 +60,7 @@
 /* Styling for the confirm button */
 .btn-custom {
     padding: 8px 16px; /* Reduced padding for a more compact button */
-    font-size: 1rem;
+    font-size: 1.3rem;
     color: #fff;
     background-color: #e67300;
     border: none;
@@ -68,6 +68,7 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-top: 10px; /* Added margin to separate button from content above */
+    margin-bottom: 30px;
 }
 
 /* Button hover effect */
