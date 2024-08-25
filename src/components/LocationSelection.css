@@ -14,12 +14,12 @@
 
 /* Styling for the section headers */
 .location_selection h2 {
-    font-size: 1.5rem;
+    font-size: 1.25rem;
     text-align: left;
     color: #333; /* Improved color contrast */
-    margin: 20px;
+    margin: 10px;
     padding-bottom: 8px; /* Optional: adds a little space below the header */
-    padding: 10px;
+    padding: 20px;
 }
 
 /* Combined styling for the start and destination location sections */
