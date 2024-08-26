@@ -1,19 +1,54 @@
-.btn-custom:hover {
-    background-color: #e67300;
-    transform: scale(1.05);
+/* GoogleMapComponent.css */
+
+/* Flex container to align icon and input */
+.map-input-container {
+    display: flex; /* Use Flexbox */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically if height is set */
+    width: 100%; /* Full width of the parent container */
+    padding: 10px 0; /* Padding for spacing */
+    flex-direction: column; /* Stack elements vertically to ensure input and icon align properly */
 }
-.btn-custom:focus {
-    outline: none; /* Remove default outline on focus */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Add a subtle shadow on focus */
+
+/* Styling for the Google Maps input field */
+.map-input-container input[type="text"] {
+    box-sizing: border-box;
+    border: 1px solid #ccc;
+    width: 100%; /* Fixed width for the input field */
+    height: 45px;
+    padding: 0 15px;
+    border-radius: 8px;
+    font-size: 16px;
+    outline: none;
+
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+    margin-bottom: 20px;
+    display: block;
 }
-.btn-custom {
-    background-color: #ff8c00; /* Custom background color */
-    color: #ffffff; /* Custom text color */
-    border: none; /* Remove the border */
-    padding: 10px 20px; /* Adjust padding */
-    font-size: 1.2rem; /* Adjust font size */
-    font-weight: 600; /* Make the text bold */
-    text-transform: uppercase; /* Uppercase text */
-    border-radius: 5px; /* Rounded corners */
-    transition: background-color 0.3s ease, transform 0.3s ease; /* Smooth hover effect */
+.map-autocomplete {
+    width: 80%; /* Fixed width for the input field */
 }
+
+/* Focus state for input field */
+.map-input-container input[type="text"]:focus {
+    border-color: #007bff;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.25);
+}
+
+/* Style for the map container */
+.map-container {
+    height: 200px;
+    width: 80%; /* Width of the map container */
+    margin: 10px auto; /* Centers the map-container horizontally */
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    display: block; /* No need for flexbox here to center the container itself */
+    justify-content: center; /* Center content horizontally */
+    align-items: center; /* Center content vertically if height is set */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Optional: Adds a shadow for better visual appearance */
+}
+
+
+
