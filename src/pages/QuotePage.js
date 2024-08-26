@@ -6,7 +6,7 @@ import QuoteActions from '../components/QuoteActions';
 import MoveOptions from '../components/MoveOptions';
 import '../components/QuotePage.css';
 
-const QuotePage = ({ onConfirm, onBack }) => {
+const QuotePage = () => {
     const [moveType, setMoveType] = useState('');
     const [moveDetails, setMoveDetails] = useState({});
     const [confirmDetail, setConfirmDetail] = useState(false);
