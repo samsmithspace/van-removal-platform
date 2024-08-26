@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
-import { GoogleMap, LoadScriptNext, Autocomplete } from '@react-google-maps/api';
+import React, { useState, useCallback } from 'react';
+import { GoogleMap, useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import './GoogleMapComponent.css';  // Ensure the CSS file is correctly imported
 
 const libraries = ['places', 'marker'];
-
-
 
 const defaultCenter = {
     lat: 55.953251, // Default center
@@ -18,11 +16,18 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
     const [center, setCenter] = useState(defaultCenter); // State to manage the map's center
     const [markerPosition, setMarkerPosition] = useState(null); // State to manage the marker position
 
-    const onLoad = (autocompleteInstance) => {
-        setAutocomplete(autocompleteInstance);
-    };
+    // Load the Google Maps API
+    const { isLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: 'AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ', // Replace with your actual Google Maps API key
+        libraries,
+        id: 'google-map-script',
+    });
 
-    const onPlaceChanged = () => {
+    const onLoad = useCallback((autocompleteInstance) => {
+        setAutocomplete(autocompleteInstance);
+    }, []);
+
+    const onPlaceChanged = useCallback(() => {
         if (autocomplete !== null) {
             const place = autocomplete.getPlace();
             console.log('Place selected:', place); // Debugging
@@ -36,16 +41,18 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
         } else {
             console.log('Autocomplete is not loaded yet!');
         }
-    };
+    }, [autocomplete, onPlaceSelected]);
+
+    if (loadError) {
+        return <div>Error loading Google Maps</div>;
+    }
+
+    if (!isLoaded) {
+        return <div>Loading...</div>;
+    }
 
     return (
-        <LoadScriptNext
-            googleMapsApiKey="AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ"
-            libraries={libraries}
-            version="beta"
-            loadingElement={<div>Loading...</div>}  // Optional: provide a loading element
-            className="map-load"
-        >
+        <>
             <div className="map-input-container"> {/* Use correct class name here */}
                 <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} className="map-autocomplete">
                     <input
@@ -74,7 +81,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                     />
                 </div>
             )}
-        </LoadScriptNext>
+        </>
     );
 };
 

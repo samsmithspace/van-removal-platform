@@ -19,10 +19,9 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         onTimeChange(time);
     };
 
-    const handleMoveTypeChange = (e) => {
-        const selectedMoveType = e.target.value;
-        setMoveType(selectedMoveType);
-        onMoveTypeChange(selectedMoveType);
+    const handleMoveTypeChange = (type) => {
+        setMoveType(type);
+        onMoveTypeChange(type);
     };
 
     const handleBoxDetailsChange = (index, e) => {
@@ -54,11 +53,20 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
     return (
         <div className="move-options">
             <h3>Select Move Type</h3>
-            <select value={moveType} onChange={handleMoveTypeChange}>
-                <option value="">-- Select Move Type --</option>
-                <option value="student">Student Move</option>
-                <option value="house">House Move</option>
-            </select>
+            <div className="button-group">
+                <button
+                    className={`move-type-button ${moveType === 'student' ? 'active' : ''}`}
+                    onClick={() => handleMoveTypeChange('student')}
+                >
+                    Student Move
+                </button>
+                <button
+                    className={`move-type-button ${moveType === 'house' ? 'active' : ''}`}
+                    onClick={() => handleMoveTypeChange('house')}
+                >
+                    House Move
+                </button>
+            </div>
             <p></p>
 
             {moveType === 'student' && (

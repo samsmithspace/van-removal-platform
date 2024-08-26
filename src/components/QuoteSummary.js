@@ -1,22 +1,27 @@
 import React, { useState, useEffect } from 'react';
 import './QuoteSummary.css';
-import { Loader } from '@googlemaps/js-api-loader';
+import { useJsApiLoader } from '@react-google-maps/api';
 
-const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail,bookid }) => {
+const libraries = ['places'];
+
+const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail, bookid }) => {
     const [distance, setDistance] = useState(null);
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
-    const [price,setprice]=useState('');
-    useEffect(() => {
-        if (start && dest) {
-            const loader = new Loader({
-                apiKey: 'AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ', // Replace with your actual Google Maps API key
-                version: 'weekly',
-                libraries: ['places'],
-            });
+    const [price, setPrice] = useState('');
 
-            loader.load().then(() => {
-                if (window.google) {
-                    const service = new window.google.maps.DistanceMatrixService();
+    // Load Google Maps API using useJsApiLoader hook
+    const { isLoaded, loadError } = useJsApiLoader({
+        googleMapsApiKey: 'AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ', // Replace with your actual Google Maps API key
+        libraries,
+    });
+
+    useEffect(() => {
+        if (isLoaded && start && dest) {
+            const service = new window.google.maps.DistanceMatrixService();
+
+            // Wrap getDistanceMatrix in a Promise
+            const getDistance = () => {
+                return new Promise((resolve, reject) => {
                     service.getDistanceMatrix(
                         {
                             origins: [start],
@@ -25,18 +30,21 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                         },
                         (response, status) => {
                             if (status === 'OK' && response.rows[0].elements[0].status === 'OK') {
-                                setDistance(response.rows[0].elements[0].distance.text);
+                                resolve(response.rows[0].elements[0].distance.text);
                             } else {
-                                console.error('Error fetching distance:', status, response);
+                                reject('Error fetching distance: ' + status);
                             }
                         }
                     );
-                }
-            }).catch(error => {
-                console.error('Google Maps API load error:', error);
-            });
+                });
+            };
+
+            // Call the Promise and handle success/failure
+            getDistance()
+                .then(distance => setDistance(distance))
+                .catch(error => console.error(error));
         }
-    }, [start, dest]);
+    }, [isLoaded, start, dest]);
 
     const confirm = async () => {
         // Call the confirmDetail function
@@ -50,22 +58,22 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
             details,
             date,
             time,
-            distance
+            distance,
         };
 
         try {
             const response = await fetch(`https://van-backend-2niq.onrender.com/api/bookings`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(bookingData)
+                body: JSON.stringify(bookingData),
             });
 
             if (response.ok) {
                 const data = await response.json();
                 console.log('Booking saved:', data);
-                setprice(data.booking.price);
+                setPrice(data.booking.price);
                 bookid(data.booking._id);
             } else {
                 console.error('Error saving booking:', response.statusText);
@@ -77,6 +85,14 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
         // Hide the confirm button
         setHideConfirmButton(true);
     };
+
+    if (loadError) {
+        return <div>Error loading Google Maps</div>;
+    }
+
+    if (!isLoaded) {
+        return <div>Loading...</div>;
+    }
 
     return (
         <section className="quote-summary">

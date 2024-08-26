@@ -9,7 +9,32 @@
     color: #ff8c00;
     margin-bottom: 10px;
 }
+.move-type-button {
+    padding: 10px 20px;
+    font-size: 1.5rem;
+    border: 1px solid #ccc;
+    height: 140px;
 
+    border-radius: 9px;
+    cursor: pointer;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
+}
+.button-group {
+    display: flex;
+    gap: 20px;
+    justify-content: center; /* Center the buttons horizontally */
+    margin-bottom: 20px;
+}
+.move-type-button:hover {
+    background-color: #ececec;
+}
+
+.move-type-button.active {
+    background-color: #ff8c00;
+    color: #fff;
+    border-color: #ff8c00;
+}
 .move-options select,
 .move-options input {
     display: block;
