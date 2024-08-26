@@ -13,7 +13,7 @@ const defaultCenter = {
 
 const mapId = '18b403a38f0b2a2'; // Replace this with your actual Map ID
 
-const GoogleMapComponent = ({ onPlaceSelected, status }) => {
+const GoogleMapComponent = ({ onPlaceSelected }) => {
     const [autocomplete, setAutocomplete] = useState(null);
     const [center, setCenter] = useState(defaultCenter); // State to manage the map's center
     const [markerPosition, setMarkerPosition] = useState(null); // State to manage the marker position

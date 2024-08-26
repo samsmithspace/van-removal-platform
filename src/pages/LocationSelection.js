@@ -32,7 +32,7 @@ const LocationSelection = () => {
             <div className="start-location-section">
                 <h2>What's the Start Location?</h2>
                 <GoogleMapComponent
-                    status="start"
+
                     onPlaceSelected={handleStartLocationSelected}
                 />
             </div>
@@ -41,7 +41,7 @@ const LocationSelection = () => {
             <div className={`destination-location-section ${startLocation ? 'slide-up' : ''}`}>
                 <h2>Where do You Want to Move?</h2>
                 <GoogleMapComponent
-                    status="destination"
+
                     onPlaceSelected={handleDestinationLocationSelected}
                 />
             </div>
