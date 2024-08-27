@@ -3,10 +3,12 @@ import { GoogleMap, useJsApiLoader, Autocomplete } from '@react-google-maps/api'
 import './GoogleMapComponent.css';
 
 const libraries = ['places', 'marker'];
+
 const defaultCenter = {
     lat: 55.953251,
     lng: -3.188267
 };
+
 const mapId = '18b403a38f0b2a2'; // Replace this with your actual Map ID
 
 const GoogleMapComponent = ({ onPlaceSelected }) => {
@@ -16,7 +18,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
     const [postcode, setPostcode] = useState('');
     const [addresses, setAddresses] = useState([]);
 
-    // Access environment variables
+
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const getAddressApiKey = process.env.REACT_APP_GETADDRESS_API_KEY;
 
@@ -25,6 +27,39 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
         libraries,
         id: 'google-map-script',
     });
+
+    // Load the getAddress.io script dynamically
+    useEffect(() => {
+        const script = document.createElement('script');
+        script.src = "https://cdn.getaddress.io/scripts/getaddress-find-2.0.0.min.js";
+        script.async = true;
+        script.onload = () => {
+            window.getAddress.find("getaddress-container", getAddressApiKey);
+        };
+        document.body.appendChild(script);
+
+        // Cleanup script from the DOM
+        return () => {
+            document.body.removeChild(script);
+        };
+    }, [getAddressApiKey]);
+
+    useEffect(() => {
+        // Handle the address selected event
+        const handleAddressSelected = (e) => {
+            const address = e.detail.address;
+            const latLng = { lat: address.latitude, lng: address.longitude };
+            setCenter(latLng);
+            setMarkerPosition(latLng);
+
+        };
+
+        document.addEventListener("getaddress-address-selected", handleAddressSelected);
+
+        return () => {
+            document.removeEventListener("getaddress-address-selected", handleAddressSelected);
+        };
+    }, []);
 
     const onLoad = useCallback((autocompleteInstance) => {
         setAutocomplete(autocompleteInstance);
@@ -42,7 +77,6 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
             setMarkerPosition(location);
             onPlaceSelected(place);
 
-            // Extract postcode if available
             const addressComponents = place.address_components;
             const postalCodeComponent = addressComponents.find(component => component.types.includes("postal_code"));
             if (postalCodeComponent) {
@@ -56,12 +90,11 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
 
     useEffect(() => {
         if (postcode) {
-            // Fetch addresses for the postcode using GetAddress.io
-            fetch(`https://api.getAddress.io/find/${postcode}?api-key=${getAddressApiKey}`)
+            fetch(`https://api.getAddress.io/autocomplete/${postcode}?api-key=${getAddressApiKey}`)
                 .then(response => response.json())
                 .then(data => {
-                    if (data.addresses) {
-                        setAddresses(data.addresses);
+                    if (data.suggestions) {  // Corrected data structure to use 'suggestions'
+                        setAddresses(data.suggestions.map(suggestion => suggestion.address));  // Extract addresses from suggestions
                     } else {
                         setAddresses([]);
                     }
@@ -92,13 +125,15 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                 </Autocomplete>
             </div>
 
+            <div id="getaddress-container"></div> {/* Container for getAddress.io lookup */}
+
             {postcode && addresses.length > 0 && (
                 <div className="address-dropdown">
                     <select>
                         <option value="">Select an address...</option>
                         {addresses.map((address, index) => (
                             <option key={index} value={address}>
-                                {address}
+                                {address.replace(/,/g, ', ')}
                             </option>
                         ))}
                     </select>
@@ -123,6 +158,8 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                     />
                 </div>
             )}
+
+
         </>
     );
 };
