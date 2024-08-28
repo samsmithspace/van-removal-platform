@@ -7,15 +7,28 @@ const LocationSelection = () => {
     const [startLocation, setStartLocation] = useState(null);
     const [destinationLocation, setDestinationLocation] = useState(null);
     const navigate = useNavigate(); // Initialize useNavigate hook
-
+    const isDevelopMode = process.env.REACT_APP_MODE === 'develop';
     // Handle the selection of the start location
     const handleStartLocationSelected = (place) => {
-        setStartLocation(place.formatted_address || place.name);
-    };
 
+        if(isDevelopMode) {
+            setStartLocation(place.formatted_address || place.name);
+        }else{
+            setStartLocation(place);
+        }
+
+
+    };
     // Handle the selection of the destination location
     const handleDestinationLocationSelected = (place) => {
+        //setDestinationLocation(place);
         setDestinationLocation(place.formatted_address || place.name);
+        if(isDevelopMode) {
+            setDestinationLocation(place.formatted_address || place.name);
+        }else{
+            setDestinationLocation(place);
+        }
+
     };
 
     const handleConfirm = () => {
@@ -32,7 +45,6 @@ const LocationSelection = () => {
             <div className="start-location-section">
                 <h2>What's the Start Location?</h2>
                 <GoogleMapComponent
-
                     onPlaceSelected={handleStartLocationSelected}
                 />
             </div>
@@ -41,7 +53,6 @@ const LocationSelection = () => {
             <div className={`destination-location-section ${startLocation ? 'slide-up' : ''}`}>
                 <h2>Where do You Want to Move?</h2>
                 <GoogleMapComponent
-
                     onPlaceSelected={handleDestinationLocationSelected}
                 />
             </div>
