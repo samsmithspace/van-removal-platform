@@ -21,7 +21,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
 
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const getAddressApiKey = process.env.REACT_APP_GETADDRESS_API_KEY;
-
+    const isDevelopMode = process.env.REACT_APP_MODE === 'develop';
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: googleMapsApiKey,
         libraries,
@@ -75,7 +75,12 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
             };
             setCenter(location);
             setMarkerPosition(location);
-            onPlaceSelected(place);
+
+            if(isDevelopMode){
+
+                onPlaceSelected(place);
+            }
+            //
 
             const addressComponents = place.address_components;
             const postalCodeComponent = addressComponents.find(component => component.types.includes("postal_code"));
@@ -86,10 +91,10 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
         } else {
             console.log('Autocomplete is not loaded yet!');
         }
-    }, [autocomplete, onPlaceSelected]);
+    }, [autocomplete,onPlaceSelected,isDevelopMode]);
 
     useEffect(() => {
-        if (postcode) {
+        if (postcode && !isDevelopMode) {
             fetch(`https://api.getAddress.io/autocomplete/${postcode}?api-key=${getAddressApiKey}`)
                 .then(response => response.json())
                 .then(data => {
@@ -103,8 +108,16 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                     console.error('Error fetching addresses:', error);
                 });
         }
-    }, [postcode, getAddressApiKey]);
-
+    }, [postcode, getAddressApiKey,isDevelopMode]);
+    const handleAddressChange = useCallback((event) => {
+        const selectedAddress = event.target.value;
+        console.log('Selected address:', selectedAddress); // Debugging log
+        if (selectedAddress) {
+            onPlaceSelected(selectedAddress); // Pass the selected address to onPlaceSelected
+        } else {
+            console.log('No address selected or address is empty.');
+        }
+    }, [onPlaceSelected]);
     if (loadError) {
         return <div>Error loading Google Maps</div>;
     }
@@ -113,7 +126,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
         return <div>Loading...</div>;
     }
 
-    return (
+            return (
         <>
             <div className="map-input-container">
                 <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} className="map-autocomplete">
@@ -125,12 +138,10 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                 </Autocomplete>
             </div>
 
-            <div id="getaddress-container"></div> {/* Container for getAddress.io lookup */}
-
-            {postcode && addresses.length > 0 && (
+            {postcode && process.env.REACT_APP_MODE==="production" && addresses.length > 0 && (
                 <div className="address-dropdown">
-                    <select>
-                        <option value="">Select an address...</option>
+                    <select className="select" onChange={handleAddressChange}>
+                        <option value="">Click here to select detailed address...</option>
                         {addresses.map((address, index) => (
                             <option key={index} value={address}>
                                 {address.replace(/,/g, ', ')}
