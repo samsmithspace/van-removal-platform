@@ -8,17 +8,17 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
     const [distance, setDistance] = useState(null);
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
     const [price, setPrice] = useState('');
+    const [helperprice,setHelperprice] = useState('');
 
     // Load Google Maps API using useJsApiLoader hook
     const { isLoaded, loadError } = useJsApiLoader({
-        googleMapsApiKey: 'AIzaSyD5ZobmBfo03nJrlBKJ-vrTmeGpT8yqSxQ', // Replace with your actual Google Maps API key
+        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your actual Google Maps API key
         libraries,
     });
 
     useEffect(() => {
         if (isLoaded && start && dest) {
             const service = new window.google.maps.DistanceMatrixService();
-
             // Wrap getDistanceMatrix in a Promise
             const getDistance = () => {
                 return new Promise((resolve, reject) => {
@@ -62,7 +62,7 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
         };
 
         try {
-            const response = await fetch(`https://van-backend-2niq.onrender.com/api/bookings`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -74,6 +74,7 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                 const data = await response.json();
                 console.log('Booking saved:', data);
                 setPrice(data.booking.price);
+                setHelperprice(data.booking.helperprice);
                 bookid(data.booking._id);
             } else {
                 console.error('Error saving booking:', response.statusText);
@@ -145,7 +146,8 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                 )}
                 {hideConfirmButton && (
                     <div className="pricetag">
-                        <p>Your estimated price: {price} £</p>
+                        <p>Your estimated price (VAT included): £{price}</p>
+                        <p>Your estimated price with a helper (VAT included): £{helperprice}</p>
                     </div>
                 )}
             </div>

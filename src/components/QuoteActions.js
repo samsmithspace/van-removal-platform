@@ -23,7 +23,7 @@ const QuoteActions = ({ bookingId, onSubmit }) => {
         e.preventDefault();
 
         try {
-            const response = await fetch(`https://van-backend-2niq.onrender.com/api/bookings/${bookingId}/contact`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/contact`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
