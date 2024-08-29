@@ -11,6 +11,13 @@
     color: #ff8c00;
     margin-bottom: 15px;
 }
+.loader {
+    font-size: 1.2rem;
+    color: #666;
+    text-align: center;
+    margin-top: 20px;
+}
+
 .quote-summary h1 {
     color: #fa7731; /* Change this to your desired color */
     font-family: 'Josefin Sans', sans-serif; /* Apply the Google Font */
