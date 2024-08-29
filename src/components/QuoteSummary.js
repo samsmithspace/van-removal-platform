@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import './QuoteSummary.css';
 import { useJsApiLoader } from '@react-google-maps/api';
 
 const libraries = ['places', 'marker'];
 
-const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail, bookid }) => {
+const QuoteSummary = forwardRef(({ moveType, details, date, time, start, dest, confirmDetail, bookid }, ref) => {
     const [distance, setDistance] = useState(null);
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
     const [price, setPrice] = useState('');
@@ -16,6 +16,18 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your actual Google Maps API key
         libraries,
     });
+
+    // Function to be called by the parent
+    const childFunction = () => {
+        //alert('Child function called due to parent variable change!');
+        // Any other logic can go here
+        setHideConfirmButton(false);
+    };
+
+    // Expose childFunction to parent component using ref
+    useImperativeHandle(ref, () => ({
+        childFunction
+    }));
 
     useEffect(() => {
         if (isLoaded && start && dest) {
@@ -74,6 +86,8 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                 setHelperprice(data.booking.helperprice);
                 if (data.booking.helperprice <= 60) {
                     setDisplayhelper(false);
+                }else{
+                    setDisplayhelper(true);
                 }
                 bookid(data.booking._id);
             } else {
@@ -162,6 +176,6 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
             </div>
         </section>
     );
-};
+});
 
 export default QuoteSummary;

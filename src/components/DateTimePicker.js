@@ -1,20 +1,20 @@
 import React, { useState } from 'react';
 import './DateTimePicker.css';
 
-const DateTimePicker = ({ onDateTimeChange }) => {
+const DateTimePicker = ({ onDateChange,onTimeChange }) => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
 
     const handleDateChange = (e) => {
         const newDate = e.target.value;
         setDate(newDate);
-        //onDateTimeChange(newDate, time);
+        onDateChange(newDate);
     };
 
     const handleTimeChange = (e) => {
         const newTime = e.target.value;
         setTime(newTime);
-        onDateTimeChange(date, newTime);
+        onTimeChange(newTime);
     };
 
     return (
