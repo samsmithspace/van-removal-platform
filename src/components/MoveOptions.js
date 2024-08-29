@@ -11,7 +11,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         { boxSize: 'large (or heavier than 20 kg)', numberOfBoxes: 0 },
     ]);
     const [liftAvailable, setLiftAvailable] = useState(false);
-    const [numberOfStairs, setNumberOfStairs] = useState(0);
+    const [numberOfStairs, setNumberOfStairs] = useState('');
     const [specialItems, setSpecialItems] = useState([]);
 
     const handleDateTimeChange = (date, time) => {
@@ -24,23 +24,33 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         onMoveTypeChange(type);
     };
 
-    const handleBoxDetailsChange = (index, e) => {
-        const { name, value } = e.target;
+    const handleBoxDetailsChange = (index, value) => {
         const newBoxDetails = [...boxDetails];
-        newBoxDetails[index][name] = parseInt(value, 10);
+        newBoxDetails[index].numberOfBoxes = value;
         setBoxDetails(newBoxDetails);
         onDetailsChange({ boxDetails: newBoxDetails, liftAvailable, numberOfStairs, specialItems });
+    };
+
+    const incrementBoxCount = (index) => {
+        handleBoxDetailsChange(index, boxDetails[index].numberOfBoxes + 1);
+    };
+
+    const decrementBoxCount = (index) => {
+        if (boxDetails[index].numberOfBoxes > 0) {
+            handleBoxDetailsChange(index, boxDetails[index].numberOfBoxes - 1);
+        }
     };
 
     const handleLiftAvailabilityChange = (e) => {
         const isLiftAvailable = e.target.checked;
         setLiftAvailable(isLiftAvailable);
-        setNumberOfStairs(0); // Reset stairs if lift becomes available
+        setNumberOfStairs(''); // Reset stairs if lift becomes available
         onDetailsChange({ boxDetails, liftAvailable: isLiftAvailable, numberOfStairs, specialItems });
     };
 
     const handleNumberOfStairsChange = (e) => {
-        const stairs = parseInt(e.target.value, 10);
+        const value = e.target.value;
+        const stairs = value === '' ? '' : parseInt(value, 10); // Allow empty string for deletable state
         setNumberOfStairs(stairs);
         onDetailsChange({ boxDetails, liftAvailable, numberOfStairs: stairs, specialItems });
     };
@@ -75,13 +85,30 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                         <div key={index} className="box-detail">
                             <label>
                                 {boxDetail.boxSize.charAt(0).toUpperCase() + boxDetail.boxSize.slice(1)}:
-                                <input
-                                    type="number"
-                                    name="numberOfBoxes"
-                                    value={boxDetail.numberOfBoxes}
-                                    onChange={(e) => handleBoxDetailsChange(index, e)}
-                                    min="0"
-                                />
+                                <div className="input-group">
+                                    <input
+                                        className="numberinput"
+                                        type="number"
+                                        name="numberOfBoxes"
+                                        value={boxDetail.numberOfBoxes === 0 ? '' : boxDetail.numberOfBoxes}
+                                        onChange={(e) => handleBoxDetailsChange(index, e.target.value === '' ? '' : parseInt(e.target.value, 10))}
+                                        min="0"
+                                    />
+                                    <button
+                                        type="button"
+                                        className="increment-button"
+                                        onClick={() => incrementBoxCount(index)}
+                                    >
+                                        +
+                                    </button>
+                                    <button
+                                        type="button"
+                                        className="decrement-button"
+                                        onClick={() => decrementBoxCount(index)}
+                                    >
+                                        -
+                                    </button>
+                                </div>
                             </label>
                         </div>
                     ))}
@@ -99,13 +126,15 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                         <div className="stairs-input">
                             <label>
                                 Number of Stairs:
-                                <input
-                                    type="number"
-                                    name="numberOfStairs"
-                                    value={numberOfStairs}
-                                    onChange={handleNumberOfStairsChange}
-                                    min="0"
-                                />
+                                <div className="input-group">
+                                    <input
+                                        type="number"
+                                        name="numberOfStairs"
+                                        value={numberOfStairs === 0 ? '' : numberOfStairs}
+                                        onChange={handleNumberOfStairsChange}
+                                        min="0"
+                                    />
+                                </div>
                             </label>
                         </div>
                     )}

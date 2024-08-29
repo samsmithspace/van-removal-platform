@@ -8,7 +8,7 @@ const DateTimePicker = ({ onDateTimeChange }) => {
     const handleDateChange = (e) => {
         const newDate = e.target.value;
         setDate(newDate);
-        onDateTimeChange(newDate, time);
+        //onDateTimeChange(newDate, time);
     };
 
     const handleTimeChange = (e) => {

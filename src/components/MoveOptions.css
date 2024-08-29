@@ -9,23 +9,73 @@
     color: #ff8c00;
     margin-bottom: 10px;
 }
+
+.input-group {
+    position: relative;
+    display: inline-block;
+
+    align-items: center; /* Align input and buttons vertically center */
+    gap: 5px; /* Add gap between input and buttons */
+}
+
+.numberinput {
+    width: 50px; /* Width of the input field */
+    text-align: left;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    flex-grow: 1; /* Allow input to grow */
+}
+
+.increment-button{
+    position: absolute;
+    width: 45px;
+    height: 50px;
+    top: 11px;
+    right: 45px;
+    border:none;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    cursor: pointer;
+
+}
+.decrement-button {
+    position: absolute;
+    width: 45px;
+    height: 50px;
+    top: 11px;
+    right: 1px;
+    background-color: #f9f9f9;
+    border:none;
+    border-color: #ddc8c8;
+
+    cursor: pointer;
+
+}
+
+.increment-button:hover,
+.decrement-button:hover {
+    background-color: #ddd;
+}
+
 .move-type-button {
     padding: 10px 20px;
     font-size: 1.5rem;
     border: 1px solid #ccc;
     height: 140px;
-
     border-radius: 9px;
     cursor: pointer;
     background-color: #f9f9f9;
     transition: background-color 0.3s ease;
 }
+
 .button-group {
     display: flex;
     gap: 20px;
     justify-content: center; /* Center the buttons horizontally */
     margin-bottom: 20px;
 }
+
 .move-type-button:hover {
     background-color: #ececec;
 }
@@ -35,6 +85,7 @@
     color: #fff;
     border-color: #ff8c00;
 }
+
 .move-options select,
 .move-options input {
     display: block;
