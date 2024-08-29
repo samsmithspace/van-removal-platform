@@ -14,8 +14,12 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
     const [numberOfStairs, setNumberOfStairs] = useState('');
     const [specialItems, setSpecialItems] = useState([]);
 
-    const handleDateTimeChange = (date, time) => {
+    const handleDateChange = (date) => {
         onDateChange(date);
+
+    };
+    const handleTimeChange = (time) => {
+
         onTimeChange(time);
     };
 
@@ -140,7 +144,8 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                     )}
 
                     <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
-                    <DateTimePicker onDateTimeChange={handleDateTimeChange} />
+                    <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
+
                 </div>
             )}
         </div>

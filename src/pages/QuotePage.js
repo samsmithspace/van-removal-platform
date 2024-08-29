@@ -18,23 +18,38 @@ const QuotePage = () => {
 
     const quoteActionsRef = useRef(null); // Create a ref for the QuoteActions component
 
+    const childRef = useRef();
+    const [parentVariable, setParentVariable] = useState(0);
+
+    useEffect(() => {
+        if (childRef.current) {
+            childRef.current.childFunction();
+        }
+    }, [parentVariable]);
+
+
     const handleMoveTypeChange = (selectedMoveType) => {
         setMoveType(selectedMoveType);
+
     };
     const handelbookingid = (bookingid)=>{
         setbookingid(bookingid)
     }
     const handleDetailsChange = (details) => {
         setMoveDetails(details);
+        setParentVariable((prev) => prev + 1);
     };
 
     const handleDateChange = (date) => {
         setDate(date);
+        setParentVariable((prev) => prev + 1);
     };
 
     const handleTimeChange = (time) => {
         setTime(time);
         setDisplaySummary(true);
+        setParentVariable((prev) => prev + 1);
+
     };
 
     const confirmDetailHandler = () => {
@@ -84,6 +99,7 @@ const QuotePage = () => {
                         dest={destinationLocation}
                         confirmDetail={confirmDetailHandler}
                         bookid={handelbookingid}
+                        ref={childRef}
                     />
                 )}
             </div>
