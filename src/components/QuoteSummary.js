@@ -9,7 +9,7 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
     const [price, setPrice] = useState('');
     const [helperprice,setHelperprice] = useState('');
-
+    const [displayhelper,setDisplayhelper] = useState(true);
     // Load Google Maps API using useJsApiLoader hook
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your actual Google Maps API key
@@ -75,6 +75,10 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                 console.log('Booking saved:', data);
                 setPrice(data.booking.price);
                 setHelperprice(data.booking.helperprice);
+                console.log(data.booking.helperprice);
+                if(data.booking.helperprice<=60){
+                    setDisplayhelper(false);
+                }
                 bookid(data.booking._id);
             } else {
                 console.error('Error saving booking:', response.statusText);
@@ -85,6 +89,8 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
 
         // Hide the confirm button
         setHideConfirmButton(true);
+
+
     };
 
     if (loadError) {
@@ -147,7 +153,10 @@ const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetai
                 {hideConfirmButton && (
                     <div className="pricetag">
                         <p>Your estimated price (VAT included): £{price}</p>
-                        <p>Your estimated price with a helper (VAT included): £{helperprice}</p>
+                        {displayhelper &&
+                            (<p>Your estimated price with a helper (VAT included): £{helperprice}</p>)
+                        }
+
                     </div>
                 )}
             </div>
