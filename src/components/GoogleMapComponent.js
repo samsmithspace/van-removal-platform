@@ -25,7 +25,6 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: googleMapsApiKey,
         libraries,
-        id: 'google-map-script',
     });
 
     // Load the getAddress.io script dynamically

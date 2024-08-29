@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './QuoteSummary.css';
 import { useJsApiLoader } from '@react-google-maps/api';
 
-const libraries = ['places'];
+const libraries = ['places', 'marker'];
 
 const QuoteSummary = ({ moveType, details, date, time, start, dest, confirmDetail, bookid }) => {
     const [distance, setDistance] = useState(null);
