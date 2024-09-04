@@ -2,15 +2,15 @@ import React, { useState } from 'react';
 import './QuoteActions.css';
 import { useNavigate } from 'react-router-dom';
 
-const QuoteActions = ({ bookingId, onSubmit }) => {
+const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: ''
     });
-
+    const [displayprice, setDisplayprice] = useState(false);
     const navigate = useNavigate(); // Initialize useNavigate hook
-
+    const [data, setData] = useState({});
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -18,7 +18,9 @@ const QuoteActions = ({ bookingId, onSubmit }) => {
             [name]: value
         });
     };
-
+    const handlefinalsub = async () => {
+        navigate('/booking-result', { state: { bookingDetails: data.booking } }); // Navigate to booking result page
+    }
     const handleSubmit = async (e) => {
         e.preventDefault();
 
@@ -34,9 +36,10 @@ const QuoteActions = ({ bookingId, onSubmit }) => {
             if (response.ok) {
                 const data = await response.json();
                 console.log('Contact information added:', data);
+                setData(data);
+                //onSubmit();
+                setDisplayprice(true);
 
-                onSubmit(formData);
-                navigate('/booking-result', { state: { bookingDetails: data.booking } }); // Navigate to booking result page
             } else {
                 console.error('Error updating booking:', response.statusText);
             }
@@ -83,8 +86,28 @@ const QuoteActions = ({ bookingId, onSubmit }) => {
                         required
                     />
                 </div>
+                {!displayprice && (
                 <button type="submit" className="submit-button">Confirm</button>
+                )}
             </form>
+            {displayprice && (
+                <div>
+                    <div className="pricetag">
+                        {price === '' ? (
+                            <div className="loader">Calculating price...</div> // Display a loader if price is empty
+                        ) : (
+                            <>
+                                <p>Your estimated price (VAT included): £{price}</p>
+                                {displayhelper && (
+                                    <p>Your estimated price with a helper (VAT included): £{helperprice}</p>
+                                )}
+                            </>
+                        )}
+                    </div>
+                    <button className="submit-button2" onClick={handlefinalsub}>Book</button>
+                </div>
+
+            )}
         </footer>
     );
 };
