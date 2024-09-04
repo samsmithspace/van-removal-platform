@@ -1,16 +1,17 @@
 import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'react';
 import './QuoteSummary.css';
 import { useJsApiLoader } from '@react-google-maps/api';
-
+import QuoteActions from '../components/QuoteActions';
 const libraries = ['places', 'marker'];
 
-const QuoteSummary = forwardRef(({ moveType, details, date, time, start, dest, confirmDetail, bookid }, ref) => {
+const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, start, dest, confirmDetail}, ref) => {
     const [distance, setDistance] = useState(null);
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
     const [price, setPrice] = useState('');
     const [helperprice, setHelperprice] = useState('');
     const [displayhelper, setDisplayhelper] = useState(true);
-
+    const [bid1,setbid1]=useState('');
+    //const [contactsumb, setContactsumb] = useState(false);
     // Load Google Maps API using useJsApiLoader hook
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY, // Replace with your actual Google Maps API key
@@ -52,10 +53,28 @@ const QuoteSummary = forwardRef(({ moveType, details, date, time, start, dest, c
             };
 
             getDistance()
-                .then(distance => setDistance(distance))
+                .then(distanceText => {
+                    const convertedDistance = convertDistanceToMiles(distanceText); // Convert the distance to miles
+                    setDistance(convertedDistance);
+                })
                 .catch(error => console.error(error));
         }
     }, [isLoaded, start, dest]);
+    const convertDistanceToMiles = (distanceText) => {
+        const distanceParts = distanceText.split(' ');
+        const distanceValue = parseFloat(distanceParts[0]);
+        const distanceUnit = distanceParts[1];
+
+        if (distanceUnit === 'km') {
+            const distanceInMiles = distanceValue * 0.621371; // Convert km to miles
+            return `${distanceInMiles.toFixed(1)} mi`;
+        } else if (distanceUnit === 'm') {
+            const distanceInMiles = distanceValue * 0.000621371; // Convert meters to miles
+            return `${distanceInMiles.toFixed(1)} mi`;
+        } else {
+            return distanceText; // Already in miles or unrecognized unit
+        }
+    };
 
     const confirm = async () => {
         confirmDetail();
@@ -89,14 +108,16 @@ const QuoteSummary = forwardRef(({ moveType, details, date, time, start, dest, c
                 }else{
                     setDisplayhelper(true);
                 }
-                bookid(data.booking._id);
+
+                setbid1(data.booking._id);
+
             } else {
                 console.error('Error saving booking:', response.statusText);
             }
         } catch (error) {
             console.error('Error sending data to backend:', error);
         }
-
+        hideoptions();
         setHideConfirmButton(true);
     };
 
@@ -160,22 +181,18 @@ const QuoteSummary = forwardRef(({ moveType, details, date, time, start, dest, c
                 )}
 
                 {hideConfirmButton && (
-                    <div className="pricetag">
-                        {price === '' ? (
-                            <div className="loader">Calculating price...</div> // Display a loader if price is empty
-                        ) : (
-                            <>
-                                <p>Your estimated price (VAT included): £{price}</p>
-                                {displayhelper && (
-                                    <p>Your estimated price with a helper (VAT included): £{helperprice}</p>
-                                )}
-                            </>
-                        )}
+                    <div>
+                        <div>
+                            <QuoteActions bookingId={bid1} price={price} helperprice={helperprice} dispalyhelperprice={displayhelper} />
+                        </div>
+
                     </div>
-                )}
-            </div>
-        </section>
-    );
+            )}
+
+        </div>
+</section>
+)
+    ;
 });
 
 export default QuoteSummary;

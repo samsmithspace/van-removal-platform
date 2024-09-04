@@ -2,7 +2,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import LocationSummary from '../components/LocationSummary';
 import QuoteSummary from '../components/QuoteSummary';
-import QuoteActions from '../components/QuoteActions';
+//import QuoteActions from '../components/QuoteActions';
 import MoveOptions from '../components/MoveOptions';
 import '../components/QuotePage.css';
 
@@ -13,8 +13,8 @@ const QuotePage = () => {
     const [date, setDate] = useState('');
     const [time, setTime] = useState('');
     const [displaySummary, setDisplaySummary] = useState(false);
-
-    const [bookingid,setbookingid]=useState('');
+    const [displayoptions,setdisplayoptions]=useState(true);
+    //const [bookingid,setbookingid]=useState('');
 
     const quoteActionsRef = useRef(null); // Create a ref for the QuoteActions component
 
@@ -32,9 +32,9 @@ const QuotePage = () => {
         setMoveType(selectedMoveType);
 
     };
-    const handelbookingid = (bookingid)=>{
-        setbookingid(bookingid)
-    }
+    //const handelbookingid = (bookingid)=>{
+    //    setbookingid(bookingid)
+    //}
     const handleDetailsChange = (details) => {
         setMoveDetails(details);
         setParentVariable((prev) => prev + 1);
@@ -65,23 +65,28 @@ const QuotePage = () => {
     const location = useLocation();
     const { startLocation, destinationLocation } = location.state || {};
 
-    const handleFormSubmit = (formData) => {
-        console.log('Form Submitted:', formData);
+   // const handleFormSubmit = (formData) => {
+   //     console.log('Form Submitted:', formData);
         // You can now send the formData to your backend or process it as needed
-    };
+  //  };
 
-
+    const hideoptions = () =>{
+        setdisplayoptions(false);
+    }
     return (
         <div className="quote-page">
-            <header className="quote-header">
+            {displayoptions&& (<header className="quote-header">
                 <h2>Details</h2>
                 <LocationSummary
                     startLocation={startLocation}
                     destinationLocation={destinationLocation}
                 />
-            </header>
+            </header>)}
+
 
             <div>
+                {displayoptions&& (
+                <div>
                 <h1>Items</h1>
                 <MoveOptions
                     onMoveTypeChange={handleMoveTypeChange}
@@ -89,8 +94,11 @@ const QuotePage = () => {
                     onDateChange={handleDateChange}
                     onTimeChange={handleTimeChange}
                 />
+                </div>
+                )}
                 {displaySummary && (
                     <QuoteSummary
+                        hideoptions={hideoptions}
                         moveType={moveType}
                         details={moveDetails}
                         date={date}
@@ -98,15 +106,16 @@ const QuotePage = () => {
                         start={startLocation}
                         dest={destinationLocation}
                         confirmDetail={confirmDetailHandler}
-                        bookid={handelbookingid}
+                        //bookid={handelbookingid}
                         ref={childRef}
+
                     />
                 )}
             </div>
 
             {confirmDetail && (
                 <div ref={quoteActionsRef}>
-                    <QuoteActions bookingId={bookingid} onSubmit={handleFormSubmit} />
+
                 </div>
             )}
         </div>
