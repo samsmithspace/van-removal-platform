@@ -1,25 +1,66 @@
+/* DateTimePicker.css */
+
+/* Ensure the picker is responsive */
+.rdtPicker {
+    max-height: 300px;
+    overflow-y: auto;
+    background-color: white;
+    z-index: 1000;
+}
+
+.rdtDisabled {
+    pointer-events: none;
+    color: #d3d3d3;
+}
+
 .date-time-picker {
-    background-color: rgba(200, 200, 200, 0.3); /* Light gray background */
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+    position: relative;
+    z-index: 1000;
 }
 
-.form-group {
-    margin-bottom: 15px;
+
+/* Styling for smaller devices */
+@media (max-width: 600px) {
+    .date-time-picker {
+        padding: 8px;
+        font-size: 16px; /* Adjust font size for readability on smaller screens */
+    }
+
+    /* Ensure input fields and picker fit the width */
+    .form-group input,
+    .form-group .rdtPicker {
+        width: 100%;
+        box-sizing: border-box; /* Include padding and border in the element's total width and height */
+    }
+
+    /* Adjust DateTime picker styles for small screens */
+    .rdtPicker {
+        width: 100% !important; /* Ensure the picker width is 100% of the parent */
+        max-width: 400px; /* Limit max-width */
+        position: fixed; /* Prevent overflow by using fixed positioning */
+        bottom: 0; /* Position at the bottom for easy accessibility */
+        left: 0;
+        right: 0;
+        margin: auto; /* Center align the picker */
+        z-index: 1000; /* Ensure it's on top of other elements */
+    }
+
+    .rdtPicker td.rdtDay:hover,
+    .rdtPicker td.rdtDay.selected {
+        background-color: #007bff;
+        color: white;
+    }
+
+    .rdtTime td {
+        width: 100%; /* Full width for better touch accuracy */
+    }
 }
 
-.form-group label {
-    display: block;
-    font-size: 1rem;
-    color: #333;
-    margin-bottom: 5px;
+
+
+.rdtTimeOption {
+    padding: 5px 10px;
+    cursor: pointer;
 }
 
-.form-group input {
-    width: 100%;
-    padding: 8px;
-    box-sizing: border-box;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
+
