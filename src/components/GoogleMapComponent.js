@@ -22,6 +22,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
     const googleMapsApiKey = process.env.REACT_APP_GOOGLE_MAPS_API_KEY;
     const getAddressApiKey = process.env.REACT_APP_GETADDRESS_API_KEY;
     const isDevelopMode = process.env.REACT_APP_MODE === 'develop';
+    //const isDevelopMode = true;
     const { isLoaded, loadError } = useJsApiLoader({
         googleMapsApiKey: googleMapsApiKey,
         libraries,
@@ -141,7 +142,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
 
             {postcode && process.env.REACT_APP_MODE==="production" && addresses.length > 0 && (
                 <div className="address-dropdown">
-                    <select className="select" onChange={handleAddressChange}>
+                    <select className="select" onChange={handleAddressChange} style={{ textDecoration: 'underline' }}>
                         <option value="">Click here to select detailed address...</option>
                         {addresses.map((address, index) => (
                             <option key={index} value={address}>
