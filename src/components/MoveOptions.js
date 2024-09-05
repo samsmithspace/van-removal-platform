@@ -9,17 +9,19 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         { boxSize: 'small', numberOfBoxes: 0 },
         { boxSize: 'medium', numberOfBoxes: 0 },
         { boxSize: 'large (or heavier than 20 kg)', numberOfBoxes: 0 },
+        { boxSize: 'Extra large', numberOfBoxes: 0 }
     ]);
     const [liftAvailable, setLiftAvailable] = useState(false);
-    const [numberOfStairs, setNumberOfStairs] = useState('');
+    const [liftAvailabledest, setLiftAvailableright] = useState(false);
+    const [numberofstairsright, setNumberofstairsright] = useState(0);
+    const [numberOfStairs, setNumberOfStairs] = useState(0);
     const [specialItems, setSpecialItems] = useState([]);
 
     const handleDateChange = (date) => {
         onDateChange(date);
-
     };
-    const handleTimeChange = (time) => {
 
+    const handleTimeChange = (time) => {
         onTimeChange(time);
     };
 
@@ -32,7 +34,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         const newBoxDetails = [...boxDetails];
         newBoxDetails[index].numberOfBoxes = value;
         setBoxDetails(newBoxDetails);
-        onDetailsChange({ boxDetails: newBoxDetails, liftAvailable, numberOfStairs, specialItems });
+        onDetailsChange({ boxDetails: newBoxDetails, liftAvailable, numberOfStairs, specialItems, liftAvailabledest, numberofstairsright });
     };
 
     const incrementBoxCount = (index) => {
@@ -48,20 +50,34 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
     const handleLiftAvailabilityChange = (e) => {
         const isLiftAvailable = e.target.checked;
         setLiftAvailable(isLiftAvailable);
-        setNumberOfStairs(''); // Reset stairs if lift becomes available
-        onDetailsChange({ boxDetails, liftAvailable: isLiftAvailable, numberOfStairs, specialItems });
+        //setNumberOfStairs(''); // Reset stairs if lift becomes available
+        onDetailsChange({ boxDetails, liftAvailable: isLiftAvailable, numberOfStairs, specialItems, liftAvailabledest, numberofstairsright });
+    };
+
+    const handleLiftAvailabilityrightChange = (e) => {
+        const isLiftAvailabler = e.target.checked;
+        setLiftAvailableright(isLiftAvailabler);
+        //setNumberOfStairs(''); // Reset stairs if lift becomes available
+        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs, specialItems, liftAvailabledest: isLiftAvailabler, numberofstairsright });
     };
 
     const handleNumberOfStairsChange = (e) => {
         const value = e.target.value;
         const stairs = value === '' ? '' : parseInt(value, 10); // Allow empty string for deletable state
         setNumberOfStairs(stairs);
-        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs: stairs, specialItems });
+        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs: stairs, specialItems, liftAvailabledest, numberofstairsright });
+    };
+
+    const handleNumberOfStairsChangeright = (e) => {
+        const value = e.target.value;
+        const stairsdest = value === '' ? '' : parseInt(value, 10); // Allow empty string for deletable state
+        setNumberofstairsright(stairsdest);
+        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs, specialItems, liftAvailabledest, numberofstairsright: stairsdest });
     };
 
     const handleSpecialItemsChange = (items) => {
         setSpecialItems(items);
-        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs, specialItems: items });
+        onDetailsChange({ boxDetails, liftAvailable, numberOfStairs, specialItems: items, liftAvailabledest, numberofstairsright });
     };
 
     return (
@@ -116,36 +132,64 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             </label>
                         </div>
                     ))}
-                    <label>
-                        Lift Available:
-                        <input
-                            type="checkbox"
-                            name="liftAvailable"
-                            checked={liftAvailable}
-                            onChange={handleLiftAvailabilityChange}
-                        />
-                    </label>
 
-                    {!liftAvailable && (
-                        <div className="stairs-input">
+                    {/* Grouped elements for lift availability and stairs inputs */}
+                    <div className="lift-stairs-group">
+                        <div className="lift-option">
                             <label>
-                                Number of Stairs:
-                                <div className="input-group">
-                                    <input
-                                        type="number"
-                                        name="numberOfStairs"
-                                        value={numberOfStairs === 0 ? '' : numberOfStairs}
-                                        onChange={handleNumberOfStairsChange}
-                                        min="0"
-                                    />
-                                </div>
+                                Lift Available at start?
+                                <input
+                                    type="checkbox"
+                                    name="liftAvailable"
+                                    checked={liftAvailable}
+                                    onChange={handleLiftAvailabilityChange}
+                                />
                             </label>
                         </div>
-                    )}
+                        <div className="stairs-input">
+                            <label>
+                                Number of Stairs at start:
+                                <input
+                                    type="number"
+                                    name="numberOfStairs"
+                                    value={numberOfStairs === 0 ? 0 : numberOfStairs}
+                                    onChange={handleNumberOfStairsChange}
+                                    min="0"
+                                />
+                            </label>
+                        </div>
+                    </div>
+
+                    {/* Grouped elements for lift availability and stairs inputs at destination */}
+                    <div className="lift-stairs-group">
+                        <div className="lift-option">
+                            <label>
+                                Lift Available at destination?
+                                <input
+                                    type="checkbox"
+                                    name="liftAvailable"
+                                    checked={liftAvailabledest}
+                                    onChange={handleLiftAvailabilityrightChange}
+                                />
+                            </label>
+                        </div>
+                        <div className="stairs-input">
+                            <label>
+                                Number of Stairs at destination:
+                                <input
+                                    type="number"
+                                    name="numberOfStairsr"
+                                    value={numberofstairsright === 0 ? 0 : numberofstairsright}
+                                    onChange={handleNumberOfStairsChangeright}
+                                    min="0"
+                                />
+                            </label>
+                        </div>
+                    </div>
 
                     <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
-                    <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
 
+                    <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
                 </div>
             )}
         </div>
