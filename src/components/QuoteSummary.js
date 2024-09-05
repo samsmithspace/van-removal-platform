@@ -148,7 +148,9 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                                     {boxDetail.numberOfBoxes} {boxDetail.boxSize} box{boxDetail.numberOfBoxes !== 1 ? 'es' : ''}
                                 </p>
                             ))}
-                            <p>Lift Available: {details.liftAvailable ? 'Yes' : 'No'}</p>
+                            <h4>Lift Available: </h4>
+                            <p>Start: {details.liftAvailable ? 'Yes' : 'No'}, {details.numberOfStairs} Stairs.</p>
+                            <p>Destination: {details.liftAvailabledest ? 'Yes' : 'No'}, {details.numberofstairsright} Stairs.</p>
                             {!details.liftAvailable && details.numberOfStairs > 0 && (
                                 <p>Number of Stairs: {details.numberOfStairs}</p>
                             )}

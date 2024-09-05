@@ -26,7 +26,6 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
         googleMapsApiKey: googleMapsApiKey,
         libraries,
     });
-
     // Load the getAddress.io script dynamically
     useEffect(() => {
         const script = document.createElement('script');
@@ -76,38 +75,41 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
             setMarkerPosition(location);
 
             if(isDevelopMode){
-
                 onPlaceSelected(place);
             }
-            //
 
             const addressComponents = place.address_components;
             const postalCodeComponent = addressComponents.find(component => component.types.includes("postal_code"));
+
             if (postalCodeComponent) {
                 const extractedPostcode = postalCodeComponent.long_name;
-                setPostcode(extractedPostcode);
+                setPostcode(extractedPostcode); // This will update the postcode state asynchronously
+
+                // Move the fetch call inside the postcode state update block
+                if (!isDevelopMode) {
+                    fetch(`https://api.getAddress.io/autocomplete/${extractedPostcode}?api-key=${getAddressApiKey}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.suggestions) {
+                                setAddresses(data.suggestions.map(suggestion => suggestion.address));
+                            } else {
+                                setAddresses([]);
+                            }
+                        })
+                        .catch(error => {
+                            console.error('Error fetching addresses:', error);
+                        });
+                }
+            } else {
+                console.log('Postal code not found.');
             }
         } else {
             console.log('Autocomplete is not loaded yet!');
         }
-    }, [autocomplete,onPlaceSelected,isDevelopMode]);
+    }, [getAddressApiKey, autocomplete, onPlaceSelected, isDevelopMode]);
 
-    useEffect(() => {
-        if (postcode && !isDevelopMode) {
-            fetch(`https://api.getAddress.io/autocomplete/${postcode}?api-key=${getAddressApiKey}`)
-                .then(response => response.json())
-                .then(data => {
-                    if (data.suggestions) {  // Corrected data structure to use 'suggestions'
-                        setAddresses(data.suggestions.map(suggestion => suggestion.address));  // Extract addresses from suggestions
-                    } else {
-                        setAddresses([]);
-                    }
-                })
-                .catch(error => {
-                    console.error('Error fetching addresses:', error);
-                });
-        }
-    }, [postcode, getAddressApiKey,isDevelopMode]);
+
+
     const handleAddressChange = useCallback((event) => {
         const selectedAddress = event.target.value;
         console.log('Selected address:', selectedAddress); // Debugging log

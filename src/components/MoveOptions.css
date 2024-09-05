@@ -113,3 +113,15 @@
     width: auto;
     margin-left: 10px;
 }
+/* Align the lift and stairs input in a row */
+.lift-stairs-group {
+    display: flex;
+    gap: 20px; /* Space between lift and stairs input */
+    align-items: center; /* Vertically center align items */
+    margin-bottom: 10px; /* Space below the group */
+}
+
+/* Style for the lift and stairs options */
+.lift-option, .stairs-input {
+    flex: 1; /* Distribute space equally */
+}
