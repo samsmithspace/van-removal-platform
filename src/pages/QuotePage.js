@@ -2,9 +2,9 @@ import React, { useState, useRef, useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
 import LocationSummary from '../components/LocationSummary';
 import QuoteSummary from '../components/QuoteSummary';
-//import QuoteActions from '../components/QuoteActions';
 import MoveOptions from '../components/MoveOptions';
 import '../components/QuotePage.css';
+
 
 const QuotePage = () => {
     const [moveType, setMoveType] = useState('');
@@ -118,6 +118,7 @@ const QuotePage = () => {
 
                 </div>
             )}
+
         </div>
     );
 };

@@ -13,7 +13,7 @@ const ServiceOverview = () => {
             <div className="row text-center">
                 {services.map((service, index) => (
                     <div key={index} className="col-12 col-md-4 service-item">
-                        <img src={service.icon} alt={service.title} className="img-fluid" />
+
                         <h3>{service.title}</h3>
                         <p>{service.description}</p>
                     </div>
