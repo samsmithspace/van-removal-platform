@@ -15,7 +15,7 @@ const DateTimePicker = ({ onDateChange, onTimeChange }) => {
     useEffect(() => {
         const fetchUnavailableDates = async () => {
             try {
-                const response = await axios.get('http://localhost:5000/api/bookings/drivers/getdate');
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/drivers/getdate`);
                 setUnavailableDates(response.data || []); // Ensure it's an array even if the API response is undefined
             } catch (error) {
                 console.error('Error fetching unavailable dates:', error);
@@ -32,7 +32,7 @@ const DateTimePicker = ({ onDateChange, onTimeChange }) => {
             onDateChange(newDate.format('YYYY-MM-DD'));
 
             try {
-                const response = await axios.get('http://localhost:5000/api/bookings/drivers/available-time-periods', {
+                const response = await axios.get(`${process.env.REACT_APP_API_URL}/api/bookings/drivers/available-time-periods`, {
                     params: { date: newDate.format('YYYY-MM-DD') }
                 });
                 const periods = response.data.availableTimePeriods || [];
