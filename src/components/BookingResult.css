@@ -1,0 +1,44 @@
+/* Styling for the booking result container */
+.booking-result {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+/* Heading styling */
+.booking-result h1 {
+    color: #4CAF50;
+    font-size: 2em;
+    margin-bottom: 20px;
+}
+
+/* Paragraph styling */
+.booking-result p {
+    font-size: 1.1em;
+    color: #555;
+    line-height: 1.6;
+}
+
+/* Add some padding between paragraphs */
+.booking-result p + p {
+    margin-top: 10px;
+}
+
+/* Add responsive design for smaller screens */
+@media (max-width: 600px) {
+    .booking-result {
+        padding: 15px;
+        font-size: 0.9em;
+    }
+
+    .booking-result h1 {
+        font-size: 1.5em;
+    }
+}
