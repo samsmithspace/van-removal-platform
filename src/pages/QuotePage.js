@@ -42,12 +42,12 @@ const QuotePage = () => {
 
     const handleDateChange = (date) => {
         setDate(date);
+        setDisplaySummary(true);
         setParentVariable((prev) => prev + 1);
     };
 
     const handleTimeChange = (time) => {
         setTime(time);
-        setDisplaySummary(true);
         setParentVariable((prev) => prev + 1);
 
     };
