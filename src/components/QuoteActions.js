@@ -18,7 +18,32 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
             [name]: value
         });
     };
-    const handlefinalsub = async () => {
+    const handlefinalsub = async (e) => {
+        e.preventDefault();
+
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/send`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({})
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                console.log("message sent");
+                setData(data);
+                //onSubmit();
+                setDisplayprice(true);
+
+            } else {
+                console.error('Error send message:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error sending contact information to backend:', error);
+        }
+
         navigate('/booking-result', { state: { bookingDetails: data.booking } }); // Navigate to booking result page
     }
     const handleSubmit = async (e) => {
@@ -90,6 +115,7 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
                 <button type="submit" className="submit-button">Confirm</button>
                 )}
             </form>
+
             {displayprice && (
                 <div>
                     <div className="pricetag">
