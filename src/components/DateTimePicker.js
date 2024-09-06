@@ -42,6 +42,7 @@ const DateTimePicker = ({ onDateChange, onTimeChange }) => {
                 if (periods.length > 0) {
                     const startTime = periods[0].split('-')[0]; // Get the start time from the first time period
                     setTime(moment(startTime, 'HH:mm'));
+
                 } else {
                     setTime(null); // No available periods, reset time
                 }

@@ -1,12 +1,15 @@
 /* DateTimePicker.css */
 
 /* Ensure the picker is responsive */
+/* Ensure the date picker appears above the input */
 .rdtPicker {
-    max-height: 300px;
-    overflow-y: auto;
-    background-color: white;
-    z-index: 1000;
+    position: absolute;
+    bottom: 100%;
+    left: 0;
+    z-index: 1000; /* Ensure it's on top of other elements */
+    margin-bottom: 10px; /* Add some spacing from the input field */
 }
+
 
 .rdtDisabled {
     pointer-events: none;
