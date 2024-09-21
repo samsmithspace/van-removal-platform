@@ -11,6 +11,9 @@ const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
     });
     const [displayprice, setDisplayprice] = useState(false);
     const [loading, setLoading] = useState(false); // Loading state
+    const [latestPrice, setLatestPrice] = useState(price); // Latest price from the backend
+    const [latestHelperPrice, setLatestHelperPrice] = useState(helperprice); // Latest helper price from the backend
+    const [priceUpdated, setPriceUpdated] = useState(false); // Flag to indicate if price has changed
     const navigate = useNavigate();
     const [data, setData] = useState({});
 
@@ -20,6 +23,31 @@ const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
             ...formData,
             [name]: value
         });
+    };
+
+    const applycode = async () => {
+        try {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/promocode/${bookingId}/latest-price`, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            if (response.ok) {
+                const data = await response.json();
+                if (data.price !== price || data.helperprice !== helperprice) {
+                    // Prices have changed, set new prices and mark as updated
+                    setLatestPrice(data.price);
+                    setLatestHelperPrice(data.helperprice);
+                    setPriceUpdated(true);
+                }
+            } else {
+                console.error('Error fetching latest prices:', response.statusText);
+            }
+        } catch (error) {
+            console.error('Error fetching latest prices:', error);
+        }
     };
 
     const handlefinalsub = async (e) => {
@@ -85,8 +113,7 @@ const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <h1>Contact details</h1>
-                    <h3>Fill your contact details to confirm the booking, we may contact you for information if
-                        needed.</h3>
+                    <h3>Fill your contact details to confirm the booking, we may contact you for information if needed.</h3>
                     <label htmlFor="name">Name:</label>
                     <input
                         type="text"
@@ -121,7 +148,7 @@ const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
                 </div>
 
                 <div>
-                    <PromotionCode bookingId={bookingId} />
+                    <PromotionCode bookingId={bookingId} applycode={applycode} /> {/* Pass applycode as a reference */}
                 </div>
 
                 {!displayprice && !loading && (
@@ -134,14 +161,21 @@ const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
                         <p>Loading...</p> {/* Static text */}
                     </div>
                 )}
-
             </form>
 
             {displayprice && (
                 <div>
                     <div className="pricetag">
-                        {price === '' ? (
-                            <div className="loader">Calculating price...</div>
+                        {priceUpdated ? (
+                            <>
+                                <p>Your price (VAT included): <s>£{price}</s> £{latestPrice}</p>
+                                {displayhelper && (
+                                    <>
+                                        <p>Your price with helper (VAT included): <s>£{helperprice}</s> £{latestHelperPrice}</p>
+
+                                    </>
+                                )}
+                            </>
                         ) : (
                             <>
                                 <p>Your estimated price (VAT included): £{price}</p>

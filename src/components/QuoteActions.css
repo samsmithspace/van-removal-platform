@@ -127,4 +127,8 @@ input[type="text"] {
     justify-content: center;
     gap: 10px;
 }
+.pricetag s {
+    color: #ff0000;
+    opacity: 0.7;
+}
 
