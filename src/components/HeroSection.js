@@ -30,7 +30,7 @@ const HeroSection = () => {
             <div className="hero-section d-flex align-items-center justify-content-center text-center">
                 <div className="hero-content text-white">
                     <h1 className="display-4">Eremovals</h1>
-                    <h2>Reliable and Affordable Van Removal Services For Students</h2>
+                    <h2>Reliable and Affordable Van Removal Services</h2>
 
                     <button className="btn btn-custom btn-lg" onClick={handleButtonClick}>
                         Get an Instant Quote
