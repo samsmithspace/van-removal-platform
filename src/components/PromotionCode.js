@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './PromotionCode.css';
 
-const PromotionCode = ({ bookingId }) => {
+const PromotionCode = ({ bookingId, applycode }) => { // applycode passed as prop
     const [promoCode, setPromoCode] = useState('');
     const [message, setMessage] = useState('');
 
@@ -19,7 +19,7 @@ const PromotionCode = ({ bookingId }) => {
         }
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/apply-promo`, {
+            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/promocode/${bookingId}/apply-promo`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -29,10 +29,12 @@ const PromotionCode = ({ bookingId }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                setMessage(`Promotion code applied! You get a discount of £${data.discount}`);
+                setMessage(`Promotion code applied! You get a discount of ${data.discount}% off`);
+                applycode(); // Call applycode after successful promo code application
             } else {
-                setMessage('Invalid promotion code. Please try again.');
-                console.error('Error applying promo code:', response.statusText);
+                const errorData = await response.json();
+                setMessage(errorData.error || 'Invalid promotion code. Please try again.');
+                console.error('Error applying promo code:', errorData.error || response.statusText);
             }
         } catch (error) {
             setMessage('Error applying promo code. Please try again later.');
@@ -57,3 +59,4 @@ const PromotionCode = ({ bookingId }) => {
 };
 
 export default PromotionCode;
+
