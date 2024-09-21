@@ -1,16 +1,19 @@
 import React, { useState } from 'react';
 import './QuoteActions.css';
 import { useNavigate } from 'react-router-dom';
+import PromotionCode from '../components/PromotionCode';
 
-const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
+const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: ''
     });
     const [displayprice, setDisplayprice] = useState(false);
-    const navigate = useNavigate(); // Initialize useNavigate hook
+    const [loading, setLoading] = useState(false); // Loading state
+    const navigate = useNavigate();
     const [data, setData] = useState({});
+
     const handleChange = (e) => {
         const { name, value } = e.target;
         setFormData({
@@ -18,8 +21,10 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
             [name]: value
         });
     };
+
     const handlefinalsub = async (e) => {
         e.preventDefault();
+        setLoading(true); // Set loading to true when starting the request
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/send`, {
@@ -32,22 +37,24 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
 
             if (response.ok) {
                 const data = await response.json();
-                console.log("message sent");
+                console.log("Message sent");
                 setData(data);
-                //onSubmit();
                 setDisplayprice(true);
-
             } else {
-                console.error('Error send message:', response.statusText);
+                console.error('Error sending message:', response.statusText);
             }
         } catch (error) {
             console.error('Error sending contact information to backend:', error);
+        } finally {
+            setLoading(false); // Set loading to false when the request completes
         }
 
-        navigate('/booking-result', { state: { bookingDetails: data.booking } }); // Navigate to booking result page
-    }
+        navigate('/booking-result', { state: { bookingDetails: data.booking } });
+    };
+
     const handleSubmit = async (e) => {
         e.preventDefault();
+        setLoading(true); // Set loading to true when starting the request
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/contact`, {
@@ -62,14 +69,14 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
                 const data = await response.json();
                 console.log('Contact information added:', data);
                 setData(data);
-                //onSubmit();
                 setDisplayprice(true);
-
             } else {
                 console.error('Error updating booking:', response.statusText);
             }
         } catch (error) {
             console.error('Error sending contact information to backend:', error);
+        } finally {
+            setLoading(false); // Set loading to false when the request completes
         }
     };
 
@@ -78,7 +85,8 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
             <form onSubmit={handleSubmit}>
                 <div className="form-group">
                     <h1>Contact details</h1>
-                    <h3>Fill your contact details to confirm the booking, we may contact you for information if needed.</h3>
+                    <h3>Fill your contact details to confirm the booking, we may contact you for information if
+                        needed.</h3>
                     <label htmlFor="name">Name:</label>
                     <input
                         type="text"
@@ -111,16 +119,29 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
                         required
                     />
                 </div>
-                {!displayprice && (
-                <button type="submit" className="submit-button">Confirm</button>
+
+                <div>
+                    <PromotionCode bookingId={bookingId} />
+                </div>
+
+                {!displayprice && !loading && (
+                    <button type="submit" className="submit-button">Confirm</button>
                 )}
+
+                {loading && (
+                    <div className="loading-container">
+                        <div className="spinner"></div> {/* Spinner */}
+                        <p>Loading...</p> {/* Static text */}
+                    </div>
+                )}
+
             </form>
 
             {displayprice && (
                 <div>
                     <div className="pricetag">
                         {price === '' ? (
-                            <div className="loader">Calculating price...</div> // Display a loader if price is empty
+                            <div className="loader">Calculating price...</div>
                         ) : (
                             <>
                                 <p>Your estimated price (VAT included): £{price}</p>
@@ -132,7 +153,6 @@ const QuoteActions = ({ bookingId,price,helperprice,displayhelper }) => {
                     </div>
                     <button className="submit-button2" onClick={handlefinalsub}>Book</button>
                 </div>
-
             )}
         </footer>
     );

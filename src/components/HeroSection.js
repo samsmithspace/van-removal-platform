@@ -31,7 +31,7 @@ const HeroSection = () => {
                 <div className="hero-content text-white">
                     <h1 className="display-4">Eremovals</h1>
                     <h2>Reliable and Affordable Van Removal Services For Students</h2>
-                    <p className="lead">Get your instant quote today</p>
+
                     <button className="btn btn-custom btn-lg" onClick={handleButtonClick}>
                         Get an Instant Quote
                     </button>

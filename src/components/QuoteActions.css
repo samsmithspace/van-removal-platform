@@ -40,6 +40,7 @@
     cursor: pointer;
     font-size: 1rem;
     margin-top: 15px;
+    width: 100%;
 }
 .submit-button2 {
     padding: 10px 20px;
@@ -58,3 +59,72 @@
 .submit-button2:hover {
     background-color: #bf3e03;
 }
+
+
+
+.promotion-code {
+    border-top: 1px solid #e7e7e7;
+    border-radius: 8px;
+    margin-top: 30px;
+    padding-top: 20px;
+    margin-bottom: 40px;
+
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+h1 {
+    font-size: 10px;
+    margin-bottom: 10px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+
+.message {
+    margin-top: 15px;
+    font-size: 16px;
+    color: #d9534f; /* Bootstrap danger color */
+}
+/* QuoteActions.css */
+/* QuoteActions.css */
+
+/* The spinning circle */
+.spinner {
+    border: 5px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 5px solid #3498db;
+    width: 30px;
+    height: 30px;
+    animation: spin 1s linear infinite;
+    margin: 10px auto;
+}
+
+/* Keyframe for the spinning animation */
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}
+
+/* Loading container */
+.loading-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
