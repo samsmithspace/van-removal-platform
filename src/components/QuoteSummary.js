@@ -2,6 +2,7 @@ import React, { useState, useEffect, useImperativeHandle, forwardRef } from 'rea
 import './QuoteSummary.css';
 import { useJsApiLoader } from '@react-google-maps/api';
 import QuoteActions from '../components/QuoteActions';
+
 const libraries = ['places', 'marker'];
 
 const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, start, dest, confirmDetail}, ref) => {
@@ -185,16 +186,18 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                 {hideConfirmButton && (
                     <div>
                         <div>
-                            <QuoteActions bookingId={bid1} price={price} helperprice={helperprice} dispalyhelperprice={displayhelper} />
+                            <QuoteActions bookingId={bid1} price={price} helperprice={helperprice}
+                                          dispalyhelperprice={displayhelper}/>
                         </div>
 
-                    </div>
-            )}
 
-        </div>
-</section>
-)
-    ;
+                    </div>
+                )}
+
+            </div>
+        </section>
+    )
+        ;
 });
 
 export default QuoteSummary;
