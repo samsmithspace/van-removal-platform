@@ -106,7 +106,6 @@ const QuotePage = () => {
                         start={startLocation}
                         dest={destinationLocation}
                         confirmDetail={confirmDetailHandler}
-                        //bookid={handelbookingid}
                         ref={childRef}
 
                     />

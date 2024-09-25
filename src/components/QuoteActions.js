@@ -3,7 +3,9 @@ import './QuoteActions.css';
 import { useNavigate } from 'react-router-dom';
 import PromotionCode from '../components/PromotionCode';
 
-const QuoteActions = ({ bookingId, price, helperprice, displayhelper }) => {
+const QuoteActions = ({ bookingId, price, helperprice}) => {
+    let displayhelper;
+    displayhelper = (price > 60) && (price !== helperprice);
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
