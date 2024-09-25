@@ -79,11 +79,34 @@
 .move-type-button:hover {
     background-color: #ececec;
 }
-
+.boxoption{
+    background-color: rgba(240, 240, 240, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
 .move-type-button.active {
     background-color: #ff8c00;
     color: #fff;
     border-color: #ff8c00;
+}
+.furniture-input{
+    background-color: rgba(240, 240, 240, 0.8);
+    padding: 15px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+.housebutt{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border: 1px solid #ccc;
+    border-radius: 9px;
+    cursor: pointer;
+    width: 50%;
+    background-color: #f9f9f9;
+    transition: background-color 0.3s ease;
 }
 
 .move-options select,
@@ -124,4 +147,38 @@
 /* Style for the lift and stairs options */
 .lift-option, .stairs-input {
     flex: 1; /* Distribute space equally */
+}
+.lift-button {
+    padding: 10px 20px;
+    margin: 10px;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    color: #333;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 40%;
+    border-radius: 9px;
+}
+
+.lift-button.active {
+    background-color: #ff9c34;
+    color: #fff;
+
+}
+
+
+.deletebutton{
+    background-color: #ff3e15;
+    color: #fff;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    margin-top: 10px;
+    border-radius: 9px;
+    border: 1px solid #ccc;
+}
+.lift-stairs-group {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    margin-bottom: 20px;
 }

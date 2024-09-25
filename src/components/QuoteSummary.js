@@ -10,7 +10,7 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
     const [hideConfirmButton, setHideConfirmButton] = useState(false);
     const [price, setPrice] = useState('');
     const [helperprice, setHelperprice] = useState('');
-    const [displayhelper, setDisplayhelper] = useState(true);
+    //const [displayhelper, setDisplayhelper] = useState(true);
     const [bid1,setbid1]=useState('');
     //const [contactsumb, setContactsumb] = useState(false);
     // Load Google Maps API using useJsApiLoader hook
@@ -32,6 +32,7 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
     }));
 
     useEffect(() => {
+
         if (isLoaded && start && dest) {
             const service = new window.google.maps.DistanceMatrixService();
             const getDistance = () => {
@@ -104,11 +105,11 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                 console.log('Booking saved:', data);
                 setPrice(data.booking.price);
                 setHelperprice(data.booking.helperprice);
-                if (data.booking.helperprice <= 60) {
-                    setDisplayhelper(false);
-                }else{
-                    setDisplayhelper(true);
-                }
+               // if (data.booking.helperprice <= 60) {
+               //     setDisplayhelper(false);
+               // }else{
+               //     setDisplayhelper(true);
+               // }
 
                 setbid1(data.booking._id);
 
@@ -141,7 +142,7 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                     </div>
                     <h4>Distance: {distance}</h4>
                     <p>Move Type: {moveType === 'student' ? 'Student Move' : 'House Move'}</p>
-                    {moveType === 'student' && details.boxDetails && (
+                    {details.boxDetails && (
                         <div>
                             <h4>Item Details:</h4>
                             {details.boxDetails.map((boxDetail, index) => (
@@ -157,7 +158,26 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                             )}
                         </div>
                     )}
-
+                    {moveType === 'house' && details.furnitureDetails && details.furnitureDetails.length > 0 && (
+                        <div>
+                            <h4>Furniture Details:</h4>
+                            {details.furnitureDetails.map((furniture, index) => (
+                                <p key={index}>
+                                    {furniture.quantity} x {furniture.item}
+                                </p>
+                            ))}
+                        </div>
+                    )}
+                    {moveType === 'house' && details.applianceDetails && details.applianceDetails.length > 0 && (
+                        <div>
+                            <h4>Appliance Details:</h4>
+                            {details.applianceDetails.map((appliance, index) => (
+                                <p key={index}>
+                                    {appliance.quantity} x {appliance.item}
+                                </p>
+                            ))}
+                        </div>
+                    )}
                     {details.specialItems && details.specialItems.length > 0 && (
                         <div>
                             <h4>Special Items:</h4>
@@ -187,7 +207,7 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                     <div>
                         <div>
                             <QuoteActions bookingId={bid1} price={price} helperprice={helperprice}
-                                          dispalyhelperprice={displayhelper}/>
+                                          />
                         </div>
 
 
