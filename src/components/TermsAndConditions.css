@@ -1,0 +1,54 @@
+.terms-and-conditions {
+    max-width: 800px;
+    margin: 40px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+}
+
+.terms-and-conditions h1 {
+    font-size: 2.5rem;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.terms-and-conditions h2 {
+    font-size: 1.8rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    color: #444;
+}
+
+.terms-and-conditions p {
+    font-size: 1rem;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.terms-and-conditions a {
+    color: #007BFF;
+    text-decoration: none;
+}
+
+.terms-and-conditions a:hover {
+    text-decoration: underline;
+}
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #007BFF;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+}
