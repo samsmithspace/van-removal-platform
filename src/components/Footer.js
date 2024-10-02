@@ -18,6 +18,11 @@ const Footer = () => {
                     <a href="tel:+447404228217" style={{ textDecoration: 'none', color: 'inherit' }}>
                         Call Us
                     </a>
+                    {' | '}
+                    {/* Terms and Conditions link */}
+                    <a href="/terms-and-conditions" style={{ textDecoration: 'none', color: 'inherit' }}>
+                        Terms and Conditions
+                    </a>
                 </p>
                 <div className="social-icons">
                     {/* Social media icons with links */}
