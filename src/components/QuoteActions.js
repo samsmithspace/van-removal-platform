@@ -1,23 +1,24 @@
 import React, { useState } from 'react';
 import './QuoteActions.css';
-import { useNavigate } from 'react-router-dom';
 import PromotionCode from '../components/PromotionCode';
+import { loadStripe } from '@stripe/stripe-js';
 
-const QuoteActions = ({ bookingId, price, helperprice}) => {
-    let displayhelper;
-    displayhelper = (price > 60) && (price !== helperprice);
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPKEY);
+
+const QuoteActions = ({ bookingId, price, helperprice }) => {
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
         email: ''
     });
     const [displayprice, setDisplayprice] = useState(false);
-    const [loading, setLoading] = useState(false); // Loading state
-    const [latestPrice, setLatestPrice] = useState(price); // Latest price from the backend
-    const [latestHelperPrice, setLatestHelperPrice] = useState(helperprice); // Latest helper price from the backend
-    const [priceUpdated, setPriceUpdated] = useState(false); // Flag to indicate if price has changed
-    const navigate = useNavigate();
-    const [data, setData] = useState({});
+    const [loading, setLoading] = useState(false);
+    const [latestPrice, setLatestPrice] = useState(price);
+    const [latestHelperPrice, setLatestHelperPrice] = useState(helperprice);
+    const [priceUpdated, setPriceUpdated] = useState(false);
+    const [needHelper, setNeedHelper] = useState(false); // State to track if helper is needed
+
+    const displayhelper = price > 60 && price !== helperprice;
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -32,14 +33,13 @@ const QuoteActions = ({ bookingId, price, helperprice}) => {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/promocode/${bookingId}/latest-price`, {
                 method: 'GET',
                 headers: {
-                    'Content-Type': 'application/json'
-                }
+                    'Content-Type': 'application/json',
+                },
             });
 
             if (response.ok) {
                 const data = await response.json();
                 if (data.price !== price || data.helperprice !== helperprice) {
-                    // Prices have changed, set new prices and mark as updated
                     setLatestPrice(data.price);
                     setLatestHelperPrice(data.helperprice);
                     setPriceUpdated(true);
@@ -57,48 +57,95 @@ const QuoteActions = ({ bookingId, price, helperprice}) => {
         setLoading(true); // Set loading to true when starting the request
 
         try {
-            const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/send`, {
+            // Make the request to create a Stripe checkout session
+            const paymentResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/create-checkout-session`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({})
+                body: JSON.stringify({ bookingId, amount: latestPrice }), // Send bookingId and payment amount
             });
 
-            if (response.ok) {
-                const data = await response.json();
-                console.log("Message sent");
-                setData(data);
-                setDisplayprice(true);
+            // Check if the response is OK
+            if (paymentResponse.ok) {
+                // Parse the response to get the session ID
+                const { sessionId } = await paymentResponse.json();
+
+                // Ensure sessionId exists before redirecting
+                if (sessionId) {
+                    // Redirect to Stripe Checkout using the session ID
+                    const stripe = await stripePromise;
+                    const { error } = await stripe.redirectToCheckout({ sessionId });
+
+                    if (error) {
+                        console.error('Error redirecting to Checkout:', error);
+                    }
+                } else {
+                    console.error('Error: No sessionId returned from the backend.');
+                }
             } else {
-                console.error('Error sending message:', response.statusText);
+                console.error('Error creating checkout session:', paymentResponse.statusText);
             }
         } catch (error) {
-            console.error('Error sending contact information to backend:', error);
+            console.error('Error during the payment process:', error);
         } finally {
             setLoading(false); // Set loading to false when the request completes
         }
-
-        navigate('/booking-result', { state: { bookingDetails: data.booking } });
     };
+
+    const handlefinalsubHelper = async (e) => {
+        e.preventDefault();
+        setLoading(true);
+        console.log(bookingId);
+        try {
+            const paymentResponse = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/create-checkout-session-helper`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ bookingId, amount: latestHelperPrice }), // Send bookingId and payment amount
+            });
+
+            // Check if the response is OK
+            if (paymentResponse.ok) {
+                const { sessionId } = await paymentResponse.json();
+
+                if (sessionId) {
+                    const stripe = await stripePromise;
+                    const { error } = await stripe.redirectToCheckout({ sessionId });
+
+                    if (error) {
+                        console.error('Error redirecting to Checkout:', error);
+                    }
+                } else {
+                    console.error('Error: No sessionId returned from the backend.');
+                }
+            } else {
+                console.error('Error creating checkout session with helper:', paymentResponse.statusText);
+            }
+        } catch (error) {
+            console.error('Error during the payment process:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        setLoading(true); // Set loading to true when starting the request
+        setLoading(true);
 
         try {
             const response = await fetch(`${process.env.REACT_APP_API_URL}/api/bookings/${bookingId}/contact`, {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(formData)
+                body: JSON.stringify(formData),
             });
 
             if (response.ok) {
-                const data = await response.json();
-                console.log('Contact information added:', data);
-                setData(data);
+                //const data = await response.json();
                 setDisplayprice(true);
             } else {
                 console.error('Error updating booking:', response.statusText);
@@ -106,7 +153,7 @@ const QuoteActions = ({ bookingId, price, helperprice}) => {
         } catch (error) {
             console.error('Error sending contact information to backend:', error);
         } finally {
-            setLoading(false); // Set loading to false when the request completes
+            setLoading(false);
         }
     };
 
@@ -172,10 +219,7 @@ const QuoteActions = ({ bookingId, price, helperprice}) => {
                             <>
                                 <p>Your price (VAT included): <s>£{price}</s> £{latestPrice}</p>
                                 {displayhelper && (
-                                    <>
-                                        <p>Your price with helper (VAT included): <s>£{helperprice}</s> £{latestHelperPrice}</p>
-
-                                    </>
+                                    <p>Your price with helper (VAT included): <s>£{helperprice}</s> £{latestHelperPrice}</p>
                                 )}
                             </>
                         ) : (
@@ -187,7 +231,28 @@ const QuoteActions = ({ bookingId, price, helperprice}) => {
                             </>
                         )}
                     </div>
-                    <button className="submit-button2" onClick={handlefinalsub}>Book</button>
+
+                    {/* Checkbox for helper */}
+                    {displayhelper && (
+                        <div className="helper-checkbox">
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={needHelper}
+                                    onChange={() => setNeedHelper(!needHelper)}
+                                />
+                                Need a helper?
+                            </label>
+                        </div>
+                    )}
+
+                    {/* Book button with conditional handler */}
+                    <button
+                        className="submit-button2"
+                        onClick={needHelper ? handlefinalsubHelper : handlefinalsub}
+                    >
+                        Book
+                    </button>
                 </div>
             )}
         </footer>
