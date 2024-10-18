@@ -1,44 +1,60 @@
-/* Styling for the booking result container */
-.booking-result {
+.booking-container {
     max-width: 600px;
     margin: 0 auto;
     padding: 20px;
-    margin-top: 20px;
-    background-color: #f9f9f9;
     border: 1px solid #ddd;
-    border-radius: 10px;
-    text-align: center;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    background-color: #f9f9f9;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     font-family: Arial, sans-serif;
+    color: #333;
+
 }
 
-/* Heading styling */
-.booking-result h1 {
+.booking-container h1 {
+    text-align: center;
+    font-size: 26px;
     color: #4CAF50;
-    font-size: 2em;
+    margin-bottom: 20px;
+
+}
+
+.booking-summary {
+    text-align: center;
+    font-size: 18px;
     margin-bottom: 20px;
 }
 
-/* Paragraph styling */
-.booking-result p {
-    font-size: 1.1em;
-    color: #555;
-    line-height: 1.6;
+.booking-info {
+    font-size: 16px;
 }
 
-/* Add some padding between paragraphs */
-.booking-result p + p {
-    margin-top: 10px;
+.booking-info p {
+    margin: 10px 0;
 }
 
-/* Add responsive design for smaller screens */
-@media (max-width: 600px) {
-    .booking-result {
-        padding: 15px;
-        font-size: 0.9em;
-    }
+.booking-info strong {
+    font-weight: 600;
+}
 
-    .booking-result h1 {
-        font-size: 1.5em;
-    }
+.thank-you-message {
+    text-align: center;
+    margin-top: 20px;
+    font-size: 18px;
+}
+
+.contact-us {
+    margin-top: 30px;
+    text-align: center;
+    font-size: 16px;
+}
+
+.contact-us a {
+    color: #25D366; /* WhatsApp green */
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.contact-us a:hover {
+    text-decoration: underline;
 }
