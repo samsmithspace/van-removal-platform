@@ -5,7 +5,8 @@ import QuotePage from './pages/QuotePage';
 //import BookingPage from './pages/BookingPage';
 import LocationSelection from './pages/LocationSelection';
 import BookingResult from './pages/BookingResult';
-import TermsAndConditions from './pages/TermsAndConditions'; // Import the Terms and Conditions component
+import TermsAndConditions from './pages/TermsAndConditions';
+import PaymentCancellation from "./pages/PaymentCancellation"; // Import the Terms and Conditions component
 
 
 function App() {
@@ -17,7 +18,7 @@ function App() {
                 <Route path="/quote" element={<QuotePage />} />
 
                 <Route path="/booking-result" element={<BookingResult />} />
-
+                <Route path="/booking-cancel" element={<PaymentCancellation />} />
                 <Route path="/terms-and-conditions" element={<TermsAndConditions />} /> {/* Add the route */}
             </Routes>
         </Router>

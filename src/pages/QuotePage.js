@@ -7,7 +7,7 @@ import '../components/QuotePage.css';
 
 
 const QuotePage = () => {
-    const [moveType, setMoveType] = useState('');
+    //const [moveType, setMoveType] = useState('');
     const [moveDetails, setMoveDetails] = useState({});
     const [confirmDetail, setConfirmDetail] = useState(false);
     const [date, setDate] = useState('');
@@ -29,7 +29,7 @@ const QuotePage = () => {
 
 
     const handleMoveTypeChange = (selectedMoveType) => {
-        setMoveType(selectedMoveType);
+      //  setMoveType(selectedMoveType);
 
     };
     //const handelbookingid = (bookingid)=>{
@@ -63,7 +63,7 @@ const QuotePage = () => {
     }, [confirmDetail]); // Effect will run when confirmDetail changes
 
     const location = useLocation();
-    const { startLocation, destinationLocation } = location.state || {};
+    const { startLocation, destinationLocation,locationType } = location.state || {};
 
    // const handleFormSubmit = (formData) => {
    //     console.log('Form Submitted:', formData);
@@ -93,13 +93,14 @@ const QuotePage = () => {
                     onDetailsChange={handleDetailsChange}
                     onDateChange={handleDateChange}
                     onTimeChange={handleTimeChange}
+                    MT={locationType}
                 />
                 </div>
                 )}
                 {displaySummary && (
                     <QuoteSummary
                         hideoptions={hideoptions}
-                        moveType={moveType}
+                        moveType={locationType.locationType}
                         details={moveDetails}
                         date={date}
                         time={time}

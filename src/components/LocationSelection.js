@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import {useNavigate} from 'react-router-dom';
 import GoogleMapComponent from './GoogleMapComponent';
 import './LocationSelection.css';
 
 const LocationSelection = () => {
+
     const [currentPage, setCurrentPage] = useState('start'); // Manage current page
     const [startLocation, setStartLocation] = useState(null);
     const [destinationLocation, setDestinationLocation] = useState(null);
@@ -26,6 +27,7 @@ const LocationSelection = () => {
     };
 
     useEffect(() => {
+        console.log("location2");
         if (currentPage === 'destination') {
             const section = document.querySelector('.destination-location-section');
             if (section) {
@@ -38,7 +40,7 @@ const LocationSelection = () => {
         <div className="location_selection">
             {currentPage === 'start' && (
                 <div className="start-location-section">
-                    <h2>Select Start Location</h2>
+                    <h2>Where are you moving from?</h2>
                     <GoogleMapComponent
                         onPlaceSelected={handleStartLocationSelected}
                     />
@@ -53,7 +55,7 @@ const LocationSelection = () => {
 
             {currentPage === 'destination' && (
                 <div className="destination-location-section">
-                    <h2>Select Destination</h2>
+                    <h2>Where are you moving to?</h2>
                     <GoogleMapComponent
                         onPlaceSelected={handleDestinationLocationSelected}
                     />

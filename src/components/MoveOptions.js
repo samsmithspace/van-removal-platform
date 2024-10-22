@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import './MoveOptions.css';
 import SpecialItems from './SpecialItems';
 import DateTimePicker from './DateTimePicker';
 
-const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeChange }) => {
-    const [moveType, setMoveType] = useState('');
+const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeChange, MT }) => {
+
     const [boxDetails, setBoxDetails] = useState([
         { boxSize: 'small', numberOfBoxes: 0 },
         { boxSize: 'medium', numberOfBoxes: 0 },
@@ -18,7 +18,13 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
     const [specialItems, setSpecialItems] = useState([]);
     const [furnitureDetails, setFurnitureDetails] = useState([]);
     const [applianceDetails, setApplianceDetails] = useState([]);
+    const [moveType, setMoveType] = useState(MT); // Initialize moveType with MT
 
+    // Update moveType whenever MT changes
+    useEffect(() => {
+
+        setMoveType(MT.locationType);
+    }, [MT]);
     const furnitureOptions = [
         'Sofa (2-Seater)',
         'Sofa (3-Seater)',
@@ -188,10 +194,10 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         onTimeChange(time);
     };
 
-    const handleMoveTypeChange = (type) => {
-        setMoveType(type);
-        onMoveTypeChange(type);
-    };
+    //const handleMoveTypeChange = (type) => {
+    //    setMoveType(type);
+    //    onMoveTypeChange(type);
+    //};
 
     const handleBoxDetailsChange = (index, value) => {
         const newBoxDetails = [...boxDetails];
@@ -297,22 +303,8 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
 
     return (
         <div className="move-options">
-            <h3>Select Move Type</h3>
-            <div className="button-group">
-                <button
-                    className={`move-type-button ${moveType === 'student' ? 'active' : ''}`}
-                    onClick={() => handleMoveTypeChange('student')}
-                >
-                    Student Move
-                </button>
-                <button
-                    className={`move-type-button ${moveType === 'house' ? 'active' : ''}`}
-                    onClick={() => handleMoveTypeChange('house')}
-                >
-                    House Move
-                </button>
-            </div>
-            <p></p>
+
+
 
             {moveType === 'student' && (
                 <div className="student-options">
