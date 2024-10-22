@@ -8,7 +8,6 @@ const BookingResult = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-
         const fetchBookingDetails = async () => {
             const searchParams = new URLSearchParams(location.search);
             const bookingId = searchParams.get('bookingId');
@@ -26,7 +25,6 @@ const BookingResult = () => {
 
                         if (!messageSent) {
                             localStorage.setItem(`messageSent_${bookingId}`, 'true'); // Mark the message as sent
-
                             await sendBookingDetails(bookingId);
                         }
                     } else {
@@ -75,8 +73,6 @@ const BookingResult = () => {
         return <div>No booking details available.</div>;
     }
 
-
-
     return (
         <div className="booking-container">
             <h1>Booking Confirmation</h1>
@@ -89,7 +85,16 @@ const BookingResult = () => {
                 <p><strong>Destination:</strong> {bookingDetails.destinationLocation}</p>
             </div>
             <p className="thank-you-message">
-                We look forward to serving you. If you have any questions, feel free to reach out to us at any time.
+                Thank you for choosing our service! We truly appreciate your trust in us for your removal needs.
+                Our team is dedicated to providing you with a seamless experience, and we are excited to assist you on the day of your move.
+            </p>
+            <p className="follow-up-message">
+                If you have any questions or need to make changes to your booking, please do not hesitate to reach out.
+                We're here to make sure everything goes smoothly for you.
+            </p>
+            <p className="gratitude-message">
+                Your satisfaction is our top priority, and we hope to make your moving experience as stress-free as possible.
+                Thank you once again for letting us be part of your journey.
             </p>
 
             {/* Contact Us Section */}

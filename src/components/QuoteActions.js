@@ -251,7 +251,7 @@ const QuoteActions = ({ bookingId, price, helperprice }) => {
                         className="submit-button2"
                         onClick={needHelper ? handlefinalsubHelper : handlefinalsub}
                     >
-                        Book
+                        Pay and Book
                     </button>
                 </div>
             )}
