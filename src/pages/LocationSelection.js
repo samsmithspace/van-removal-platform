@@ -48,7 +48,7 @@ const LocationSelection = () => {
         <div className="location_selection">
             {/* Start Location Section - Always visible */}
             <div className="start-location-section">
-                <h2>What's the Start Location?</h2>
+                <h2>Where are you moving from?</h2>
                 <GoogleMapComponent
                     onPlaceSelected={handleStartLocationSelected}
                 />
@@ -56,7 +56,7 @@ const LocationSelection = () => {
 
             {/* Destination Location Section - Displayed and animated after selecting the start location */}
             <div className={`destination-location-section ${startLocation ? 'slide-up' : ''}`}>
-                <h2>Where do You Want to Move?</h2>
+                <h2>Where are you moving to?</h2>
                 <GoogleMapComponent
                     onPlaceSelected={handleDestinationLocationSelected}
                 />

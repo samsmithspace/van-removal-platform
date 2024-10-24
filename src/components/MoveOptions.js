@@ -79,7 +79,6 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         'Air Purifier'
     ];
 
-
     const handleFurnitureChange = (e, index) => {
         const newFurnitureDetails = [...furnitureDetails];
         newFurnitureDetails[index] = { ...newFurnitureDetails[index], item: e.target.value };
