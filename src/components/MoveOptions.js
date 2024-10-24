@@ -56,7 +56,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         'Piano',
         'Bicycle',
         'Motorcycle',
-        'Ladder',
+        'Ladder'
     ];
 
     const applianceOptions = [
@@ -78,7 +78,6 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         'Water Heater',
         'Air Purifier'
     ];
-
 
     const handleFurnitureChange = (e, index) => {
         const newFurnitureDetails = [...furnitureDetails];
