@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import './MoveOptions.css';
 import SpecialItems from './SpecialItems';
 import DateTimePicker from './DateTimePicker';
@@ -11,6 +11,12 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         { boxSize: 'large (or heavier than 20 kg)', numberOfBoxes: 0 },
         { boxSize: 'Extra large', numberOfBoxes: 0 }
     ]);
+
+    // State variables for fetched data
+    const [furnitureOptions, setFurnitureOptions] = useState([]);
+    const [applianceOptions, setApplianceOptions] = useState([]);
+
+    // Other state variables
     const [liftAvailable, setLiftAvailable] = useState(false);
     const [liftAvailabledest, setLiftAvailableright] = useState(false);
     const [numberofstairsright, setNumberofstairsright] = useState(0);
@@ -18,67 +24,32 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
     const [specialItems, setSpecialItems] = useState([]);
     const [furnitureDetails, setFurnitureDetails] = useState([]);
     const [applianceDetails, setApplianceDetails] = useState([]);
-    const [moveType, setMoveType] = useState(MT); // Initialize moveType with MT
+    const [moveType, setMoveType] = useState(MT.locationType); // Initialize moveType with MT.locationType
+
+    useEffect(() => {
+        console.log('getting items');
+        fetch(`${process.env.REACT_APP_API_URL}/api/price-item/api/price-item`)
+            .then(response => response.json())
+            .then(data => {
+                // Adjusted to use 'itemName' and match the category values
+                const furniture = data
+                    .filter(item => item.category === 'Furniture') // Adjust category to 'Furniture'
+                    .map(item => item.itemName); // Use 'itemName' instead of 'name'
+                const appliances = data
+                    .filter(item => item.category === 'Appliances')
+                    .map(item => item.itemName);
+                setFurnitureOptions(furniture);
+                setApplianceOptions(appliances);
+            })
+            .catch(error => console.error('Error fetching price items:', error));
+    }, []);
 
     // Update moveType whenever MT changes
     useEffect(() => {
-
         setMoveType(MT.locationType);
     }, [MT]);
-    const furnitureOptions = [
-        'Sofa (2-Seater)',
-        'Sofa (3-Seater)',
-        'Sofa (L-Shaped)',
-        'Armchair',
-        'Dining Table',
-        'Single Bed',
-        'Double Bed',
-        'Queen Bed',
-        'King Bed',
-        'Bunk Bed',
-        'Wardrobe (Single Door)',
-        'Wardrobe (Double Door)',
-        'Wardrobe (Sliding Door)',
-        'Bookcase (Small)',
-        'Bookcase (Large)',
-        'Desk',
-        'Nightstand',
-        'Cabinet',
-        'Ottoman',
-        'TV Stand',
-        'Office Chair',
-        'Dining Chair',
-        'Mirror (Large)',
-        'Mirror (Small)',
-        'Rug (Large)',
-        'Rug (Small)',
-        'Exercise Equipment',
-        'Piano',
-        'Bicycle',
-        'Motorcycle',
-        'Ladder'
-    ];
 
-    const applianceOptions = [
-        'Refrigerator (Mini)',
-        'Refrigerator (Standard)',
-        'Refrigerator (French Door)',
-        'Washing Machine',
-        'Microwave',
-        'Oven',
-        'Dishwasher',
-        'Stove',
-        'Television (Under 32")',
-        'Television (32"-50")',
-        'Television (Over 50")',
-        'Stereo System',
-        'Monitor',
-        'Lawn Mower',
-        'Hot Tub',
-        'Water Heater',
-        'Air Purifier'
-    ];
-
+    // Handler functions
     const handleFurnitureChange = (e, index) => {
         const newFurnitureDetails = [...furnitureDetails];
         newFurnitureDetails[index] = { ...newFurnitureDetails[index], item: e.target.value };
@@ -193,11 +164,6 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         onTimeChange(time);
     };
 
-    //const handleMoveTypeChange = (type) => {
-    //    setMoveType(type);
-    //    onMoveTypeChange(type);
-    //};
-
     const handleBoxDetailsChange = (index, value) => {
         const newBoxDetails = [...boxDetails];
         newBoxDetails[index].numberOfBoxes = value;
@@ -302,9 +268,6 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
 
     return (
         <div className="move-options">
-
-
-
             {moveType === 'student' && (
                 <div className="student-options">
                     <h3>Box:</h3>
@@ -396,7 +359,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                 </div>
             )}
             {moveType === 'house' && (
-                <div className="student-options">
+                <div className="house-options">
                     <h3>Box:</h3>
                     <div className="boxoption">
                         {boxDetails.map((boxDetail, index) => (
