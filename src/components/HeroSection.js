@@ -1,29 +1,45 @@
-import React, {useEffect, useState} from 'react';
-import './HeroSection.css'; // Ensure this file contains relevant styles
+import React, { useEffect, useState } from 'react';
+import './HeroSection.css';
 import { useNavigate } from 'react-router-dom';
 import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
 import bt24 from '../assets/images/btn4.png';
+import slidingImage from '../assets/images/vanvan.png'; // Replace with actual image
 
 const HeroSection = () => {
+    const navigate = useNavigate();
+    const [isMenuOpen, setIsMenuOpen] = useState(false);
+    const [slideIn, setSlideIn] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
 
+
+
     const handleScroll = () => {
+
         const position = window.pageYOffset;
+
         setScrollPosition(position);
+
     };
 
+
+
     useEffect(() => {
+
         window.addEventListener('scroll', handleScroll);
+
         return () => {
+
             window.removeEventListener('scroll', handleScroll);
+
         };
+
     }, []);
 
 
-    const navigate = useNavigate();
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
+    useEffect(() => {
+        setTimeout(() => setSlideIn(true), 500); // Delay before sliding in
+    }, []);
 
     const handleStudentMoveClick = () => {
         navigate('/location', { state: { locationType: 'student' } });
@@ -42,10 +58,8 @@ const HeroSection = () => {
     };
 
     return (
-        <div>
-            {/* Header Section */}
+        <div className="hero-container">
             <header className={`header ${scrollPosition > 0 ? 'scrolled' : ''}`}>
-
                 <div className="container d-flex align-items-center justify-content-between">
                     <div className="headertext">
                         <h1>Eremovals</h1>
@@ -72,10 +86,7 @@ const HeroSection = () => {
             {/* Hero Section */}
             <div className="hero-section d-flex align-items-center justify-content-center text-center">
                 <div className="hero-content text-white">
-
-                    <h2>Reliable and Affordable Van Removal Services</h2>
-
-                    {/* New Buttons for Move Types */}
+                    <h2>Student Moving Made Easy in Edinburgh!</h2>
                     <div className="move-buttons-container">
                         <button className="btn2 st" onClick={handleStudentMoveClick}>
                             Student Move
@@ -90,26 +101,15 @@ const HeroSection = () => {
                             <img src={bt24} alt="Decoration" className="btn4-img"/>
                         </button>
                     </div>
-                    <div className="customer-satisfaction-text">
-                        {/* Customer Review (for mobile) */}
-                        <div className="customer-review">
-                            <h4>“They turned my student move into a breeze—zero stress, all speed! Honestly, I’d hire them to move my snacks too.” – Our Customer
-                            </h4>
-                        </div>
-                        <div className="why-choose-us">
-                            <h3>Why Choose Us?</h3>
-                            <ul>
-                                <li>✓ Professional and experienced movers</li>
-                                <li>✓ Affordable rates with no hidden fees</li>
-                                <li>✓ Flexible scheduling to fit your needs</li>
-                                <li>✓ Excellent customer support to guide you every step of the way</li>
-                            </ul>
-                        </div>
-
-                    </div>
-
                 </div>
             </div>
+
+            {/* Sliding Image */}
+            <img
+                src={slidingImage}
+                alt="Sliding effect"
+                className={`sliding-image ${slideIn ? 'slide-in' : ''}`}
+            />
         </div>
     );
 };

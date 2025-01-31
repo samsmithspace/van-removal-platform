@@ -89,32 +89,14 @@ body {
     text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6); /* Adds shadow to the text */
 }
 
-.why-choose-us {
-    display: none;
-    color: #fff;
-    font-family: 'Josefin Sans', sans-serif;
-    font-size: 1.2rem;
-    margin-top: 20px;
-}
 
-.why-choose-us ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-.why-choose-us ul li {
-    margin: 10px 0;
-    font-size: 1.1rem;
-}
 /* Media Query for Mobile */
 @media (max-width: 768px) {
     .customer-review {
         display: block; /* Show customer review on mobile screens */
     }
 
-    .why-choose-us {
-        display: none; /* Hide the "Why Choose Us" section on mobile screens */
-    }
+
 }
 
 /* Media Query for Larger Screens */
@@ -123,9 +105,7 @@ body {
         display: none; /* Hide customer review on larger screens */
     }
 
-    .why-choose-us {
-        display: block; /* Show the "Why Choose Us" section on larger screens */
-    }
+
 }
 @media (max-width: 768px) {
     .header {
@@ -185,13 +165,27 @@ body {
     }
 
 }
+.sliding-image {
+    position: absolute;
+    bottom: 3%;
+    right: -100%; /* Start off-screen */
+    width: 300px; /* Increase size */
+    height: auto; /* Maintain aspect ratio */
+    transition: transform 1.5s ease-out;
+    z-index: 2; /* Below text, above background */
+}
+
+.sliding-image.slide-in {
+    transform: translateX(-100%);
+}
+
 
 .hero-section {
     position: relative;
     height: 100vh;
     width: 100%;
     overflow-x: hidden;
-    background-image: url('../assets/images/herovan.jpg');
+    background-image: url('../assets/images/vanbackground.png');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;

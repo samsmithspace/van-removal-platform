@@ -12,6 +12,13 @@
     margin-bottom: 30px; /* Adds space below the heading */
     color: #333; /* Darker color for the heading */
 }
+.why-choose-us {
+    color: #7a7979;
+
+    font-size: 1.0rem;
+    margin-top: 5px;
+    margin-bottom: 20px;
+}
 
 .service-overview .service-item {
     padding: 20px; /* Adds padding around each service item */
