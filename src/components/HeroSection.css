@@ -167,7 +167,7 @@ body {
 }
 .sliding-image {
     position: absolute;
-    bottom: 3%;
+    bottom: 0%;
     right: -100%; /* Start off-screen */
     width: 300px; /* Increase size */
     height: auto; /* Maintain aspect ratio */
