@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from 'react';
 import { GoogleMap, useJsApiLoader, Autocomplete } from '@react-google-maps/api';
 import './GoogleMapComponent.css';
-
+import { useTranslation } from 'react-i18next';
 const libraries = ['places', 'marker'];
 
 const defaultCenter = {
@@ -12,6 +12,7 @@ const defaultCenter = {
 const mapId = '18b403a38f0b2a2'; // Replace this with your actual Map ID
 
 const GoogleMapComponent = ({ onPlaceSelected }) => {
+    const { t } = useTranslation(); // Initialize translation hook
     const [autocomplete, setAutocomplete] = useState(null);
     const [center, setCenter] = useState(defaultCenter);
     const [markerPosition, setMarkerPosition] = useState(null);
@@ -134,7 +135,7 @@ const GoogleMapComponent = ({ onPlaceSelected }) => {
                 <Autocomplete onLoad={onLoad} onPlaceChanged={onPlaceChanged} className="map-autocomplete">
                     <input
                         type="text"
-                        placeholder="Enter Location"
+                        placeholder={t('EnterLocation')}
                         className="map-input"
                     />
                 </Autocomplete>

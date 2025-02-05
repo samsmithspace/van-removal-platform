@@ -4,10 +4,11 @@ import LocationSummary from '../components/LocationSummary';
 import QuoteSummary from '../components/QuoteSummary';
 import MoveOptions from '../components/MoveOptions';
 import '../components/QuotePage.css';
-
+import { useTranslation } from 'react-i18next';
 
 const QuotePage = () => {
     //const [moveType, setMoveType] = useState('');
+    const { t } = useTranslation();
     const [moveDetails, setMoveDetails] = useState({});
     const [confirmDetail, setConfirmDetail] = useState(false);
     const [date, setDate] = useState('');
@@ -76,7 +77,7 @@ const QuotePage = () => {
     return (
         <div className="quote-page">
             {displayoptions&& (<header className="quote-header">
-                <h2>Details</h2>
+                <h2>{t('Details')}</h2>
                 <LocationSummary
                     startLocation={startLocation}
                     destinationLocation={destinationLocation}
@@ -87,7 +88,7 @@ const QuotePage = () => {
             <div>
                 {displayoptions&& (
                 <div>
-                <h1>Items</h1>
+                <h1>{t('Items')}</h1>
                 <MoveOptions
                     onMoveTypeChange={handleMoveTypeChange}
                     onDetailsChange={handleDetailsChange}

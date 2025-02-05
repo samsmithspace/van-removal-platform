@@ -2,9 +2,9 @@ import React, { useEffect, useState } from 'react';
 import './MoveOptions.css';
 import SpecialItems from './SpecialItems';
 import DateTimePicker from './DateTimePicker';
-
+import { useTranslation } from 'react-i18next';
 const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeChange, MT }) => {
-
+    const { t } = useTranslation(); // 初始化翻译钩子
     const [boxDetails, setBoxDetails] = useState([
         { boxSize: 'small', numberOfBoxes: 0 },
         { boxSize: 'medium', numberOfBoxes: 0 },
@@ -270,12 +270,12 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
         <div className="move-options">
             {moveType === 'student' && (
                 <div className="student-options">
-                    <h3>Box:</h3>
+                    <h3>{t('Box')}:</h3>
                     <div className="boxoption">
                         {boxDetails.map((boxDetail, index) => (
                             <div key={index} className="box-detail">
                                 <label>
-                                    {boxDetail.boxSize.charAt(0).toUpperCase() + boxDetail.boxSize.slice(1)}:
+                                    {t(boxDetail.boxSize.charAt(0).toUpperCase() + boxDetail.boxSize.slice(1))}:
                                     <div className="input-group">
                                         <input
                                             className="numberinput"
@@ -309,21 +309,21 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             </div>
                         ))}
                     </div>
-                    <h3>Special Items:</h3>
+                    <h3>{t('Special Items')}:</h3>
                     <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
 
-                    <h3>Floors:</h3>
+                    <h3>{t('Floors')}:</h3>
 
                     <div className="lift-stairs-group">
                         <button
                             className={`lift-button ${liftAvailable ? 'active' : ''}`}
                             onClick={handleLiftAvailabilityChange}
                         >
-                            Lift Available at Move Out Location
+                            {t('Lift Available at Move Out Location')}
                         </button>
                         <div className="stairs-input">
                             <label>
-                                Floors at start:
+                                {t('Floors at start')}
                                 <input
                                     type="number"
                                     name="numberOfStairs"
@@ -339,11 +339,11 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             className={`lift-button ${liftAvailabledest ? 'active' : ''}`}
                             onClick={handleLiftAvailabilityrightChange}
                         >
-                            Lift Available at Move In Location
+                            {t('Lift Available at Move In Location')}
                         </button>
                         <div className="stairs-input">
                             <label>
-                                Floors at destination:
+                                {t('Floors at destination')}
                                 <input
                                     type="number"
                                     name="numberOfStairsr"
@@ -354,18 +354,18 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             </label>
                         </div>
                     </div>
-                    <h3>Select Date and Time:</h3>
+                    <h3>{t('Select Date and Time')}:</h3>
                     <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
                 </div>
             )}
             {moveType === 'house' && (
                 <div className="house-options">
-                    <h3>Box:</h3>
+                    <h3>{t('Box')}:</h3>
                     <div className="boxoption">
                         {boxDetails.map((boxDetail, index) => (
                             <div key={index} className="box-detail">
                                 <label>
-                                    {boxDetail.boxSize.charAt(0).toUpperCase() + boxDetail.boxSize.slice(1)}:
+                                    {t(boxDetail.boxSize.charAt(0).toUpperCase() + boxDetail.boxSize.slice(1))}:
                                     <div className="input-group">
                                         <input
                                             className="numberinput"
@@ -401,7 +401,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                     </div>
 
                     <div>
-                        <h3>Furniture:</h3>
+                        <h3>{t('Furniture')}:</h3>
                         <div className="furniture-input">
                             {furnitureDetails.map((furniture, index) => (
                                 <div key={index} className="furniture-detail">
@@ -409,7 +409,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                                         value={furniture.item}
                                         onChange={(e) => handleFurnitureChange(e, index)}
                                     >
-                                        <option value="">Select Furniture</option>
+                                        <option value="">{t('Select Furniture')}</option>
                                         {furnitureOptions.map((option, i) => (
                                             <option key={i} value={option}>
                                                 {option}
@@ -428,15 +428,15 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                                         }
                                     />
                                     <button type="button" className="deletebutton" onClick={() => deleteFurniture(index)}>
-                                        Delete
+                                        {t('Delete')}
                                     </button>
                                 </div>
                             ))}
                             <button type="button" className="housebutt" onClick={addFurniture}>
-                                Add Furniture
+                                {t('Add Furniture')}
                             </button>
                         </div>
-                        <h3>Appliances:</h3>
+                        <h3>{t('Appliances')}:</h3>
 
                         <div className="furniture-input">
                             {applianceDetails.map((appliance, index) => (
@@ -445,7 +445,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                                         value={appliance.item}
                                         onChange={(e) => handleApplianceChange(e, index)}
                                     >
-                                        <option value="">Select Appliance</option>
+                                        <option value="">{t('Select Appliance')}</option>
                                         {applianceOptions.map((option, i) => (
                                             <option key={i} value={option}>
                                                 {option}
@@ -464,28 +464,28 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                                         }
                                     />
                                     <button type="button" className="deletebutton" onClick={() => deleteAppliance(index)}>
-                                        Delete
+                                        {t('Delete')}
                                     </button>
                                 </div>
                             ))}
                             <button type="button" className="housebutt" onClick={addAppliance}>
-                                Add Appliance
+                                {t('Add Appliance')}
                             </button>
                         </div>
                     </div>
-                    <h3>Special Items:</h3>
+                    <h3>{t('Special Items')}:</h3>
                     <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
-                    <h3>Floors:</h3>
+                    <h3>{t('Floors')}:</h3>
                     <div className="lift-stairs-group">
                         <button
                             className={`lift-button ${liftAvailable ? 'active' : ''}`}
                             onClick={handleLiftAvailabilityChange}
                         >
-                            Lift Available at Move Out Location
+                            {t('Lift Available at Move Out Location')}
                         </button>
                         <div className="stairs-input">
                             <label>
-                                Floors at move out:
+                                {t('Floors at move out')}:
                                 <input
                                     type="number"
                                     name="numberOfStairs"
@@ -502,11 +502,11 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             className={`lift-button ${liftAvailabledest ? 'active' : ''}`}
                             onClick={handleLiftAvailabilityrightChange}
                         >
-                            Lift Available at Move In Location
+                            {t('Lift Available at Move In Location')}
                         </button>
                         <div className="stairs-input">
                             <label>
-                                Floors at move in:
+                                {t('Floors at move in')}:
                                 <input
                                     type="number"
                                     name="numberOfStairsr"
@@ -517,7 +517,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             </label>
                         </div>
                     </div>
-                    <h3>Select Date and Time:</h3>
+                    <h3>{t('Select Date and Time')}:</h3>
 
                     <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
                 </div>

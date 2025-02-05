@@ -2,9 +2,9 @@ import React, { useState, useEffect } from 'react';
 import {useNavigate} from 'react-router-dom';
 import GoogleMapComponent from './GoogleMapComponent';
 import './LocationSelection.css';
-
+import { useTranslation } from 'react-i18next';
 const LocationSelection = () => {
-
+    const { t } = useTranslation(); // Initialize translation hook
     const [currentPage, setCurrentPage] = useState('start'); // Manage current page
     const [startLocation, setStartLocation] = useState(null);
     const [destinationLocation, setDestinationLocation] = useState(null);
@@ -40,7 +40,8 @@ const LocationSelection = () => {
         <div className="location_selection">
             {currentPage === 'start' && (
                 <div className="start-location-section">
-                    <h2>Where are you moving from?</h2>
+
+                    <h2>{t('moveFrom')}</h2>
                     <GoogleMapComponent
                         onPlaceSelected={handleStartLocationSelected}
                     />
@@ -55,7 +56,7 @@ const LocationSelection = () => {
 
             {currentPage === 'destination' && (
                 <div className="destination-location-section">
-                    <h2>Where are you moving to?</h2>
+                    <h2>{t('moveTo')}</h2>
                     <GoogleMapComponent
                         onPlaceSelected={handleDestinationLocationSelected}
                     />

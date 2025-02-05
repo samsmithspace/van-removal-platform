@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import {useLocation, useNavigate} from 'react-router-dom';
 import GoogleMapComponent from '../components/GoogleMapComponent';
 import '../components/LocationSelection.css';
-
+import { useTranslation } from 'react-i18next';
 const LocationSelection = () => {
     const location = useLocation();
     const [startLocation, setStartLocation] = useState(null);
@@ -11,7 +11,7 @@ const LocationSelection = () => {
     const isDevelopMode = process.env.REACT_APP_MODE === 'develop';
     // Handle the selection of the start location
     const locationType = location.state || {}
-
+    const { t } = useTranslation(); // Initialize translation hook
 
     const handleStartLocationSelected = (place) => {
 
@@ -48,7 +48,7 @@ const LocationSelection = () => {
         <div className="location_selection">
             {/* Start Location Section - Always visible */}
             <div className="start-location-section">
-                <h2>Where are you moving from?</h2>
+                <h2>{t('moveFrom')}</h2>
                 <GoogleMapComponent
                     onPlaceSelected={handleStartLocationSelected}
                 />
@@ -56,7 +56,7 @@ const LocationSelection = () => {
 
             {/* Destination Location Section - Displayed and animated after selecting the start location */}
             <div className={`destination-location-section ${startLocation ? 'slide-up' : ''}`}>
-                <h2>Where are you moving to?</h2>
+                <h2>{t('moveTo')}</h2>
                 <GoogleMapComponent
                     onPlaceSelected={handleDestinationLocationSelected}
                 />
@@ -65,7 +65,7 @@ const LocationSelection = () => {
             {/* Confirm Button - Displayed after both locations are selected */}
             {startLocation && destinationLocation && (
                 <button className="btn-custom" onClick={handleConfirm}>
-                    Confirm Locations
+                    {t('confirmLocations')}
                 </button>
             )}
         </div>
