@@ -14,10 +14,12 @@
     "From": "From",
     "To": "To",
     "Box": "Boxes",
-    "Small": "Small",
-    "Medium": "Medium",
-    "Large (or heavier than 20 kg)": "Large (or heavier than 20 kg)",
-    "Extra large": "Extra Large",
+
+    "Small": "Small 457mm x 305mm x 305mm (carry-on luggage/microwave)",
+    "Medium": "Medium 457mm x 457mm x 305mm (night stand)",
+    "Large (or heavier than 20 kg)": "Large (or heavier than 20 kg) 457mm x 457mm x 457mm",
+    "Extra large": "Extra Large 457mm x 457mm x 610mm (small fridge)",
+
     "Special Items": "Special Items",
     "Floors": "Floors",
     "Lift Available at Move Out Location": "Lift Available at Move Out Location",
