@@ -315,12 +315,17 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                     <h3>{t('Floors')}:</h3>
 
                     <div className="lift-stairs-group">
-                        <button
-                            className={`lift-button ${liftAvailable ? 'active' : ''}`}
-                            onClick={handleLiftAvailabilityChange}
-                        >
+                        <label className="checkbox-container">
+                            <input
+                                type="checkbox"
+                                checked={liftAvailable}
+                                onChange={handleLiftAvailabilityChange}
+                                className="checkbox-input"
+                            />
                             {t('Lift Available at Move Out Location')}
-                        </button>
+                        </label>
+
+
                         <div className="stairs-input">
                             <label>
                                 {t('Floors at start')}
@@ -335,12 +340,16 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                         </div>
                     </div>
                     <div className="lift-stairs-group">
-                        <button
-                            className={`lift-button ${liftAvailabledest ? 'active' : ''}`}
-                            onClick={handleLiftAvailabilityrightChange}
-                        >
+                        <label className="checkbox-container">
+                            <input
+                                type="checkbox"
+                                checked={liftAvailabledest}
+                                onChange={handleLiftAvailabilityrightChange}
+                                className="checkbox-input"
+                            />
                             {t('Lift Available at Move In Location')}
-                        </button>
+                        </label>
+
                         <div className="stairs-input">
                             <label>
                                 {t('Floors at destination')}
@@ -355,7 +364,7 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                         </div>
                     </div>
                     <h3>{t('Select Date and Time')}:</h3>
-                    <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange} />
+                    <DateTimePicker onDateChange={handleDateChange} onTimeChange={handleTimeChange}/>
                 </div>
             )}
             {moveType === 'house' && (
@@ -477,12 +486,16 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                     <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
                     <h3>{t('Floors')}:</h3>
                     <div className="lift-stairs-group">
-                        <button
-                            className={`lift-button ${liftAvailable ? 'active' : ''}`}
-                            onClick={handleLiftAvailabilityChange}
-                        >
+                        <label className="toggle-switch">
+                            <input
+                                type="checkbox"
+                                checked={liftAvailable}
+                                onChange={handleLiftAvailabilityChange}
+                            />
+                            <span className="slider"></span>
                             {t('Lift Available at Move Out Location')}
-                        </button>
+                        </label>
+
                         <div className="stairs-input">
                             <label>
                                 {t('Floors at move out')}:

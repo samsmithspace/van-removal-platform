@@ -16,7 +16,7 @@ const QuoteActions = ({ bookingId, price, helperprice }) => {
     const [latestPrice, setLatestPrice] = useState(price);
     const [latestHelperPrice, setLatestHelperPrice] = useState(helperprice);
     const [priceUpdated, setPriceUpdated] = useState(false);
-    const [needHelper, setNeedHelper] = useState(false); // State to track if helper is needed
+    //const [needHelper, setNeedHelper] = useState(false); // State to track if helper is needed
 
     const displayhelper = price > 60 && price !== helperprice;
 
@@ -232,27 +232,24 @@ const QuoteActions = ({ bookingId, price, helperprice }) => {
                         )}
                     </div>
 
-                    {/* Checkbox for helper */}
+                    {/* Buttons for booking with and without a helper */}
                     {displayhelper && (
-                        <div className="helper-checkbox">
-                            <label>
-                                <input
-                                    type="checkbox"
-                                    checked={needHelper}
-                                    onChange={() => setNeedHelper(!needHelper)}
-                                />
-                                Need a helper?
-                            </label>
+                        <div className="helper-buttons">
+                            <button
+                                className="submit-button2"
+                                onClick={handlefinalsubHelper}
+                            >
+                                Pay and Book with Helper
+                            </button>
+                            <button
+                                className="submit-button2"
+                                onClick={handlefinalsub}
+                            >
+                                Pay and Book without Helper
+                            </button>
                         </div>
                     )}
 
-                    {/* Book button with conditional handler */}
-                    <button
-                        className="submit-button2"
-                        onClick={needHelper ? handlefinalsubHelper : handlefinalsub}
-                    >
-                        Pay and Book
-                    </button>
                 </div>
             )}
         </footer>
