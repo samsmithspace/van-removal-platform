@@ -233,22 +233,23 @@ const QuoteActions = ({ bookingId, price, helperprice }) => {
                     </div>
 
                     {/* Buttons for booking with and without a helper */}
-                    {displayhelper && (
-                        <div className="helper-buttons">
+                    <div className="helper-buttons">
+                        {displayhelper && (
                             <button
                                 className="submit-button2"
                                 onClick={handlefinalsubHelper}
                             >
                                 Pay and Book with Helper
                             </button>
-                            <button
-                                className="submit-button2"
-                                onClick={handlefinalsub}
-                            >
-                                Pay and Book without Helper
-                            </button>
-                        </div>
-                    )}
+                        )}
+                        <button
+                            className="submit-button2"
+                            onClick={handlefinalsub}
+                        >
+                            Pay and Book without Helper
+                        </button>
+                    </div>
+
 
                 </div>
             )}
