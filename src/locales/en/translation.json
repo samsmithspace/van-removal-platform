@@ -33,5 +33,59 @@
     "Add Appliance": "Add Appliance",
     "Delete": "Delete",
     "Select Furniture": "Select Furniture",
-    "Select Appliance": "Select Appliance"
+    "Select Appliance": "Select Appliance",
+
+    "whyChooseUs": "Why Choose Us?",
+    "ourServices": "Our Services",
+    "whyChooseUsPoints": [
+        "✅ Affordable Rates – Perfect for student budgets",
+        "✅ Quick & Reliable Service – We work around your schedule",
+        "✅ Professional Team – Stress-free, hassle-free moves",
+        "✅ Big or Small Moves – From a single box to your full setup"
+    ],
+    "services": {
+        "moving": {
+            "title": "Moving",
+            "description": "Reliable moving services"
+        },
+        "packing": {
+            "title": "Packing",
+            "description": "Professional packing solutions"
+        }
+    },
+    "testimonialsHeading": "What Our Customers Say",
+    "testimonials": [
+        {
+            "name": "Nina",
+            "text": "The team was incredibly helpful during my move. They handled everything with care, and the entire process was stress-free. I’ll definitely be using their services again."
+        },
+        {
+            "name": "Josh",
+            "text": "I had to relocate on short notice, and they managed to fit me in. The movers were punctual, professional, and got everything done faster than I expected. Highly recommend!"
+        },
+        {
+            "name": "Prescott",
+            "text": "I was worried about my fragile items, but they packed everything so securely. Not a single item was damaged during the move. Great experience overall."
+        },
+        {
+            "name": "Calvin",
+            "text": "Super efficient and friendly crew! They made what could have been a stressful day really easy for us. It’s rare to find a company this reliable these days."
+        }
+    ],
+    "faqHeading": "Frequently Asked Questions",
+    "faqs": [
+        {
+            "question": "How much does your service cost?",
+            "answer": "Our pricing depends on the type and size of the move. Contact us for a detailed quote."
+        },
+        {
+            "question": "What areas do you serve?",
+            "answer": "We are based in Edinburgh and operate in several cities. We offer nationwide moving services."
+        },
+        {
+            "question": "Can I change my moving date after booking?",
+            "answer": "Yes, you can modify your moving date as long as you notify us at least 72 hours in advance."
+        }
+
+    ]
 }

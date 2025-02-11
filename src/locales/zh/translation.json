@@ -31,5 +31,39 @@
   "Add Appliance": "添加电器",
   "Delete": "删除",
   "Select Furniture": "选择家具",
-  "Select Appliance": "选择电器"
+  "Select Appliance": "选择电器",
+
+  "whyChooseUs": "为什么选择我们？",
+  "ourServices": "我们的服务",
+  "whyChooseUsPoints": [
+    "✅ 价格实惠 – 适合学生预算",
+    "✅ 快速可靠 – 我们配合您的时间安排",
+    "✅ 专业团队 – 让搬家无忧无虑",
+    "✅ 无论大小 – 从单个盒子到完整搬迁"
+  ],
+  "services": {
+    "moving": {
+      "title": "搬家",
+      "description": "可靠的搬家服务"
+    },
+    "packing": {
+      "title": "打包",
+      "description": "专业的打包解决方案"
+    }
+  },
+  "whatCustomersSay": "客户评价",
+  "frequentlyAskedQuestions": "常见问题",
+  "testimonials": [
+    { "name": "Nina", "text": "团队在搬家过程中非常乐于助人，他们小心翼翼地处理所有物品，让整个过程毫无压力。我一定会再次使用他们的服务。" },
+    { "name": "Josh", "text": "我需要在短时间内搬家，他们设法安排了时间。搬运工准时、专业，完成速度比我预期的还快。强烈推荐！" },
+    { "name": "Prescott", "text": "我担心易碎物品会损坏，但他们打包得非常牢固。搬家过程中没有一件物品受损，整体体验非常棒。" },
+    { "name": "Calvin", "text": "团队高效且友好！他们让原本可能很紧张的一天变得非常轻松。现在能找到这么可靠的公司真的很难得。" }
+  ],
+  "faqs": [
+    { "question": "你们的服务收费是多少？", "answer": "我们的价格取决于搬家类型和规模。请联系我们获取详细报价。" },
+    { "question": "你们的服务范围是哪些地区？", "answer": "我们总部位于爱丁堡，在多个城市提供服务，并支持全国范围内的搬家服务。" },
+    { "question": "预订后可以更改搬家日期吗？", "answer": "可以，只要您至少提前72小时通知我们，就可以修改搬家日期。" }
+
+  ]
+
 }

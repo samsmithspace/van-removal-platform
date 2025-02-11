@@ -7,10 +7,11 @@ import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
 import bt24 from '../assets/images/btn4.png';
 import slidingImage from '../assets/images/vanvan.png'; // Replace with actual image
-import { FaPhone } from 'react-icons/fa'; // Import phone icon
+import { FaPhone} from 'react-icons/fa';
+import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const HeroSection = () => {
-    const { t } = useTranslation(); // Initialize translation hook
+    const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [slideIn, setSlideIn] = useState(false);
     const [scrollPosition, setScrollPosition] = useState(0);
@@ -18,6 +19,10 @@ const HeroSection = () => {
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
+    };
+    const toggleLanguage = () => {
+        const newLang = i18n.language === 'en' ? 'zh' : 'en';
+        i18n.changeLanguage(newLang);
     };
 
     useEffect(() => {
@@ -44,6 +49,7 @@ const HeroSection = () => {
     };
 
     return (
+
         <div className="hero-container">
             <header className={`header ${scrollPosition > 0 ? 'scrolled' : ''}`}>
                 <div className="container d-flex align-items-center justify-content-between">
@@ -51,10 +57,14 @@ const HeroSection = () => {
                         <h1 className="site-title">{t('siteTitle')}</h1>
                     </div>
                     <div className="header-right d-flex align-items-center">
-                        <a href="tel:YOUR_PHONE_NUMBER" className="phone-link">
-                            <FaPhone className="phone-icon" />
+                        <a href="tel:07404228217" className="phone-link">
+                            <FaPhone className="phone-icon"/>
                         </a>
-                        <a href="/about-us" className="about-link">{t('aboutUs')}</a>
+                        <button onClick={toggleLanguage} className="lang-switch">
+                            <i className="fa fa-language" aria-hidden="true"></i>
+                        </button>
+
+
                     </div>
                 </div>
             </header>

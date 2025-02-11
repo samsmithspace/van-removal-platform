@@ -1,27 +1,28 @@
 import React from 'react';
-import './ServiceOverview.css'; // Import the CSS file
-
-const services = [
-    { icon: 'path/to/icon1.svg', title: 'Moving', description: 'Reliable moving services' },
-    { icon: 'path/to/icon2.svg', title: 'Packing', description: 'Professional packing solutions' },
-];
+import { useTranslation } from 'react-i18next';
+import './ServiceOverview.css';
 
 const ServiceOverview = () => {
+    const { t } = useTranslation();
+
+    const services = [
+        { icon: 'path/to/icon1.svg', title: t('services.moving.title'), description: t('services.moving.description') },
+        { icon: 'path/to/icon2.svg', title: t('services.packing.title'), description: t('services.packing.description') },
+    ];
+
     return (
         <div>
-
             {/* Service Overview Section */}
             <div className="service-overview">
                 <div className="why-choose-us">
-                    <h3 style={{ textAlign: 'center' }}>Why Choose Us?</h3>
+                    <h3 style={{ textAlign: 'center' }}>{t('whyChooseUs')}</h3>
                     <ul>
-                        <p>✅ Affordable Rates – Perfect for student budgets</p>
-                        <p>✅ Quick & Reliable Service – We work around your schedule</p>
-                        <p>✅ Professional Team – Stress-free, hassle-free moves</p>
-                        <p>✅ Big or Small Moves – From a single box to your full setup</p>
+                        {t('whyChooseUsPoints', { returnObjects: true }).map((point, index) => (
+                            <p key={index}>{point}</p>
+                        ))}
                     </ul>
                 </div>
-                <h1>Our Services</h1>
+                <h1>{t('ourServices')}</h1>
                 <div className="row text-center">
                     {services.map((service, index) => (
                         <div key={index} className="col-12 col-md-4 service-item">

@@ -223,6 +223,18 @@ body {
     pointer-events: none;
 
 }
+.lang-switch {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.lang-switch i {
+    font-size: 20px;
+    color: white; /* Set icon color to white */
+}
+
 
 .btn4-img {
     position: absolute;
