@@ -7,7 +7,7 @@ import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
 import bt24 from '../assets/images/btn4.png';
 import slidingImage from '../assets/images/vanvan.png'; // Replace with actual image
-import { FaPhone} from 'react-icons/fa';
+import { FaPhone } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 const HeroSection = () => {
@@ -19,10 +19,6 @@ const HeroSection = () => {
     const handleScroll = () => {
         const position = window.pageYOffset;
         setScrollPosition(position);
-    };
-    const toggleLanguage = () => {
-        const newLang = i18n.language === 'en' ? 'zh' : 'en';
-        i18n.changeLanguage(newLang);
     };
 
     useEffect(() => {
@@ -49,7 +45,6 @@ const HeroSection = () => {
     };
 
     return (
-
         <div className="hero-container">
             <header className={`header ${scrollPosition > 0 ? 'scrolled' : ''}`}>
                 <div className="container d-flex align-items-center justify-content-between">
@@ -58,13 +53,16 @@ const HeroSection = () => {
                     </div>
                     <div className="header-right d-flex align-items-center">
                         <a href="tel:07404228217" className="phone-link">
-                            <FaPhone className="phone-icon"/>
+                            <FaPhone className="phone-icon" />
                         </a>
-                        <button onClick={toggleLanguage} className="lang-switch">
-                            <i className="fa fa-language" aria-hidden="true"></i>
-                        </button>
-
-
+                        <select
+                            value={i18n.language}
+                            onChange={(e) => i18n.changeLanguage(e.target.value)}
+                            className="lang-select"
+                        >
+                            <option value="en">English</option>
+                            <option value="zh">中文</option>
+                        </select>
                     </div>
                 </div>
             </header>
@@ -76,7 +74,7 @@ const HeroSection = () => {
                     <div className="move-buttons-container">
                         <button className="btn2 st" onClick={handleStudentMoveClick}>
                             <span className="btn-text">{t('studentMove')}</span>
-                                <img
+                            <img
                                 src={bt21}
                                 alt="Decoration"
                                 className="btn2-img"
@@ -98,7 +96,7 @@ const HeroSection = () => {
                         </button>
                         <button className="btn2 sd" onClick={handleSameDayMoveClick}>
                             <span className="btn-text">{t('sameDayMove')}</span>
-                                <img
+                            <img
                                 src={bt24}
                                 alt="Decoration"
                                 className="btn4-img"
