@@ -309,8 +309,83 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                             </div>
                         ))}
                     </div>
+                    <div>
+                        <h3>{t('Furniture')}:</h3>
+                        <div className="furniture-input">
+                            {furnitureDetails.map((furniture, index) => (
+                                <div key={index} className="furniture-detail">
+                                    <select
+                                        value={furniture.item}
+                                        onChange={(e) => handleFurnitureChange(e, index)}
+                                    >
+                                        <option value="">{t('Select Furniture')}</option>
+                                        {furnitureOptions.map((option, i) => (
+                                            <option key={i} value={option}>
+                                                {option}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <input
+                                        type="number"
+                                        value={furniture.quantity}
+                                        min="1"
+                                        onChange={(e) =>
+                                            handleFurnitureQuantityChange(
+                                                index,
+                                                parseInt(e.target.value, 10)
+                                            )
+                                        }
+                                    />
+                                    <button type="button" className="deletebutton"
+                                            onClick={() => deleteFurniture(index)}>
+                                        {t('Delete')}
+                                    </button>
+                                </div>
+                            ))}
+                            <button type="button" className="housebutt" onClick={addFurniture}>
+                                {t('Add Furniture')}
+                            </button>
+                        </div>
+                        <h3>{t('Appliances')}:</h3>
+
+                        <div className="furniture-input">
+                            {applianceDetails.map((appliance, index) => (
+                                <div key={index} className="appliance-detail">
+                                    <select
+                                        value={appliance.item}
+                                        onChange={(e) => handleApplianceChange(e, index)}
+                                    >
+                                        <option value="">{t('Select Appliance')}</option>
+                                        {applianceOptions.map((option, i) => (
+                                            <option key={i} value={option}>
+                                                {option}
+                                            </option>
+                                        ))}
+                                    </select>
+                                    <input
+                                        type="number"
+                                        value={appliance.quantity}
+                                        min="1"
+                                        onChange={(e) =>
+                                            handleApplianceQuantityChange(
+                                                index,
+                                                parseInt(e.target.value, 10)
+                                            )
+                                        }
+                                    />
+                                    <button type="button" className="deletebutton"
+                                            onClick={() => deleteAppliance(index)}>
+                                        {t('Delete')}
+                                    </button>
+                                </div>
+                            ))}
+                            <button type="button" className="housebutt" onClick={addAppliance}>
+                                {t('Add Appliance')}
+                            </button>
+                        </div>
+                    </div>
                     <h3>{t('Special Items')}:</h3>
-                    <SpecialItems onSpecialItemsChange={handleSpecialItemsChange} />
+                    <SpecialItems onSpecialItemsChange={handleSpecialItemsChange}/>
 
                     <h3>{t('Floors')}:</h3>
 
@@ -436,7 +511,8 @@ const MoveOptions = ({ onMoveTypeChange, onDetailsChange, onDateChange, onTimeCh
                                             )
                                         }
                                     />
-                                    <button type="button" className="deletebutton" onClick={() => deleteFurniture(index)}>
+                                    <button type="button" className="deletebutton"
+                                            onClick={() => deleteFurniture(index)}>
                                         {t('Delete')}
                                     </button>
                                 </div>

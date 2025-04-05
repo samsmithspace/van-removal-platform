@@ -158,7 +158,7 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                             )}
                         </div>
                     )}
-                    {moveType === 'house' && details.furnitureDetails && details.furnitureDetails.length > 0 && (
+                    {(moveType === 'house' ||moveType === 'student') && details.furnitureDetails && details.furnitureDetails.length > 0 && (
                         <div>
                             <h4>Furniture Details:</h4>
                             {details.furnitureDetails.map((furniture, index) => (
@@ -168,7 +168,7 @@ const QuoteSummary = forwardRef(({ hideoptions,moveType, details, date, time, st
                             ))}
                         </div>
                     )}
-                    {moveType === 'house' && details.applianceDetails && details.applianceDetails.length > 0 && (
+                    {(moveType === 'house' ||moveType === 'student' )&& details.applianceDetails && details.applianceDetails.length > 0 && (
                         <div>
                             <h4>Appliance Details:</h4>
                             {details.applianceDetails.map((appliance, index) => (
