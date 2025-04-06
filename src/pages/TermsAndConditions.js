@@ -1,57 +1,23 @@
-import React, {useState} from 'react';
-
+import React from 'react';
 import { useTranslation } from 'react-i18next';
-import '../components/TermsAndConditions.css'; // Add relevant CSS for styling
+import '../components/TermsAndConditions.css'; // Ensure this has your custom styles
 
-const FAQItem = ({ faq, index, isOpen, toggleFAQ }) => (
-    <div className="faq-item">
-        <div className="faq-question" onClick={() => toggleFAQ(index)}>
-            <h5>{faq.question}</h5>
-            <span>{isOpen ? '-' : '+'}</span>
-        </div>
-        {isOpen && <div className="faq-answer"><p>{faq.answer}</p></div>}
-    </div>
-);
-
-const Testimonials = () => {
+const TermsAndConditions = () => {
     const { t } = useTranslation();
-    const [openFAQIndex, setOpenFAQIndex] = useState(null);
-
-    const toggleFAQ = (index) => {
-        setOpenFAQIndex(openFAQIndex === index ? null : index);
-    };
+    const sections = t('terms.sections', { returnObjects: true });
 
     return (
-        <div className="my-5">
-            <h2 className="text-center mb-4">{t('whatCustomersSay')}</h2>
-            <div className="row">
-                {t('testimonials', { returnObjects: true }).map((testimonial, index) => (
-                    <div key={index} className="col-12 col-md-6 mb-4">
-                        <div className="card h-100">
-                            <div className="card-body">
-                                <p className="card-text">"{testimonial.text}"</p>
-                                <h5 className="card-title">- {testimonial.name}</h5>
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+        <div className="terms-container">
+            <h1>{t('terms.title')}</h1>
 
-            {/* FAQ Section */}
-            <div className="faq-section">
-                <h2 className="text-center mb-4">{t('frequentlyAskedQuestions')}</h2>
-                {t('faqs', { returnObjects: true }).map((faq, index) => (
-                    <FAQItem
-                        key={index}
-                        faq={faq}
-                        index={index}
-                        isOpen={openFAQIndex === index}
-                        toggleFAQ={toggleFAQ}
-                    />
-                ))}
-            </div>
+            {sections.map((section, index) => (
+                <section key={index}>
+                    <h2>{section.heading}</h2>
+                    <p>{section.content}</p>
+                </section>
+            ))}
         </div>
     );
 };
 
-export default Testimonials;
+export default TermsAndConditions;
