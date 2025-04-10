@@ -2,7 +2,8 @@
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
 import './HeroSection.css';
-import { useNavigate } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
+
 import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
 import bt24 from '../assets/images/btn4.png';
@@ -10,7 +11,9 @@ import slidingImage from '../assets/images/vanvan.png'; // Replace with actual i
 import { FaPhone } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+
 const HeroSection = () => {
+    const { lang } = useParams();
     const { t, i18n } = useTranslation();
     const navigate = useNavigate();
     const [slideIn, setSlideIn] = useState(false);
@@ -33,15 +36,17 @@ const HeroSection = () => {
     }, []);
 
     const handleStudentMoveClick = () => {
-        navigate('/location', { state: { locationType: 'student' } });
+        navigate(`/${lang}/location`, {
+            state: { locationType: 'student' }
+        });
     };
 
     const handleHouseMoveClick = () => {
-        navigate('/location', { state: { locationType: 'house' } });
+        navigate(`/${lang}/location`, { state: { locationType: 'house' } });
     };
 
     const handleSameDayMoveClick = () => {
-        navigate('/location', { state: { locationType: 'house' } });
+        navigate(`/${lang}/location`, { state: { locationType: 'house' } });
     };
 
     return (

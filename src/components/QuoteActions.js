@@ -2,10 +2,14 @@ import React, { useState } from 'react';
 import './QuoteActions.css';
 import PromotionCode from '../components/PromotionCode';
 import { loadStripe } from '@stripe/stripe-js';
+import i18n from 'i18next';
+
+
 
 const stripePromise = loadStripe(process.env.REACT_APP_STRIPKEY);
 
 const QuoteActions = ({ bookingId, price, helperprice }) => {
+    const lang = i18n.language; // 'en' or 'zh', etc.
     const [formData, setFormData] = useState({
         name: '',
         phone: '',
@@ -63,7 +67,7 @@ const QuoteActions = ({ bookingId, price, helperprice }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ bookingId, amount: latestPrice }), // Send bookingId and payment amount
+                body: JSON.stringify({ bookingId, amount: latestPrice, lang }), // Send bookingId and payment amount
             });
 
             // Check if the response is OK
@@ -103,7 +107,7 @@ const QuoteActions = ({ bookingId, price, helperprice }) => {
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ bookingId, amount: latestHelperPrice }), // Send bookingId and payment amount
+                body: JSON.stringify({ bookingId, amount: latestHelperPrice, lang }), // Send bookingId and payment amount
             });
 
             // Check if the response is OK

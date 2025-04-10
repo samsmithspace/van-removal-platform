@@ -3,8 +3,10 @@ import './Footer.css'; // Add relevant CSS for styling
 import xLogo from '../assets/images/xlogo.svg';
 import waLogo from '../assets/images/Digital_Glyph_Green.svg';
 import igLogo from '../assets/images/Instagram_Glyph_White.svg';
+import { useParams, Link } from 'react-router-dom';
 
 const Footer = () => {
+    const { lang } = useParams();
     return (
         <footer className="footer">
             <div className="footer-content">
@@ -20,9 +22,12 @@ const Footer = () => {
                     </a>
                     {' | '}
                     {/* Terms and Conditions link */}
-                    <a href="/terms-and-conditions" style={{ textDecoration: 'none', color: 'inherit' }}>
+                    <Link
+                        to={`/${lang}/terms-and-conditions`}
+                        style={{ textDecoration: 'none', color: 'inherit' }}
+                    >
                         Terms and Conditions
-                    </a>
+                    </Link>
                 </p>
                 <div className="social-icons">
                     {/* Social media icons with links */}

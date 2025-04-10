@@ -3,8 +3,10 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import GoogleMapComponent from '../components/GoogleMapComponent';
 import '../components/LocationSelection.css';
 import { useTranslation } from 'react-i18next';
+import { useParams } from 'react-router-dom';
 const LocationSelection = () => {
     const location = useLocation();
+    const { lang } = useParams();
     const [startLocation, setStartLocation] = useState(null);
     const [destinationLocation, setDestinationLocation] = useState(null);
     const navigate = useNavigate(); // Initialize useNavigate hook
@@ -38,7 +40,7 @@ const LocationSelection = () => {
     const handleConfirm = () => {
         if (startLocation && destinationLocation) {
 
-            navigate('/quote', {
+            navigate(`/${lang}/quote`, {
                 state: { startLocation, destinationLocation, locationType}
             }); // Pass data when navigating
         }
