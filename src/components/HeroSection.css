@@ -3,6 +3,7 @@
     box-sizing: border-box;
 }
 
+
 body {
     margin: 0;
     overflow-x: hidden;
@@ -67,7 +68,7 @@ body {
 /* Phone Link Styles */
 .phone-link {
     color: #fff;
-    margin-right: 15px; /* Space between phone icon and 'About Us' */
+    margin-right: 15px;
     font-size: 1.5rem;
     text-decoration: none;
 }
@@ -81,14 +82,13 @@ body {
     color: #fff;
     font-size: 1rem;
     text-decoration: none;
-
 }
 
 /* Hero Section Styles */
 .hero-container {
     position: relative;
     overflow-x: hidden;
-    margin-top: 0px; /* To prevent content from being hidden under the fixed header */
+    margin-top: 0px;
 }
 
 .hero-section {
@@ -116,6 +116,7 @@ body {
     transform: translate(-50%, -30%);
     text-align: center;
     z-index: 2;
+    z-index: 200;
 }
 
 .hero-content h1 {
@@ -125,16 +126,19 @@ body {
     letter-spacing: 2px;
     color: #ffffff;
     margin-bottom: 20px;
+
 }
 
 .hero-content h2 {
     margin: 30px 0 80px;
+
 }
 
 .hero-content p {
     font-size: 1.5rem;
     color: #ff7637;
     margin-bottom: 30px;
+
 }
 
 /* Custom Button Styles */
@@ -153,6 +157,7 @@ body {
     color: white;
     font-size: 18px;
     font-weight: 500;
+    z-index: 200;
 }
 
 .hero-content .btn-custom:hover {
@@ -186,6 +191,7 @@ body {
     height: 100px;
     text-decoration: none;
     color: black;
+
 }
 
 .btn2.st, .btn2.sd {
@@ -209,9 +215,7 @@ body {
     width: 80%;
     height: auto;
     pointer-events: none;
-
 }
-
 
 .btn3-img {
     position: absolute;
@@ -221,20 +225,7 @@ body {
     width: 80%;
     height: auto;
     pointer-events: none;
-
 }
-.lang-switch {
-    background: none;
-    border: none;
-    cursor: pointer;
-    margin-left: 10px;
-}
-
-.lang-switch i {
-    font-size: 20px;
-    color: white; /* Set icon color to white */
-}
-
 
 .btn4-img {
     position: absolute;
@@ -244,57 +235,129 @@ body {
     width: 80%;
     height: auto;
     pointer-events: none;
-
 }
+
 /* Button Hover Effects */
 .move-buttons-container .btn2:hover {
     transform: translate(-0.05em, -0.05em);
     box-shadow: 0.15em 0.15em;
 }
+
 .btn-text {
-    font-size: 1.2em;    /* Adjust font size as needed */
-    margin-bottom: 10px; /* Space between text and image */
-    color: black;        /* Adjust text color */
+    font-size: 1.2em;
+    margin-bottom: 10px;
+    color: black;
     z-index: 100;
-    /* Add any other styles as needed */
     margin: 0;
     font-weight: bolder;
     -webkit-text-stroke: 0.1px wheat;
 }
+
 .move-buttons-container .btn2:active {
     transform: translate(0.05em, 0.05em);
     box-shadow: 0.05em 0.05em;
 }
 
-/* Sliding Image Container */
-.sliding-image-container {
+/* Static Images Container */
+.static-images-container {
     position: absolute;
     bottom: 0;
-    right: 0;
-    overflow: hidden;
-    width: 300px; /* Width of the image */
-    height: auto;
+    width: 100%;
+    height: 300px;
     z-index: 100;
 }
 
-/* Sliding Image Styles */
-.sliding-image {
+/* Left Image */
+.static-image.left-image {
     position: absolute;
-    top: 0;
-    left: 100%; /* Start off-screen to the right */
-    width: 300px;
-    height: auto;
-    transform: translateX(0);
-    transition: transform 1.5s ease-out;
+    bottom: 0;
+    left: 0;
 }
 
-.sliding-image.slide-in {
-    transform: translateX(-100%); /* Slide into view */
+/* Right Image */
+.static-image.right-image {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+}
+
+/* Animation Base Styles */
+.animate-image {
+    opacity: 0;
+    transition: all 1.5s ease-out;
+}
+
+/* Left Animation */
+.animate-image.from-left {
+    transform: translateX(-50px);
+}
+
+/* Right Animation */
+.animate-image.from-right {
+    transform: translateX(50px);
+}
+
+/* Visible State */
+.animate-image.visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+
+
+.lang-switch {
+    background: none;
+    border: none;
+    cursor: pointer;
+    margin-left: 10px;
+}
+
+.lang-switch i {
+    font-size: 20px;
+    color: white;
+}
+
+/* Button Focus Styles */
+.btn2:focus {
+    outline: none;
+}
+
+/* Link Hover Effects */
+.phone-link:hover, .about-link:hover {
+    color: #ff7637;
+}
+
+/* Responsive Image Styles */
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.lang-select {
+    margin-left: 10px;
+    padding: 5px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 4px;
+    background-color: transparent;
+    color: #fff;
+    font-size: 14px;
+    appearance: none;
+    cursor: pointer;
+}
+
+/* For Firefox — works well */
+.lang-select option {
+    background-color: #222;
+    color: #fff;
+}
+
+/* Optional: removes native dropdown arrow styling */
+.lang-select::-ms-expand {
+    display: none;
 }
 
 /* Media Queries */
-
-/* Mobile Styles */
 @media (max-width: 768px) {
     /* Header Styles */
     .header {
@@ -347,66 +410,17 @@ body {
         max-width: 100%;
     }
 
-    /* Sliding Image Adjustments */
-    .sliding-image-container {
+    /* Hide the shelf image on mobile */
+    .sliding-image-container.left-image {
+        display: none;
+    }
+
+    /* Adjust the van image size on mobile */
+    .sliding-image-container.right-image {
         width: 250px;
     }
 
-    .sliding-image {
+    .sliding-image.slide-from-right {
         width: 250px;
     }
 }
-
-/* Additional Styles if Needed */
-
-/* Button Focus Styles */
-.btn2:focus {
-    outline: none;
-}
-
-/* Link Hover Effects */
-.phone-link:hover, .about-link:hover {
-    color: #ff7637; /* Change to desired hover color */
-}
-
-/* Responsive Image Styles */
-img {
-    max-width: 100%;
-    height: auto;
-}
-
-.lang-select {
-    margin-left: 10px;
-    padding: 5px 8px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 4px;
-    background-color: transparent;
-    color: #fff;
-    font-size: 14px;
-    appearance: none; /* removes default styles on some browsers */
-    cursor: pointer;
-}
-
-.lang-select {
-    margin-left: 10px;
-    padding: 5px 8px;
-    border: 1px solid rgba(255, 255, 255, 0.7);
-    border-radius: 4px;
-    background-color: transparent;
-    color: #fff;
-    font-size: 14px;
-    cursor: pointer;
-}
-
-/* For Firefox — works well */
-.lang-select option {
-    background-color: #222;
-    color: #fff;
-}
-
-/* Optional: removes native dropdown arrow styling */
-.lang-select::-ms-expand {
-    display: none;
-}
-
-

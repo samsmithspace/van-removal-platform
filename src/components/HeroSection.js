@@ -7,9 +7,13 @@ import { useParams, useNavigate } from 'react-router-dom';
 import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
 import bt24 from '../assets/images/btn4.png';
-import slidingImage from '../assets/images/vanvan.png'; // Replace with actual image
+import slidingImage from '../assets/images/vanb.png'; // Replace with actual image
 import { FaPhone } from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
+
+
+import shelfImage from '../assets/images/shelf.png'; // Add your actual shelf image path
+
 
 
 const HeroSection = () => {
@@ -114,17 +118,36 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            {/* Sliding Image */}
-            <div className="sliding-image-container">
-                <img
-                    src={slidingImage}
-                    alt="Sliding effect"
-                    className={`sliding-image ${slideIn ? 'slide-in' : ''}`}
-                    width="300"
-                    height="auto"
-                    loading="lazy"
-                />
+            {/* Static Images */}
+            {/* Images with Animation */}
+            <div className="static-images-container">
+                {/* Left Shelf Image */}
+                <div className="static-image left-image">
+                    <img
+                        src={shelfImage}
+                        alt="Storage shelf"
+                        className={`animate-image from-left ${slideIn ? 'visible' : ''}`}
+                        width="600"
+                        height="auto"
+                        loading="lazy"
+                    />
+                </div>
+
+                {/* Right Van Image */}
+                <div className="static-image right-image">
+                    <img
+                        src={slidingImage}
+                        alt="Moving van"
+                        className={`animate-image from-right ${slideIn ? 'visible' : ''}`}
+                        width="600"
+                        height="auto"
+                        loading="lazy"
+                    />
+                </div>
             </div>
+
+
+
         </div>
     );
 };
