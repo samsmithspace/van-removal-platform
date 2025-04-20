@@ -1,38 +1,66 @@
 import React from 'react';
 import { useTranslation } from 'react-i18next';
 import './ServiceOverview.css';
-
+import mov from '../assets/images/moving.png';
+import pac from '../assets/images/packing.png';
 const ServiceOverview = () => {
     const { t } = useTranslation();
 
     const services = [
-        { icon: 'path/to/icon1.svg', title: t('services.moving.title'), description: t('services.moving.description') },
-        { icon: 'path/to/icon2.svg', title: t('services.packing.title'), description: t('services.packing.description') },
+        {
+            icon: mov,
+            title: t('services.moving.title'),
+            description: t('services.moving.description')
+        },
+        {
+            icon: pac,
+            title: t('services.packing.title'),
+            description: t('services.packing.description')
+        },
     ];
 
     return (
-        <div>
-            {/* Service Overview Section */}
-            <div className="service-overview">
+        <section className="service-overview-section">
+            {/* Why Choose Us */}
+            <div className="container">
+                <div className="section-header">
+                    <h2 className="section-title">{t('whyChooseUs')}</h2>
+                    <div className="section-underline"></div>
+                </div>
+
                 <div className="why-choose-us">
-                    <h3 style={{ textAlign: 'center' }}>{t('whyChooseUs')}</h3>
-                    <ul>
+                    <ul className="benefits-list">
                         {t('whyChooseUsPoints', { returnObjects: true }).map((point, index) => (
-                            <p key={index}>{point}</p>
+                            <li key={index} className="benefit-item">
+                                <span className="benefit-icon">✓</span>
+                                <span className="benefit-text">{point}</span>
+                            </li>
                         ))}
                     </ul>
                 </div>
-                <h1>{t('ourServices')}</h1>
-                <div className="row text-center">
+            </div>
+
+            {/* Our Services */}
+            <div className="container">
+                <div className="section-header">
+                    <h2 className="section-title">{t('ourServices')}</h2>
+                    <div className="section-underline"></div>
+                </div>
+
+                <div className="services-grid">
                     {services.map((service, index) => (
-                        <div key={index} className="col-12 col-md-4 service-item">
-                            <h3>{service.title}</h3>
-                            <p>{service.description}</p>
+                        <div key={index} className="service-card">
+                            <div className="service-icon">
+                                <img src={service.icon} alt={service.title} />
+                            </div>
+                            <h3 className="service-title">{service.title}</h3>
+                            <p className="service-description">{service.description}</p>
+                            <a href="#" className="service-link">{t('learnMore')} →</a>
                         </div>
                     ))}
                 </div>
             </div>
-        </div>
+        </section>
     );
 };
 
