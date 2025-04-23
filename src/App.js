@@ -14,6 +14,8 @@ import LocationSelection from './pages/LocationSelection';
 import BookingResult from './pages/BookingResult';
 import TermsAndConditions from './pages/TermsAndConditions';
 import PaymentCancellation from './pages/PaymentCancellation';
+import ContactPage from './components/ContactPage';
+
 import i18n from 'i18next';
 
 // Layout to handle language changes
@@ -30,6 +32,8 @@ const LanguageLayout = () => {
         <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/location" element={<LocationSelection />} />
+            <Route path="/contact" element={<ContactPage />} />
+
             <Route path="/quote" element={<QuotePage />} />
             <Route path="/booking-result" element={<BookingResult />} />
             <Route path="/booking-cancel" element={<PaymentCancellation />} />

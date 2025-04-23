@@ -7,15 +7,15 @@ import { useParams, useNavigate } from 'react-router-dom';
 import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
 import bt24 from '../assets/images/btn4.png';
-import slidingImage from '../assets/images/vanb.png'; // Replace with actual image
-import { FaPhone } from 'react-icons/fa';
+import slidingImage from '../assets/images/vanb.png';
+import { FaPhone} from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
+import shelfImage from '../assets/images/shelf.png';
 
-import shelfImage from '../assets/images/shelf.png'; // Add your actual shelf image path
-
-
-
+import binimg from '../assets/images/disp.png';
+import cleanimg from '../assets/images/clean.png';
+import shelf2 from '../assets/images/shelfwithbox.png';
 const HeroSection = () => {
     const { lang } = useParams();
     const { t, i18n } = useTranslation();
@@ -36,7 +36,7 @@ const HeroSection = () => {
     }, []);
 
     useEffect(() => {
-        setTimeout(() => setSlideIn(true), 500); // Delay before sliding in
+        setTimeout(() => setSlideIn(true), 500);
     }, []);
 
     const handleStudentMoveClick = () => {
@@ -51,6 +51,19 @@ const HeroSection = () => {
 
     const handleSameDayMoveClick = () => {
         navigate(`/${lang}/location`, { state: { locationType: 'house' } });
+    };
+
+    // New handlers for additional services
+    const handleClearanceClick = () => {
+        navigate(`/${lang}/contact`);
+    };
+
+    const handleCleaningClick = () => {
+        navigate(`/${lang}/contact`);
+    };
+
+    const handleStorageClick = () => {
+        navigate(`/${lang}/contact`);
     };
 
     return (
@@ -77,49 +90,101 @@ const HeroSection = () => {
             </header>
 
             {/* Hero Section */}
-            <div className="hero-section d-flex align-items-center justify-content-center text-center">
-                <div className="hero-content text-white">
-                    <h2>{t('heroHeading')}</h2>
-                    <div className="move-buttons-container">
-                        <button className="btn2 st" onClick={handleStudentMoveClick}>
-                            <span className="btn-text">{t('studentMove')}</span>
-                            <img
-                                src={bt21}
-                                alt="Decoration"
-                                className="btn2-img"
-                                width="420"
-                                height="auto"
-                                loading="lazy"
-                            />
-                        </button>
-                        <button className="btn2 hm" onClick={handleHouseMoveClick}>
-                            <span className="btn-text">{t('homeMove')}</span>
-                            <img
-                                src={bt23}
-                                alt="Decoration"
-                                className="btn3-img"
-                                width="340"
-                                height="auto"
-                                loading="lazy"
-                            />
-                        </button>
-                        <button className="btn2 sd" onClick={handleSameDayMoveClick}>
-                            <span className="btn-text">{t('sameDayMove')}</span>
-                            <img
-                                src={bt24}
-                                alt="Decoration"
-                                className="btn4-img"
-                                width="320"
-                                height="auto"
-                                loading="lazy"
-                            />
-                        </button>
+            <div className="hero-section d-flex align-items-center justify-content-center">
+                <div className="content-card">
+                    <div className="hero-content text-white">
+                        <h2 className="main-heading">{t('heroHeading')}</h2>
+
+                        <div className="services-container">
+                            <div className="service-group">
+                                <h3 className="service-heading">Moving Services</h3>
+                                <div className="move-buttons-container">
+                                    <button className="btn2 st" onClick={handleStudentMoveClick}>
+                                        <span className="btn-text">{t('studentMove')}</span>
+                                        <img
+                                            src={bt21}
+                                            alt="Student move"
+                                            className="btn2-img"
+                                            width="420"
+                                            height="auto"
+                                            loading="lazy"
+                                        />
+                                    </button>
+
+                                    <button className="btn2 hm" onClick={handleHouseMoveClick}>
+                                        <span className="btn-text">{t('homeMove')}</span>
+                                        <img
+                                            src={bt23}
+                                            alt="Home move"
+                                            className="btn3-img"
+                                            width="340"
+                                            height="auto"
+                                            loading="lazy"
+                                        />
+                                    </button>
+
+                                    <button className="btn2 sd" onClick={handleSameDayMoveClick}>
+                                        <span className="btn-text">{t('sameDayMove')}</span>
+                                        <img
+                                            src={bt24}
+                                            alt="Same day move"
+                                            className="btn4-img"
+                                            width="320"
+                                            height="auto"
+                                            loading="lazy"
+                                        />
+                                    </button>
+                                </div>
+                            </div>
+
+                            {/* Additional Services Section */}
+                            <div className="service-group additional">
+                                <h3 className="service-heading">Additional Services</h3>
+                                <div className="additional-services-container">
+                                    <button
+                                        className="service-btn storage"
+                                        onClick={handleStorageClick}
+                                    >
+                                        <img
+                                            src={shelf2}
+                                            alt="Clearance background"
+                                            className="button-bg-image-store"
+                                        />
+                                        <span className="service-name">Storage</span>
+                                    </button>
+                                    <button
+                                        className="service-btn clearance"
+                                        onClick={handleClearanceClick}
+                                    >
+                                        <img
+                                            src={binimg}
+                                            alt="Clearance background"
+                                            className="button-bg-image-width"
+                                        />
+                                        <span className="service-name">Clearance & Disposal</span>
+                                    </button>
+
+                                    <button
+                                        className="service-btn cleaning"
+                                        onClick={handleCleaningClick}
+                                    >
+                                        <img
+                                            src={cleanimg}
+                                            alt="Clearance background"
+                                            className="button-bg-image"
+                                        />
+                                        <span className="service-name">Cleaning Service</span>
+                                    </button>
+
+
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            {/* Static Images */}
-            {/* Images with Animation */}
+            {/* Static Images with Animation */}
             <div className="static-images-container">
                 {/* Left Shelf Image */}
                 <div className="static-image left-image">
@@ -145,9 +210,6 @@ const HeroSection = () => {
                     />
                 </div>
             </div>
-
-
-
         </div>
     );
 };

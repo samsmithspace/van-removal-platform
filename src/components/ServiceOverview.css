@@ -13,6 +13,7 @@
 .section-header {
     text-align: center;
     margin-bottom: 3rem;
+
 }
 
 
@@ -38,6 +39,7 @@
     box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
     padding: 2rem;
     margin-bottom: 4rem;
+
 }
 
 .benefits-list {
@@ -47,6 +49,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
     gap: 1.5rem;
+
+
 }
 
 .benefit-item {
@@ -55,6 +59,7 @@
     font-size: 1.05rem;
     color: #4a5568;
     line-height: 1.6;
+
 }
 
 .benefit-icon {
@@ -63,13 +68,17 @@
     font-weight: bold;
     margin-right: 0.75rem;
     flex-shrink: 0;
-}
 
+}
+.benefit-text{
+    color: #2d3748;
+}
 /* Services Grid */
 .services-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
     gap: 2rem;
+
 }
 
 .service-card {
