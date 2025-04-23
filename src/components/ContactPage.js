@@ -1,12 +1,12 @@
 // ContactPage.js
 import React, { useEffect, useState } from 'react';
 import { useTranslation } from 'react-i18next';
-import { useParams } from 'react-router-dom';
+
 import { FaPhone, FaWhatsapp, FaQuoteLeft } from 'react-icons/fa';
 import './ContactPage.css';
 
 const ContactPage = () => {
-    const { lang } = useParams();
+
     const { t, i18n } = useTranslation();
     const [scrollPosition, setScrollPosition] = useState(0);
 
