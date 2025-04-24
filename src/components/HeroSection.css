@@ -208,7 +208,7 @@ body {
 
 .service-heading {
     font-size: 1.8rem;
-    color: #fad99b;
+    color: #fbe3c4;
     margin-bottom: 20px;
     padding-bottom: 10px;
     border-bottom: 2px solid rgba(251, 202, 31, 0.3);
@@ -283,6 +283,18 @@ body {
     font-weight: bolder;
     -webkit-text-stroke: 0.1px wheat;
     text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+
+}
+
+.btn-text-cur {
+    font-size: 1.2em;
+    color: black;
+    z-index: 100;
+    margin: 0;
+    font-weight: bolder;
+    -webkit-text-stroke: 0.1px wheat;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+    transform: translateX(20%);
 }
 
 /* Button Image Styles */
@@ -308,10 +320,10 @@ body {
 
 .btn4-img {
     position: absolute;
-    bottom: 0;
-    left: 50%;
+    bottom: -15px;
+    left: 20%;
     transform: translateX(-60%);
-    width: 80%;
+    width: 35%;
     height: auto;
     pointer-events: none;
 }

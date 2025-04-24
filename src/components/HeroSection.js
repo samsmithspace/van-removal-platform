@@ -6,7 +6,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 
 import bt21 from '../assets/images/bt21.png';
 import bt23 from '../assets/images/btn3.png';
-import bt24 from '../assets/images/btn4.png';
+import bt24 from '../assets/images/courier.png';
 import slidingImage from '../assets/images/vanb.png';
 import { FaPhone} from 'react-icons/fa';
 import '@fortawesome/fontawesome-free/css/all.min.css';
@@ -50,7 +50,8 @@ const HeroSection = () => {
     };
 
     const handleSameDayMoveClick = () => {
-        navigate(`/${lang}/location`, { state: { locationType: 'house' } });
+        //navigate(`/${lang}/location`, { state: { locationType: 'house' } });
+        navigate(`/${lang}/contact`);
     };
 
     // New handlers for additional services
@@ -124,12 +125,12 @@ const HeroSection = () => {
                                     </button>
 
                                     <button className="btn2 sd" onClick={handleSameDayMoveClick}>
-                                        <span className="btn-text">{t('sameDayMove')}</span>
+                                        <span className="btn-text-cur">{t('sameDayMove')}</span>
                                         <img
                                             src={bt24}
                                             alt="Same day move"
                                             className="btn4-img"
-                                            width="320"
+                                            width="220"
                                             height="auto"
                                             loading="lazy"
                                         />
